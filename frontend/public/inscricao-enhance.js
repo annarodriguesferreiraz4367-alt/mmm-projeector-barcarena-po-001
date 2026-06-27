@@ -159,8 +159,8 @@
     sel.innerHTML = '';
     [
       { v: '', t: 'Selecione' },
-      { v: 'BRASILEIRA', t: 'BRASILEIRA' },
-      { v: 'ESTRANGEIRA', t: 'ESTRANGEIRA' },
+      { v: 'BRASILEIRO (A)', t: 'BRASILEIRO (A)' },
+      { v: 'ESTRANGEIRO (A)', t: 'ESTRANGEIRO (A)' },
     ].forEach(function (o) {
       var opt = document.createElement('option');
       opt.value = o.v; opt.textContent = o.t;
@@ -436,7 +436,7 @@
       { id: 'cemail',               check: function (v) { return isValidEmail(v); } },
       { id: 'cemail2',              check: function (v, all) { return isValidEmail(v) && v.trim().toLowerCase() === (all.cemail || '').trim().toLowerCase(); } },
       { id: 'cnome_mae',            check: function (v) { return v.trim().length >= 3; } },
-      { id: 'cnacionalidade_ibge',  check: function (v) { return v === 'BRASILEIRA' || v === 'ESTRANGEIRA'; }, type: 'select' },
+      { id: 'cnacionalidade_ibge',  check: function (v) { return v === 'BRASILEIRO (A)' || v === 'ESTRANGEIRO (A)'; }, type: 'select' },
       { id: 'cid_estadocivil',      check: function (v) { return v.trim() !== ''; }, type: 'select' },
       { id: 'cid_escolaridade',     check: function (v) { return v.trim() !== ''; }, type: 'select' },
       { id: 'ccep',                 check: function (v) { return isValidCEP(v); } },
