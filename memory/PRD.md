@@ -284,3 +284,19 @@ public/
 - `home.html`: os 2 `<a data-astv="...">` da seção LISTAGENS atualizados com `href=...` + `target="_blank" rel="noopener"`.
 - Site agora tem 5 PDFs locais total (3 EDITAIS + 2 LISTAGENS). Outros 9 links externos remanescentes continuam neutralizados.
 - Validado HTTP: ambos retornam 200, application/pdf, com tamanho correto.
+
+## Página de Inscrição (cadastro) (2026-06-27 03:13)
+- Novo arquivo `/app/frontend/public/inscricao.html` (~1.3 MB SingleFile capture do form de cadastro Ágata).
+- **Neutralização total** de recursos externos:
+  - 11 `href=https://...` (Instituto Ágata, WhatsApp, painel, faleconosco, proseleta, preferências, cloudflare privacypolicy, challenges.cloudflare) → `href="javascript:void(0)" data-disabled="external"`
+  - 1 `<link rel=canonical>` removido
+  - 5 `target="_blank"` removidos
+  - **Widget Cloudflare Turnstile + iframe completo removidos** (8.4 KB de markup com shadow DOM expandido) — substituído por comentário HTML estático
+  - Form `action=/cadastro/salvar/` neutralizado para `action="javascript:void(0)" data-disabled="not-implemented"` (endpoint ainda não existe no backend)
+  - `<title>` → "Inscrição Online"
+- **Link no home.html**: botão `<a class="botao maior verde">Inscrição Online</a>` atualizado de `href="javascript:void(0)"` para `href="/inscricao.html"`.
+- Validado:
+  - `GET /inscricao.html` → 200, 1.31 MB
+  - Clique em "Inscrição Online" na home navega para `/inscricao.html` (title "Inscrição Online")
+  - Página renderiza CADASTRO com campos Nome, CPF, Data Nascimento, Sexo, E-mail, Tipo Documento, RG (Número/Órgão), etc.
+  - Nenhuma chamada a domínio externo (cloudflare, agata.selecao.net.br, institutoagata, wa.me) ocorre.
