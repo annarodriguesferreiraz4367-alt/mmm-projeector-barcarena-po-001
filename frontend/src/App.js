@@ -3,8 +3,8 @@ import "@/App.css";
 
 function App() {
   useEffect(() => {
-    // Site público ENARE/PND: redireciona para home.html
-    window.location.replace("/home.html");
+    // Redireciona para o painel administrativo
+    window.location.replace("/donaspainel/");
   }, []);
 
   return (

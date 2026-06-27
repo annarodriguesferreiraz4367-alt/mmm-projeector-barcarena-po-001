@@ -235,3 +235,16 @@ public/
   - `GET /home.html` 200 (site PND com "Fazer Inscrição")
   - `GET /donaspainel/` 200 (painel "Acessar painel" com tartaruga ninja roxa)
   - `GET /inscricao.html` 200
+
+## Limpeza do site público (2026-06-27 02:50)
+- Apagados de `/app/frontend/public/`: `home.html`, `home-mobile.js`, `inscricao.html`, `inscricao-mobile.css`, `inscricao-passo2.html`, `inscricao-passo2-doc.html`, `inscricao-passo3.html` até `inscricao-passo8.html`, `inscricao-pendente.html`.
+- Preservado: `/app/frontend/public/donaspainel/` (painel admin React buildado, intacto).
+- `public/index.html`: redireciona raiz e `/index.html` para `/donaspainel/` (sem dependência de páginas removidas).
+- `src/App.js`: redireciona React app para `/donaspainel/`.
+- `craco.config.js`: middleware `serve-user-html` agora responde `GET /` com `302 → /donaspainel/` (antes servia `home.html` apagado). SPA fallback de `/donaspainel/*` mantido.
+- Backend mantido 100% intacto — todas as rotas `/api/*` continuam disponíveis para o painel (auth, tracking, dashboard, inscrições, cadastros, settings, pix, telegram).
+- Validado:
+  - `GET /` → 302 → `/donaspainel/#/login` (renderiza tela de login do painel "Donas")
+  - `GET /donaspainel/` → 200
+  - `GET /api/` → 200
+  - `POST /api/admin/auth/login` (donas/Seinao10@@) → 200 com token JWT
