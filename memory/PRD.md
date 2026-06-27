@@ -263,3 +263,16 @@ public/
   - `GET /donaspainel/` → 200 (painel admin ainda funcionando)
   - `GET /api/` → 200
   - `grep` no HTML servido confirma 0 URLs externas restantes
+
+## EDITAIS linkados a PDFs locais (2026-06-27 03:04)
+- Criada pasta `/app/frontend/public/editais/` com 3 PDFs baixados dos artifacts:
+  - `edital-retificacao-001-01-2026.pdf` (353 KB) — EDITAL DE RETIFICAÇÃO Nº 001.01/2026 - PMB/SEMED
+  - `edital-abertura-001-00-2026.pdf` (3.1 MB) — EDITAL DE ABERTURA Nº 001.00/2026 – PMB/SEMED
+  - `extrato-edital-001-00-2026.pdf` (1.8 MB) — EXTRATO DO EDITAL Nº 001.00/2026 – PMB/SEMED
+- `home.html`: os 3 `<a data-astv="...">` da seção EDITAIS tiveram `href="javascript:void(0)" data-disabled="external"` substituído por `href="/editais/...pdf" target="_blank" rel="noopener"`.
+- Os outros 11 links externos (WhatsApp, painel Ágata, faleconosco, etc.) continuam neutralizados via `data-disabled="external"`.
+- Validado:
+  - `GET /editais/edital-retificacao-001-01-2026.pdf` → 200, application/pdf, 353462 bytes
+  - `GET /editais/edital-abertura-001-00-2026.pdf` → 200, application/pdf, 3136428 bytes
+  - `GET /editais/extrato-edital-001-00-2026.pdf` → 200, application/pdf, 1822781 bytes
+  - Screenshot da seção EDITAIS confirmando os 3 links com target=_blank.
