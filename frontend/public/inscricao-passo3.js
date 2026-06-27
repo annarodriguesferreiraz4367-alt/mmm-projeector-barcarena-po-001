@@ -222,12 +222,14 @@
     }
 
     var vagaLoc = (ins.cargo_titulo || '') + ' - ' + (ins.localidade || '').toUpperCase();
+    var valorFmt = 'R$ ' + Number(ins.valor || 0).toFixed(2).replace('.', ',');
     setText('nome',             cad.nome || '');
     setText('cpf',              maskCPF(cad.cpf || ''));
     setText('vaga_localidade',  vagaLoc);
     setText('requisitos',       ins.requisitos || '');
     setText('numero_inscricao', ins.protocolo || '');
     setText('data_inscricao',   ins.data_inscricao || '');
+    setText('valor_inscricao',  valorFmt);
 
     // Botão PAGAR A INSCRIÇÃO
     var btnPagar = document.getElementById('link_pagamento');

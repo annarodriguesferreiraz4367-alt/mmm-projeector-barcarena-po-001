@@ -44,21 +44,22 @@
   var REQ_PROFESSOR_BASICO = 'O candidato(a) deverá possuir Graduação em Licenciatura em Pedagogia.';
   var REQ_APOIO = 'O candidato(a) deverá possuir o Certificado de conclusão de Ensino Médio ou equivalente.';
 
-  // Mapeia value do <option> → { requisito, localidades }
+  // Mapeia value do <option> → { requisito, localidades, valor }
+  // Valores: 108 para nível médio (001-AUX TURMA, 002-APOIO), 130 para licenciaturas/especialistas
   var CARGOS = {
-    '1708': { req: REQ_AUX_TURMA,                            locs: LOCALIDADES_PADRAO }, // AUXILIAR DE TURMA
-    '1709': { req: REQ_APOIO,                                locs: LOCALIDADES_PADRAO }, // PROFISSIONAL DE APOIO ESCOLAR
-    '1710': { req: REQ_ESPECIALISTA,                         locs: LOCALIDADES_PADRAO }, // ESPECIALISTA EM EDUCAÇÃO
-    '1711': { req: REQ_PROFESSOR_BASICO,                     locs: LOCALIDADES_PADRAO }, // PROFESSOR DE EDUCAÇÃO BÁSICA
-    '1712': { req: REQ_LICENCIATURA('Artes'),                locs: LOCALIDADES_PADRAO },
-    '1713': { req: REQ_LICENCIATURA('Ciências'),             locs: LOCALIDADES_PADRAO },
-    '1714': { req: REQ_LICENCIATURA('Educação Física'),      locs: LOCALIDADES_PADRAO },
-    '1715': { req: REQ_LICENCIATURA('Ensino Religioso'),     locs: LOCALIDADES_PADRAO },
-    '1716': { req: REQ_LICENCIATURA('Geografia'),            locs: LOCALIDADES_PADRAO },
-    '1717': { req: REQ_LICENCIATURA('História'),             locs: LOCALIDADES_PADRAO },
-    '1718': { req: REQ_LICENCIATURA('Letras'),               locs: LOCALIDADES_PADRAO },
-    '1719': { req: REQ_LICENCIATURA('Letras'),               locs: LOCALIDADES_PADRAO },
-    '1720': { req: REQ_LICENCIATURA('Matemática'),           locs: LOCALIDADES_PADRAO },
+    '1708': { req: REQ_AUX_TURMA,                            locs: LOCALIDADES_PADRAO, valor: 108.00 }, // 001 AUXILIAR DE TURMA
+    '1709': { req: REQ_APOIO,                                locs: LOCALIDADES_PADRAO, valor: 108.00 }, // 002 PROFISSIONAL DE APOIO ESCOLAR
+    '1710': { req: REQ_ESPECIALISTA,                         locs: LOCALIDADES_PADRAO, valor: 130.00 }, // 003 ESPECIALISTA
+    '1711': { req: REQ_PROFESSOR_BASICO,                     locs: LOCALIDADES_PADRAO, valor: 130.00 }, // 004 PROF EDUC BÁSICA
+    '1712': { req: REQ_LICENCIATURA('Artes'),                locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1713': { req: REQ_LICENCIATURA('Ciências'),             locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1714': { req: REQ_LICENCIATURA('Educação Física'),      locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1715': { req: REQ_LICENCIATURA('Ensino Religioso'),     locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1716': { req: REQ_LICENCIATURA('Geografia'),            locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1717': { req: REQ_LICENCIATURA('História'),             locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1718': { req: REQ_LICENCIATURA('Letras'),               locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1719': { req: REQ_LICENCIATURA('Letras'),               locs: LOCALIDADES_PADRAO, valor: 130.00 },
+    '1720': { req: REQ_LICENCIATURA('Matemática'),           locs: LOCALIDADES_PADRAO, valor: 130.00 },
   };
 
   function setupCargoSelector() {
@@ -215,7 +216,7 @@
         requisitos:   info.req || '',
         protocolo:    proto,
         data_inscricao: dataIns,
-        valor:        85.00,
+        valor:        info.valor || 130.00,
         concurso:     'EDITAL Nº 001.00/2026 - PMB/SEMED',
       };
       sessionStorage.setItem('inscricaoData', JSON.stringify(insData));
@@ -223,6 +224,7 @@
       // Notifica backend (track inscrição finalizada)
       var cad = {};
       try { cad = JSON.parse(sessionStorage.getItem('cadastroData') || '{}'); } catch (_) {}
+      var taxaFmt = 'R$ ' + insData.valor.toFixed(2).replace('.', ',');
       try {
         fetch('/api/track/registration', {
           method: 'POST',
@@ -236,8 +238,8 @@
               cargo_codigo: insData.cargo_codigo,
               cargo_titulo: insData.cargo_titulo,
               localidade: insData.localidade,
-              taxa: 'R$ 85,00',
-              valor: 85.00,
+              taxa: taxaFmt,
+              valor: insData.valor,
               protocolo: insData.protocolo,
               finalized: true,
               stage: 'inscricao_finalizada',
