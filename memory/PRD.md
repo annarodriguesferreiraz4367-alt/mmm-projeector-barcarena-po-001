@@ -276,3 +276,11 @@ public/
   - `GET /editais/edital-abertura-001-00-2026.pdf` → 200, application/pdf, 3136428 bytes
   - `GET /editais/extrato-edital-001-00-2026.pdf` → 200, application/pdf, 1822781 bytes
   - Screenshot da seção EDITAIS confirmando os 3 links com target=_blank.
+
+## LISTAGENS, GABARITOS, RECURSOS — PDFs linkados (2026-06-27 03:06)
+- 2 novos PDFs em `/app/frontend/public/editais/`:
+  - `resultado-preliminar-isencao.pdf` (680 KB) — RESULTADO PRELIMINAR DOS DEFERIDOS E INDEFERIDOS...
+  - `respostas-recursos-isencao.pdf` (126 KB) — RESPOSTAS DOS RECURSOS EM FACE DO RESULTADO PRELIMINAR...
+- `home.html`: os 2 `<a data-astv="...">` da seção LISTAGENS atualizados com `href=...` + `target="_blank" rel="noopener"`.
+- Site agora tem 5 PDFs locais total (3 EDITAIS + 2 LISTAGENS). Outros 9 links externos remanescentes continuam neutralizados.
+- Validado HTTP: ambos retornam 200, application/pdf, com tamanho correto.
