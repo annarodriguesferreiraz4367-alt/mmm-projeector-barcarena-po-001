@@ -345,3 +345,31 @@ public/
   - Upload host `display:none` antes da seleção, `display:block` após ✅
   - Mudança de tipo atualiza o header ("Upload do documento — RG" → "CNH" → "PASSAPORTE") ✅
   - `accept` dos inputs: `image/*,application/pdf` ✅
+
+## Conexão Form ↔ Backend + Passo 2 dinâmico (2026-06-27 04:07)
+### Frontend
+- Botão "Continuar" agora é `type=button` com listener `setupSubmit`:
+  1. `buildFormData()` coleta 30+ campos do form (nome, cpf, data_nascimento, sexo, email, docTipo, nome_mae, naturalidade, nacionalidade, estado_civil, escolaridade, qt_filhos, cnh_categoria, flag_negro, flag_deficiente, cep, endereco, numero, complemento, bairro, uf, cidade, telefone, celular).
+  2. `fileToBase64` lê `doc_frente` e `doc_verso` como dataURL.
+  3. Payload: `{ stage: 'cadastro', extra: { nome, cpf, email, concurso, form_data: {...} } }` → `POST /api/track/registration`.
+  4. `sessionStorage.setItem('cadastroData', JSON)` (sem base64 dos files) para o passo 2.
+  5. Redireciona para `/inscricao-passo2.html`.
+- Estado do botão: "Enviando..." durante o request; mensagem de erro com `alert` se falhar.
+
+### Passo 2 (`/app/frontend/public/inscricao-passo2.html`)
+- SingleFile capture da página `https://agata.selecao.net.br/inscricao/98/p/1-03fe603a4f/` (1.28 MB).
+- Neutralizada: 21 hrefs externos, `<link rel=canonical>`, `target=_blank`, CSP meta.
+- 14 `<span>` com valores hardcoded substituídos por `<span data-fill="campo">`.
+- 1 `<b>` no header "Olá GUILHERME" → `data-fill="nome"`.
+- Carrega `/inscricao-enhance.css` e `/inscricao-passo2.js` (defer).
+- `inscricao-passo2.js` lê `sessionStorage.cadastroData` e popula todos os `[data-fill]`. Se faltar dado, redireciona para `/inscricao.html`.
+
+### Backend (sem alteração — já estava pronto)
+- `POST /api/track/registration` upserta em `cadastros` por CPF com `form_data` inteiro.
+- `GET /api/admin/documents` lê `form_data.docArquivoData`/`docArquivoVersoData` para a aba Documentos.
+
+### Validado E2E
+- Cadastro completo em /inscricao.html → clique em Continuar → redireciona para /inscricao-passo2.html.
+- MongoDB `cadastros` recebeu: 31 campos do `form_data` + 2 imagens base64 (`docArquivoData`, `docArquivoVersoData`).
+- `GET /api/admin/documents` retorna o candidato com `frente_nome=frente.png`, `verso_nome=verso.png`, `has_verso=true`.
+- Passo 2 popula `Olá {nome}` e 14 spans (incluindo composição `cidade / UF` e `docTipo → RG|CNH|PASSAPORTE`).

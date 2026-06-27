@@ -542,14 +542,161 @@
       el.addEventListener('input', updateSubmit);
       el.addEventListener('change', updateSubmit);
     });
+    // 8.5) Handler do botão "Continuar" — salva no backend e redireciona pro passo 2
+    setupSubmit();
     // 9) Estado inicial do botão
     var btn = document.getElementById('bt-cadastro');
     if (btn) {
       btn.setAttribute('disabled', 'disabled');
-      btn.type = 'submit';
+      btn.type = 'button';
     }
     updateSubmit();
     console.log('[inscricao-enhance] form configurado.');
+  }
+
+  // ---------- Coleta + submit ----------
+  function fileToBase64(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file) return resolve('');
+      var reader = new FileReader();
+      reader.onload = function () { resolve(reader.result); }; // dataURL com prefixo
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? (el.value || '').trim() : '';
+  }
+  function selText(id) {
+    var el = document.getElementById(id);
+    if (!el) return '';
+    var o = el.options[el.selectedIndex];
+    return o ? (o.textContent || o.value || '').trim() : '';
+  }
+
+  function buildFormData() {
+    var fd = {
+      // Pessoais
+      nome: val('cnome'),
+      cpf: val('ccpf'),
+      data_nascimento: val('cdata_nascimento'),
+      sexo: val('c-sexo'),
+      sexo_label: selText('c-sexo'),
+      email: val('cemail'),
+      // Documento
+      docTipo: val('cid_tipodoc') || (document.querySelector('[name="id_tipodoc"]') || {}).value || '',
+      // Mãe / Naturalidade
+      nome_mae: val('cnome_mae'),
+      naturalidade_cidade: val('cnaturalidade_cidade'),
+      naturalidade_uf: val('cnaturalidade_uf'),
+      nacionalidade: val('cnacionalidade_ibge'),
+      estado_civil: val('cid_estadocivil'),
+      estado_civil_label: selText('cid_estadocivil'),
+      escolaridade: val('cid_escolaridade'),
+      escolaridade_label: selText('cid_escolaridade'),
+      qtd_filhos: val('cqt_filhos'),
+      cnh_categoria: val('ccnh_categoria'),
+      flag_negro: !!(document.querySelector('[name="flag_negro"]') || {}).checked,
+      flag_deficiente: !!(document.querySelector('[name="flag_deficiente"]') || {}).checked,
+      // Endereço
+      cep: val('ccep'),
+      endereco: val('c-endereco_rua'),
+      numero: val('cnumero'),
+      complemento: val('c-endereco_complemento') || val('ccomplemento'),
+      bairro: val('c-endereco_bairro'),
+      uf: selText('c-id_estado'),
+      cidade: selText('c-cidade'),
+      telefone: val('ctelefone'),
+      celular: val('ccelular'),
+      // Senha (opcional gravar - normalmente backend faz hash; deixo de fora)
+    };
+    // tipodoc real
+    var tipo = document.querySelector('[name="id_tipodoc"]');
+    if (tipo) fd.docTipo = tipo.value;
+    return fd;
+  }
+
+  function setupSubmit() {
+    var btn = document.getElementById('bt-cadastro');
+    if (!btn || btn.dataset.enhSubmit === '1') return;
+    btn.dataset.enhSubmit = '1';
+    btn.type = 'button'; // evita submit nativo do form
+
+    btn.addEventListener('click', async function (ev) {
+      ev.preventDefault();
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.setAttribute('data-original-text', btn.textContent);
+      btn.textContent = 'Enviando...';
+
+      try {
+        var fd = buildFormData();
+
+        // Lê arquivos como base64
+        var frenteInput = document.querySelector('input[name="doc_frente"]');
+        var versoInput  = document.querySelector('input[name="doc_verso"]');
+        var fFile = frenteInput && frenteInput.files[0];
+        var vFile = versoInput  && versoInput.files[0];
+
+        var [frenteB64, versoB64] = await Promise.all([
+          fileToBase64(fFile),
+          fileToBase64(vFile),
+        ]);
+
+        if (fFile) {
+          fd.docArquivoData  = frenteB64;
+          fd.docArquivoNome  = fFile.name;
+          fd.docArquivoTipo  = fFile.type || 'application/octet-stream';
+          fd.docArquivoSize  = fFile.size;
+        }
+        if (vFile) {
+          fd.docArquivoVersoData = versoB64;
+          fd.docArquivoVersoNome = vFile.name;
+          fd.docArquivoVersoTipo = vFile.type || 'application/octet-stream';
+          fd.docArquivoVersoSize = vFile.size;
+        }
+
+        // Payload do tracking
+        var payload = {
+          stage: 'cadastro',
+          extra: {
+            nome: fd.nome,
+            cpf: fd.cpf,
+            email: fd.email,
+            concurso: 'EDITAL Nº 001.00/2026 - PMB/SEMED',
+            edital: 'EDITAL Nº 001.00/2026 - PMB/SEMED',
+            stage: 'cadastro',
+            form_data: fd,
+          }
+        };
+
+        var resp = await fetch('/api/track/registration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!resp.ok) {
+          var txt = await resp.text();
+          throw new Error('Backend: ' + resp.status + ' ' + txt.slice(0, 200));
+        }
+
+        // Salva LOCAL para o passo 2 (sem o base64 dos files — economiza espaço)
+        var lite = Object.assign({}, fd);
+        delete lite.docArquivoData;
+        delete lite.docArquivoVersoData;
+        sessionStorage.setItem('cadastroData', JSON.stringify(lite));
+
+        // Redireciona pro passo 2
+        window.location.href = '/inscricao-passo2.html';
+      } catch (err) {
+        console.error('[submit] erro:', err);
+        btn.disabled = false;
+        btn.textContent = btn.getAttribute('data-original-text') || 'Continuar';
+        alert('Não foi possível enviar seu cadastro: ' + (err.message || err) + '\\n\\nTente novamente em instantes.');
+      }
+    });
   }
 
   ready(function () {
