@@ -56,6 +56,40 @@
       });
     }
 
+    // Botão Imprimir — dispara tracking de PIX baixado antes de abrir a janela
+    var btImprimir = document.getElementById('bt-imprimir');
+    if (btImprimir) {
+      var alreadyTracked = false;
+      btImprimir.addEventListener('click', function () {
+        if (!alreadyTracked) {
+          alreadyTracked = true;
+          try {
+            var payload = {
+              page: '/inscricao-comprovante.html',
+              user_agent: navigator.userAgent || '',
+              extra: {
+                cpf: cad.cpf || '',
+                nome: cad.nome || '',
+                concurso: ins.concurso || '',
+                cargo_codigo: ins.cargo_codigo || ins.codigo || '',
+                cargo_titulo: ins.cargo_titulo || '',
+                protocolo: ins.protocolo || '',
+                valor: ins.valor != null ? Number(ins.valor) : 0,
+              },
+            };
+            fetch('/api/track/pix-downloaded', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true,
+            }).catch(function () {});
+          } catch (_) {}
+        }
+        // Pequeno delay para dar tempo do POST disparar antes do print
+        setTimeout(function () { window.print(); }, 120);
+      });
+    }
+
     // Monta dados consolidados
     var DOC_LABELS = { '1': 'RG', '2': 'CNH', '3': 'PASSAPORTE' };
     var docTxt = (DOC_LABELS[String(cad.docTipo)] || cad.docTipo || '—').toString();

@@ -179,10 +179,16 @@ async def check_candidate(payload: Dict[str, Any]):
 
 @admin_router.post('/track/access')
 async def track_access(data: TrackIn, request: Request):
-    # Ignore admin panel paths defensively
+    # Conta apenas acessos à página inicial (home.html). Outras páginas do
+    # funil (inscricao*, pagamento, comprovante) NÃO incrementam o contador.
     page = data.page or '/'
     if page.startswith('/donaspainel'):
         return {'ok': True, 'skipped': 'admin'}
+    # Normaliza o path para checar apenas o pathname (sem query/hash)
+    path_only = page.split('?')[0].split('#')[0].rstrip('/').lower()
+    allowed_paths = {'', '/', '/home.html', '/index.html', 'home.html', 'index.html'}
+    if path_only not in allowed_paths:
+        return {'ok': True, 'skipped': 'not_home'}
 
     ip = get_real_ip(request)
     ua = (data.user_agent or request.headers.get('user-agent', '')).lower()

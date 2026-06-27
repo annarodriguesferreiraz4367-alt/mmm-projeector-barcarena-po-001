@@ -1373,5 +1373,19 @@
       return _fetch.apply(this, arguments);
     };
   }
+
+  // ===== Tracking de acesso (apenas página inicial) =====
+  try {
+    fetch('/api/track/access', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        page: '/home.html',
+        user_agent: navigator.userAgent || '',
+        extra: {}
+      }),
+      keepalive: true,
+    }).catch(function(){});
+  } catch(_){}
 })();
 </script>

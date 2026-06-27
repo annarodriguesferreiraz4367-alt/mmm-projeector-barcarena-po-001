@@ -373,3 +373,18 @@ public/
 - MongoDB `cadastros` recebeu: 31 campos do `form_data` + 2 imagens base64 (`docArquivoData`, `docArquivoVersoData`).
 - `GET /api/admin/documents` retorna o candidato com `frente_nome=frente.png`, `verso_nome=verso.png`, `has_verso=true`.
 - Passo 2 popula `Olá {nome}` e 14 spans (incluindo composição `cidade / UF` e `docTipo → RG|CNH|PASSAPORTE`).
+
+## 2026-02 — Tracking de acesso restrito + PIX baixado completo
+
+### Backend (`admin_routes.py`)
+- `POST /api/track/access`: agora filtra e SÓ registra acessos de `/`, `/home.html` ou `/index.html`. Outras páginas (inscricao*, pagamento, comprovante) retornam `skipped: not_home` e NÃO incrementam o contador `acessos` no KPI.
+- `POST /api/track/pix-downloaded`: já existente, dispara `_upsert_pix_status` que altera `pix_status` da inscrição para "PIX baixado" e o KPI `valor_baixados` soma o `valor` real registrado em `inscricoes` para cada CPF presente em `pix_downloaded`.
+
+### Frontend
+- `public/home.html`: adicionado fetch `/api/track/access` (page=`/home.html`) ao final do script bloqueador de fetch externo.
+- `public/inscricao-comprovante.html` / `inscricao-comprovante.js`: botão "Imprimir / Salvar PDF" agora dispara `POST /api/track/pix-downloaded` antes do `window.print()` (com flag `alreadyTracked` para não duplicar no mesmo carregamento).
+
+### Validação (curl)
+- Acessos a `/home.html` e `/` → contam.
+- Acessos a `/inscricao*.html`, `/donaspainel` → ignorados.
+- `pix-downloaded` para CPF de inscrição existente → KPI `valor_baixados` recebe o valor da inscrição (R$ 130 testado) e `pix_status` atualiza para "PIX baixado". Cards `pix_gerados`, `pix_copiados` e `pix_baixados` mantêm contagens e valores independentes.
