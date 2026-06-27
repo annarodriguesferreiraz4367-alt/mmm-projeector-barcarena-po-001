@@ -11,6 +11,13 @@ import time
 import pytest
 import requests
 
+# Load backend .env so MONGO_URL/DB_NAME are available
+try:
+    from dotenv import load_dotenv
+    load_dotenv('/app/backend/.env')
+except Exception:
+    pass
+
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 if not BASE_URL:
     # fallback to .env file
