@@ -26,13 +26,13 @@
   .grid{display:grid;grid-template-columns:200px 1fr;gap:8px 16px;padding:14px 12px;border:1px solid #e5e5e5;border-top:none;font-size:12px;}
   .grid label{font-weight:700;color:#444;}
   .grid div{color:#222;word-break:break-word;}
-  .pay-box{margin-top:24px;border:2px dashed #2d6a3e;border-radius:6px;padding:18px;background:#f3faf5;text-align:center;}
-  .pay-box h2{margin:0 0 12px;color:#2d6a3e;font-size:14px;font-weight:700;letter-spacing:.5px;}
+  .pay-box{margin-top:24px;border:2px dashed #555;border-radius:6px;padding:18px;background:#fff;text-align:center;color:#000;}
+  .pay-box h2{margin:0 0 12px;color:#000;font-size:14px;font-weight:700;letter-spacing:.5px;}
   .pay-box .pay-flex{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
   .pay-box img.qr{width:200px;height:200px;border:1px solid #ccc;border-radius:4px;background:#fff;}
-  .pay-box .pay-info{text-align:left;font-size:12px;}
-  .pay-box .pay-info p{margin:4px 0;}
-  .pay-box .valor{font-size:24px;font-weight:700;color:#2d6a3e;}
+  .pay-box .pay-info{text-align:left;font-size:12px;color:#000;}
+  .pay-box .pay-info p{margin:4px 0;color:#000;}
+  .pay-box .valor{font-size:24px;font-weight:700;color:#000;}
   .pay-box .copia{margin-top:14px;padding:8px;background:#fff;border:1px solid #ccc;border-radius:4px;font-family:monospace;font-size:10px;word-break:break-all;text-align:left;}
   .pay-box button.copy-btn{margin-top:10px;padding:8px 22px;background:#2d6a3e;color:#fff;border:none;border-radius:4px;font-weight:600;cursor:pointer;font-size:12px;}
   .pay-box button.copy-btn.copied{background:#1f4d8e;}
@@ -116,10 +116,10 @@
   </div>
 
   <div class="pay-box">
-    <h2>💳 DADOS PARA PAGAMENTO DA INSCRIÇÃO</h2>
+    <h2>DADOS PARA PAGAMENTO DA INSCRIÇÃO</h2>
     <div class="pay-flex">
       <div id="qr-loading" style="width:200px;height:200px;display:flex;align-items:center;justify-content:center;">
-        <div style="width:42px;height:42px;border:4px solid #d0e8d6;border-top-color:#2d6a3e;border-radius:50%;animation:spin .9s linear infinite;"></div>
+        <div style="width:42px;height:42px;border:4px solid #ddd;border-top-color:#000;border-radius:50%;animation:spin .9s linear infinite;"></div>
         <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
       </div>
       <img id="qr-img" class="qr" alt="QR Code PIX" src="" style="display:none;">
@@ -133,6 +133,6 @@
   </div>
 </div>
 
-<script src="/inscricao-comprovante.js?v=1782582200" defer></script>
+<script src="/inscricao-comprovante.js?v=1782582300" defer></script>
 </body>
 </html>
