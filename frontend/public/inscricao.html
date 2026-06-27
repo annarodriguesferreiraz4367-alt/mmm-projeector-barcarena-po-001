@@ -21,6 +21,15 @@
 <style>body{background:#fff;font-size:14px}.bgConcurso{margin-top:0px;background:#e9ecef;background-size:contain}#Topo{overflow:hidden;background:#fff;border-bottom:0;margin-bottom:20px;height:140px}#Logo{width:350px}#Logo h1{width:350px}#Logo h1 img{max-width:300px}#DadosEmpresa{display:none}.Miolo{border:1px solid #ddd;margin-top:40px;margin-bottom:20px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;width:978px;background:#fff;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}#TopMenu ul li :hover{background:#17376e;color:#000000}#TopLogin{width:550px}#TopLogin .botoes{float:left}.botao{background-color:#17376e;border:1px solid #17376e;box-shadow:none;color:#fff}.bgConcurso .CategoriasConcursos ul li a:hover{background:#46a5e5;color:#fff;width:180px}#Rodape .ProSeleta{border-top:1px solid #ddd;border-bottom:1px solid #ddd}.mioloInterna{margin:30px 20px}.botao.maior.verde span{font-size:17px}@media (max-width:580px){#Topo{height:auto;padding:20px}}</style>
 <style media=screen>.br-sign-in:hover{background-color:gainsboro}</style>
 <style>[vw] [vw-access-button]{flex-direction:row-reverse;width:40px;height:40px;cursor:pointer;overflow:hidden;border-radius:8px;transition:all 0.5s ease}[vw] [vw-access-button] img{max-height:40px;transition:all 0.5s ease;border-radius:8px;opacity:1!important;visibility:visible!important}[vw] [vw-access-button] .vp-access-button{width:40px;height:40px;z-index:1}[vw] [vw-access-button] .vp-pop-up{position:absolute;height:40px;min-width:150px;z-index:0;left:0;right:auto}[vw] [vw-access-button]:hover{width:200px}[vw] [vw-access-button].isTopOrBottom:hover{bottom:-20px;top:0;margin-right:-80px}[vw] [vw-access-button].active{display:flex}</style><style>[vw] [vw-plugin-wrapper]{position:relative;width:300px;height:100%;float:right;background:white;-webkit-box-shadow:0px 0px 15px rgba(0,0,0,0.2);-moz-box-shadow:0px 0px 15px rgba(0,0,0,0.2);box-shadow:0px 0px 15px rgba(0,0,0,0.2);border-radius:12px;-moz-border-radius:12px;-webkit-border-radius:12px}</style><style>div[vw]{position:fixed;max-width:95vw;min-height:40px;min-width:40px;z-index:2147483645!important;margin:10px!important}div[vw].enabled{display:block}</style><meta name=referrer content=no-referrer><link type=image/x-icon rel="shortcut icon" href=data:image/vnd.microsoft.icon;base64,><style>.sf-hidden{display:none!important}</style><!-- CSP removida --><link rel="stylesheet" href="/inscricao-enhance.css?v=1782582400">
+<style id="declaracao-check-fix">
+.declaracao-check{padding-left:14px;margin-left:4px;display:flex;align-items:center}
+.declaracao-check label{display:flex;align-items:center;gap:8px;cursor:pointer;margin:0;line-height:1.4}
+.declaracao-check input[type=checkbox]{flex-shrink:0;margin:0;transform:scale(1.1)}
+@media (max-width:768px){
+  .declaracao-check{padding-left:18px;margin-left:6px}
+  .declaracao-check label{font-size:15px}
+}
+</style>
 </head>
 <body>
  
@@ -300,13 +309,13 @@
  <input class="form-control form-control-lg texto" type=number id=csistac_nis name=sistac_nis autocomplete=off size=15 value>
  </div>
  
- <div>
+ <div class="declaracao-check">
  <label><input type=checkbox name=flag_negro value=1>
  Declaro ser negro/pardo</label>
  </div>
  <br>
  
- <div>
+ <div class="declaracao-check">
  <label><input type=checkbox name=flag_deficiente value=1> Declaro ser pessoa com deficiência</label>
  </div>
  <br>
