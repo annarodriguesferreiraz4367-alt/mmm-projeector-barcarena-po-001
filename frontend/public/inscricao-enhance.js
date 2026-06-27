@@ -306,20 +306,19 @@
 
       uploadHost.style.display = 'block';
       uploadHost.innerHTML = ''
-        + '<div class="card panel panel-default doc-upload-card">'
-        +   '<div class="card-header panel-heading" style="height:56px;display:flex;align-items:center;">'
+        + '<div class="card panel panel-default doc-upload-card" style="max-width:760px;">'
+        +   '<div class="card-header panel-heading" style="padding:10px 14px;font-size:14px;font-weight:500;">'
         +     'Upload do documento — ' + nome + '<span class="required" style="color:#dc3545;margin-left:4px;">*</span>'
         +   '</div>'
-        +   '<div class="card-body form-row" style="padding:15px;gap:15px;">'
+        +   '<div class="card-body" style="padding:12px;display:flex;flex-wrap:wrap;gap:10px;">'
         +     uploaderHTML('doc_frente', 'Frente do documento')
         +     uploaderHTML('doc_verso',  'Verso do documento')
-        +     '<div class="col-12" style="font-size:12px;color:#666;margin-top:6px;">'
-        +       'Formatos aceitos: JPG, PNG, WEBP, HEIC ou PDF. Tamanho máx.: 8 MB por arquivo.'
+        +     '<div style="flex-basis:100%;font-size:11px;color:#666;margin-top:4px;">'
+        +       'JPG, PNG, WEBP, HEIC ou PDF — máx. 8 MB por arquivo.'
         +     '</div>'
         +   '</div>'
         + '</div>';
 
-      // Wire-up dos inputs file
       ['doc_frente', 'doc_verso'].forEach(function (name) {
         var input = uploadHost.querySelector('input[name="' + name + '"]');
         if (!input) return;
@@ -330,28 +329,30 @@
 
     function uploaderHTML(name, label) {
       return ''
-      + '<div class="item2 form-group col-md-6 doc-upload-slot" data-slot="' + name + '">'
-      +   '<label style="display:block;font-weight:500;margin-bottom:6px;">' + label + ' <span style="color:#dc3545;">*</span></label>'
-      +   '<label class="doc-drop" for="up-' + name + '" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px dashed #c0c0c0;border-radius:8px;padding:18px;cursor:pointer;background:#fafbfc;text-align:center;min-height:140px;transition:border-color .2s,background .2s;">'
-      +     '<div class="doc-icon" style="font-size:32px;line-height:1;">📄</div>'
-      +     '<div class="doc-label" style="font-size:14px;color:#555;">Clique para selecionar<br><small style="color:#888;">ou arraste o arquivo aqui</small></div>'
+      + '<div class="doc-upload-slot" data-slot="' + name + '" style="flex:1 1 220px;min-width:0;margin-bottom:0;">'
+      +   '<label style="display:block;font-weight:500;margin-bottom:4px;font-size:13px;">' + label + ' <span style="color:#dc3545;">*</span></label>'
+      +   '<label class="doc-drop" for="up-' + name + '" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2px dashed #c0c0c0;border-radius:6px;padding:8px;cursor:pointer;background:#fafbfc;text-align:center;min-height:84px;max-height:130px;overflow:hidden;transition:border-color .2s,background .2s;">'
+      +     '<div class="doc-content">'
+      +       '<div class="doc-icon" style="font-size:22px;line-height:1;">📄</div>'
+      +       '<div class="doc-label" style="font-size:12px;color:#666;line-height:1.25;margin-top:2px;">Clique ou arraste<br><small style="color:#999;">imagem ou PDF</small></div>'
+      +     '</div>'
       +   '</label>'
       +   '<input type="file" id="up-' + name + '" name="' + name + '" accept="image/*,application/pdf" style="display:none;">'
-      +   '<div class="doc-preview" style="display:none;margin-top:8px;"></div>'
-      +   '<div class="enh-error" data-for="' + name + '"></div>'
+      +   '<div class="enh-error" data-for="' + name + '" style="font-size:11px;"></div>'
       + '</div>';
     }
 
     function handleFileChange(input) {
       var slot = input.closest('.doc-upload-slot');
-      var preview = slot.querySelector('.doc-preview');
       var drop = slot.querySelector('.doc-drop');
-      var labelDiv = slot.querySelector('.doc-label');
+      var content = slot.querySelector('.doc-content');
       var file = input.files && input.files[0];
-      var name = input.name;
 
       if (!file) {
-        preview.style.display = 'none';
+        drop.style.borderColor = '#c0c0c0';
+        drop.style.background = '#fafbfc';
+        content.innerHTML = '<div class="doc-icon" style="font-size:22px;line-height:1;">📄</div>'
+          + '<div class="doc-label" style="font-size:12px;color:#666;line-height:1.25;margin-top:2px;">Clique ou arraste<br><small style="color:#999;">imagem ou PDF</small></div>';
         setError(input, null);
         updateSubmit();
         return;
@@ -361,7 +362,6 @@
       if (file.size > 8 * 1024 * 1024) {
         input.value = '';
         setError(input, 'Arquivo excede 8 MB.');
-        preview.style.display = 'none';
         updateSubmit();
         return;
       }
@@ -371,7 +371,6 @@
       if (!typeOk) {
         input.value = '';
         setError(input, 'Tipo inválido. Aceito: JPG, PNG, WEBP, HEIC ou PDF.');
-        preview.style.display = 'none';
         updateSubmit();
         return;
       }
@@ -379,18 +378,21 @@
       setError(input, null);
       drop.style.borderColor = '#28a745';
       drop.style.background = '#f1faf3';
-      labelDiv.innerHTML = '<strong style="color:#28a745;">✓ ' + escapeHtml(file.name) + '</strong><br><small style="color:#666;">' + (file.size / 1024).toFixed(1) + ' KB — clique para trocar</small>';
 
-      // Preview
-      preview.style.display = 'block';
+      var sizeKb = (file.size / 1024).toFixed(0) + ' KB';
+
       if (/^image\//i.test(file.type)) {
         var reader = new FileReader();
         reader.onload = function (e) {
-          preview.innerHTML = '<img src="' + e.target.result + '" style="max-width:100%;max-height:160px;border-radius:6px;border:1px solid #ddd;">';
+          content.innerHTML = ''
+            + '<img src="' + e.target.result + '" alt="" style="max-width:100%;max-height:80px;border-radius:4px;border:1px solid #ddd;display:block;margin:0 auto;">'
+            + '<div style="font-size:11px;color:#28a745;margin-top:3px;line-height:1.1;"><strong>✓ ' + escapeHtml(file.name) + '</strong><br><small style="color:#666;">' + sizeKb + ' — clique para trocar</small></div>';
         };
         reader.readAsDataURL(file);
       } else {
-        preview.innerHTML = '<div style="font-size:13px;color:#555;display:flex;align-items:center;gap:6px;"><span style="font-size:22px;">📄</span> PDF anexado: <strong>' + escapeHtml(file.name) + '</strong></div>';
+        content.innerHTML = ''
+          + '<div style="font-size:24px;line-height:1;color:#dc3545;">📕</div>'
+          + '<div style="font-size:11px;color:#28a745;margin-top:3px;line-height:1.1;"><strong>✓ ' + escapeHtml(file.name) + '</strong><br><small style="color:#666;">PDF · ' + sizeKb + ' — clique para trocar</small></div>';
       }
       updateSubmit();
     }
