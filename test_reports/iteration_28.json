@@ -1,0 +1,47 @@
+{
+  "summary": "Iteration 28 frontend-only verification of TopoMobile fix on inscricao-pagamento.html and inscricao-comprovante.html. Tested at mobile 412x915, print-media emulation, and desktop 1280x800. All 5 acceptance criteria pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_evidence": {
+    "mobile_412x915": {
+      "inscricao.html": {"TopoMobile_display": "none (landing page, not internal - expected)", "overflow_x": false},
+      "inscricao-passo2.html": {"TopoMobile_display": "flex", "height_px": 77, "logo_wxh": "109.06 x 60", "logo_src": "data:image/jpeg;base64", "overflow_x": false},
+      "inscricao-passo3.html": {"TopoMobile_display": "none", "overflow_x": false, "note": "Pre-existing - element exists but hidden on mobile. Out of scope for this iteration."},
+      "inscricao-pagamento.html": {"TopoMobile_display": "flex", "height_px": 77, "logo_wxh": "109.06 x 60 (within 80-140 W / 40-80 H range)", "logo_src": "data:image/jpeg;base64 (Agata)", "overflow_x": false, "PASS": true},
+      "inscricao-comprovante.html": {"TopoMobile_display": "flex", "height_px": 77, "logo_wxh": "109.06 x 60", "logo_src": "data:image/jpeg;base64 (Agata)", "overflow_x": false, "PASS": true}
+    },
+    "print_media_emulation": {
+      "page": "inscricao-comprovante.html",
+      "TopoMobile_display": "none",
+      "PASS": true,
+      "note": "@media print {#TopoMobile{display:none!important}} confirmed working via page.emulate_media('print')"
+    },
+    "desktop_1280x800": {
+      "inscricao.html": {"overflow_x": false, "topo_display": "none"},
+      "inscricao-passo2.html": {"overflow_x": false, "topo_display": "flex", "height_px": 91, "note": "Baseline preserved"},
+      "inscricao-passo3.html": {"overflow_x": false, "topo_display": "none"},
+      "inscricao-pagamento.html": {"overflow_x": false, "topo_display": "block", "height_px": 624.9, "note": "On desktop, the injected <header id=TopoMobile> renders as the original full header with menu items, matching expected original-style behavior"},
+      "inscricao-comprovante.html": {"overflow_x": false, "topo_display": "block", "height_px": 717.2, "note": "Same as pagamento - original desktop header layout, no regression"}
+    }
+  },
+  "test_report_links": [],
+  "action_items": [
+    "(Optional) Investigate why passo3 TopoMobile is display:none on mobile - may be a separate pre-existing issue not in iteration 28 scope, surfaced for awareness only."
+  ],
+  "critical_code_review_comments": [
+    "Mobile-override CSS rules for #TopoMobile in pagamento/comprovante are not wrapped in a max-width media query, so on desktop they would compete with the original styles. Currently desktop falls back to display:block (original layout), but consider gating the mobile overrides with @media (max-width: 768px) for clarity and to avoid future specificity issues.",
+    "Duplicate header HTML (large base64 logo) copied across 4 HTML files - DRY violation. Consider extracting via a shared script/include for maintainability."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100% (all 5 acceptance criteria pass)"},
+  "test_credentials": "localStorage seeded as per request (cadastroData/inscricaoData/inscricao_completa)",
+  "seed_data_creation": "localStorage seed via page.evaluate before navigation",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 28 confirmed: pagamento.html and comprovante.html now have #TopoMobile rendering at 77px height with 109x60 Agata logo on mobile 412px; comprovante hides #TopoMobile under @media print; desktop 1280px shows no horizontal overflow on any of the 5 pages. Pre-existing observation (not in iteration 28 scope): inscricao-passo3.html has #TopoMobile in DOM but computed display:none on mobile - flag this if a future iteration extends the fix to passo3.",
+  "rca of the issue": "N/A - this was a regression-style verification iteration. Fix from iteration 27 (injecting <header id=TopoMobile> markup with Agata logo into pagamento.html and comprovante.html, plus @media print rule on comprovante) is verified working."
+}
