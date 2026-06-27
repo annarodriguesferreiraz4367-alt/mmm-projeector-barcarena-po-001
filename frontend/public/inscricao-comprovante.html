@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprovante de Inscrição</title>
+<style>
+  *{box-sizing:border-box;}
+  body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;color:#222;background:#f5f5f5;}
+  .toolbar{background:#fff;border-bottom:1px solid #ddd;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+  .toolbar a{color:#075FAB;text-decoration:none;font-weight:600;font-size:14px;}
+  .toolbar button{padding:8px 18px;background:#1f4d8e;color:#fff;border:none;border-radius:4px;font-weight:600;cursor:pointer;font-size:13px;}
+  .toolbar button:hover{background:#163b6f;}
+  .sheet{background:#fff;max-width:820px;margin:30px auto;padding:40px 50px;box-shadow:0 1px 5px rgba(0,0,0,.15);font-size:13px;line-height:1.5;}
+  .header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #1f4d8e;padding-bottom:18px;margin-bottom:18px;}
+  .header .logo-left{font-weight:700;color:#075FAB;font-size:20px;letter-spacing:1px;}
+  .header .center{text-align:center;flex:1;font-size:11px;line-height:1.4;}
+  .header .center .institution{font-weight:700;font-size:13px;margin-bottom:2px;}
+  .header .logo-right{text-align:right;font-size:11px;font-weight:700;color:#2d6a3e;line-height:1.2;}
+  .header .logo-right .tagline{font-size:9px;font-weight:500;color:#555;margin-top:2px;}
+  .main-title{text-align:center;font-size:18px;font-weight:700;margin:18px 0 8px;letter-spacing:.5px;}
+  .candidate-block{text-align:center;margin-bottom:24px;}
+  .candidate-block .nm{font-size:15px;font-weight:700;margin:0;}
+  .candidate-block .role{font-size:12px;color:#555;margin:4px 0 0;}
+  .section{margin-top:24px;}
+  .section h2{font-size:13px;font-weight:700;background:#f0f0f0;padding:8px 12px;margin:0 0 0;border-left:4px solid #1f4d8e;}
+  .grid{display:grid;grid-template-columns:200px 1fr;gap:8px 16px;padding:14px 12px;border:1px solid #e5e5e5;border-top:none;font-size:12px;}
+  .grid label{font-weight:700;color:#444;}
+  .grid div{color:#222;word-break:break-word;}
+  .pay-box{margin-top:24px;border:2px dashed #2d6a3e;border-radius:6px;padding:18px;background:#f3faf5;text-align:center;}
+  .pay-box h2{margin:0 0 12px;color:#2d6a3e;font-size:14px;font-weight:700;letter-spacing:.5px;}
+  .pay-box .pay-flex{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .pay-box img.qr{width:200px;height:200px;border:1px solid #ccc;border-radius:4px;background:#fff;}
+  .pay-box .pay-info{text-align:left;font-size:12px;}
+  .pay-box .pay-info p{margin:4px 0;}
+  .pay-box .valor{font-size:24px;font-weight:700;color:#2d6a3e;}
+  .pay-box .copia{margin-top:14px;padding:8px;background:#fff;border:1px solid #ccc;border-radius:4px;font-family:monospace;font-size:10px;word-break:break-all;text-align:left;}
+  .pay-box button.copy-btn{margin-top:10px;padding:8px 22px;background:#2d6a3e;color:#fff;border:none;border-radius:4px;font-weight:600;cursor:pointer;font-size:12px;}
+  .pay-box button.copy-btn.copied{background:#1f4d8e;}
+  .footer{display:flex;justify-content:space-between;margin-top:28px;padding-top:12px;border-top:1px solid #eee;font-size:11px;color:#666;}
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none;}
+    .sheet{box-shadow:none;margin:0;max-width:none;padding:20px 30px;}
+    .pay-box{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="/inscricao-passo3.html" id="bt-voltar">&larr; Voltar</a>
+  <button type="button" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="header">
+    <div class="logo-left">instituto ÁGATA</div>
+    <div class="center">
+      <div class="institution">PREFEITURA MUNICIPAL DE BARCARENA / PA</div>
+      <div>CONCURSO PÚBLICO - 001.00/2026 - PMB/SEMED</div>
+      <div>ORGANIZAÇÃO: INSTITUTO DE DESENVOLVIMENTO SOCIAL ÁGATA</div>
+    </div>
+    <div class="logo-right">
+      PREFEITURA DE<br>BARCARENA
+      <div class="tagline">MAIS TRABALHO,<br>MAIS FUTURO.</div>
+    </div>
+  </div>
+
+  <h1 class="main-title">COMPROVANTE DE INSCRIÇÃO #<span data-fill="protocolo">000000</span></h1>
+
+  <div class="candidate-block">
+    <p class="nm" data-fill="nome">CANDIDATO</p>
+    <p class="role" data-fill="vaga_completa">VAGA</p>
+  </div>
+
+  <div class="section">
+    <h2>DADOS DO CANDIDATO</h2>
+    <div class="grid">
+      <label>Número da Inscrição:</label><div data-fill="protocolo">—</div>
+      <label>Nome:</label><div data-fill="nome">—</div>
+      <label>CPF:</label><div data-fill="cpf">—</div>
+      <label>Documento:</label><div data-fill="documento">—</div>
+      <label>Data de Nascimento:</label><div data-fill="data_nascimento">—</div>
+      <label>Data e Horário de Inscrição:</label><div data-fill="data_inscricao">—</div>
+      <label>Endereço:</label><div data-fill="endereco_completo">—</div>
+      <label>Telefone(s):</label><div data-fill="telefones">—</div>
+      <label>Vaga:</label><div data-fill="vaga_completa">—</div>
+      <label>Modalidade:</label><div data-fill="modalidade">Ampla Concorrência</div>
+      <label>Detalhes/requisitos da vaga:</label><div><strong data-fill="requisitos">—</strong></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Data/hora de emissão do comprovante: <strong data-fill="data_emissao">—</strong></div>
+    <div>Página 1 de 1</div>
+  </div>
+
+  <div class="pay-box">
+    <h2>💳 DADOS PARA PAGAMENTO DA INSCRIÇÃO</h2>
+    <div class="pay-flex">
+      <div id="qr-loading" style="width:200px;height:200px;display:flex;align-items:center;justify-content:center;">
+        <div style="width:42px;height:42px;border:4px solid #d0e8d6;border-top-color:#2d6a3e;border-radius:50%;animation:spin .9s linear infinite;"></div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+      </div>
+      <img id="qr-img" class="qr" alt="QR Code PIX" src="" style="display:none;">
+      <div class="pay-info">
+        <p><strong>Valor da inscrição:</strong></p>
+        <p class="valor" data-fill="valor">R$ 0,00</p>
+        <p style="font-size:11px;color:#555;margin-top:8px;">Pague via PIX escaneando o QR Code ou copiando o código abaixo.</p>
+        <p style="font-size:11px;color:#555;">Após a compensação, sua inscrição será efetivada em até 2 minutos.</p>
+      </div>
+    </div>
+    <div class="copia" id="pix-code">Gerando código PIX…</div>
+    <button type="button" class="copy-btn" id="copy-btn">Copiar Código PIX</button>
+  </div>
+</div>
+
+<script src="/inscricao-comprovante.js?v=1782581900" defer></script>
+</body>
+</html>
