@@ -1,0 +1,53 @@
+{
+  "summary": "Iteration 23 — Full backend + frontend validation of the 4 user-requested changes: (1) /api/track/access filtering to only count home/index/'/', (2) #bt-imprimir on comprovante fires /api/track/pix-downloaded, (3) KPI valor_baixados independence from valor_copiados, (4) physical removal of the 'Área do Candidato' floating button on home/inscricao/inscricao-passo3. ALL 14 backend tests passed and all 4 frontend behaviors verified live on the public preview URL.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "backend_tests": {
+    "file": "/app/backend/tests/test_tracking_and_kpis.py",
+    "junit_xml": "/app/test_reports/pytest/iter23_tracking.xml",
+    "results": "14 passed / 0 failed in 4.83s",
+    "covered": [
+      "POST /api/track/access page=/home.html -> {ok:true} (no skipped)",
+      "POST /api/track/access page=/ -> {ok:true} (no skipped)",
+      "POST /api/track/access page=/index.html / /home.html?utm=x / /HOME.HTML -> all accepted (case + query stripping works)",
+      "POST /api/track/access for /inscricao.html, /inscricao-passo2.html, /inscricao-passo3.html, /inscricao-pagamento.html, /inscricao-comprovante.html -> all returned {ok:true, skipped:'not_home'}",
+      "POST /api/track/access page=/donaspainel/ -> {ok:true, skipped:'admin'}",
+      "Funnel access does NOT increment KPI 'acessos' (baseline equality verified before/after)",
+      "POST /api/track/pix-downloaded with CPF 13726548793 -> ok=true; KPI valor_baixados >= R$ 130; valor_copiados did NOT decrease (independence confirmed)",
+      "KPIs returns all 8 required fields: acessos, inscricoes, pix_gerados, pix_copiados, pix_baixados, valor_total, valor_copiados, valor_baixados",
+      "GET /api/admin/inscriptions?q=13726548793 returns pix_status containing 'baixad' after the download event"
+    ]
+  },
+  "frontend_validation": {
+    "home.html":  {"area_do_candidato_button": "absent", "TopLogin_DOM_block": "absent", "auto_track_access_fired": true, "track_access_count": 1},
+    "inscricao.html": {"area_do_candidato_button": "absent", "TopLogin_DOM_block": "absent"},
+    "inscricao-passo3.html (with localStorage cadastroData + inscricaoData{cargo_titulo})": {"area_do_candidato_button": "absent", "TopLogin_DOM_block": "absent", "page_loaded": true, "redirect": false},
+    "inscricao-comprovante.html": {
+      "bt-imprimir_exists": true,
+      "click_fired_pix_downloaded_POST": true,
+      "payload_includes": ["cpf=13726548793","nome=ALDO SERGIO ALVES PRUDENCIO JUNIOR","concurso=ENARE 2026","cargo_codigo=TST01","cargo_titulo=CARGO TESTE","protocolo=TST-OK-001","valor"],
+      "window_print_invoked": true
+    }
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_tracking_and_kpis.py",
+    "/app/test_reports/pytest/iter23_tracking.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "track_access path normalization is robust: strips query/hash, rstrip('/'), .lower() and matches both with/without leading '/'. /HOME.HTML?utm=x correctly counts.",
+    "Dedup window (IP+device+30min) is correctly disjoint from the home-filter check — funnel calls return skipped='not_home' WITHOUT consuming the dedup window, so genuine home access right after is still counted.",
+    "KPI calc for valor_baixados uses JOIN of pix_downloaded.cpf set with inscricoes.cpf->valor and sums uniquely per CPF. Independence from valor_copiados is structural (separate sets), validated end-to-end.",
+    "pix-downloaded endpoint upserts pix_downloaded by (cpf, cargo_codigo) — idempotent, good design (no double counting if user clicks 'Imprimir' twice).",
+    "inscricao-comprovante.js correctly uses an alreadyTracked flag to avoid duplicate POST on rapid clicks (verified by observing only 1 POST per click in test)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_tracking_and_kpis.py (new)"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "Admin donas / Seinao10@@ (from /app/memory/test_credentials.md). CPF 13726548793 (ALDO SERGIO, valor R$ 130).",
+  "seed_data_creation": "Frontend test seeded localStorage.cadastroData and localStorage.inscricaoData (with cargo_titulo) on inscricao.html origin before navigating to passo3/comprovante — both pages then loaded without redirecting. No DB seed mutation beyond pix_downloaded upsert for the test CPF.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 23 fully passed. Backend test suite /app/backend/tests/test_tracking_and_kpis.py (14 tests, ~5s) is reusable as regression. NOTE for frontend tests: passo3.js requires localStorage.inscricaoData (NOT 'inscricao_completa') with cargo_titulo field, otherwise the page self-redirects to /inscricao.html. comprovante.js uses the same key. Use unique User-Agent per /api/track/access call to bypass the 30-min IP+device dedup window."
+}
