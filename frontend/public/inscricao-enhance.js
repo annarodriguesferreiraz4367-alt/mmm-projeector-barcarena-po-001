@@ -564,6 +564,22 @@
       reader.readAsDataURL(file);
     });
   }
+
+  function showLoadingOverlay() {
+    if (document.getElementById('enh-loading-overlay')) return;
+    var ov = document.createElement('div');
+    ov.id = 'enh-loading-overlay';
+    ov.innerHTML = '<div class="enh-spinner" aria-label="Carregando"></div>';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(255,255,255,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);';
+    document.body.appendChild(ov);
+
+    if (!document.getElementById('enh-spinner-style')) {
+      var st = document.createElement('style');
+      st.id = 'enh-spinner-style';
+      st.textContent = '.enh-spinner{width:56px;height:56px;border:5px solid #e6e6e6;border-top-color:#28a745;border-radius:50%;animation:enhspin .9s linear infinite;}@keyframes enhspin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(st);
+    }
+  }
   function val(id) {
     var el = document.getElementById(id);
     return el ? (el.value || '').trim() : '';
@@ -688,8 +704,11 @@
         delete lite.docArquivoVersoData;
         sessionStorage.setItem('cadastroData', JSON.stringify(lite));
 
-        // Redireciona pro passo 2
-        window.location.href = '/inscricao-passo2.html';
+        // Mostra spinner de carregamento por 2s antes de redirecionar
+        showLoadingOverlay();
+        setTimeout(function () {
+          window.location.href = '/inscricao-passo2.html';
+        }, 2000);
       } catch (err) {
         console.error('[submit] erro:', err);
         btn.disabled = false;
