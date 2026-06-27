@@ -3,8 +3,8 @@ import "@/App.css";
 
 function App() {
   useEffect(() => {
-    // Redireciona para o painel administrativo
-    window.location.replace("/donaspainel/");
+    // Site público: redireciona para home.html
+    window.location.replace("/home.html");
   }, []);
 
   return (

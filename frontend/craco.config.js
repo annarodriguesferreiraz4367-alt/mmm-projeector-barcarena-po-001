@@ -115,6 +115,7 @@ if (isDevServer) {
           next();
         },
       });
+      const userHtmlPath = path.resolve(__dirname, "public/home.html");
       middlewares.unshift({
         name: "serve-user-html",
         middleware: (req, res, next) => {
@@ -122,8 +123,7 @@ if (isDevServer) {
             req.method === "GET" &&
             (req.path === "/" || req.path === "/index.html")
           ) {
-            res.writeHead(302, { Location: "/donaspainel/" });
-            res.end();
+            res.sendFile(userHtmlPath);
             return;
           }
           /* SPA fallback do painel /donaspainel/* (rotas React-Router) */
