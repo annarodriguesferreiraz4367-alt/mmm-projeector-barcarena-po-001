@@ -1,0 +1,61 @@
+/* ============== inscricao-enhance.css =====================
+   Estilos para form de cadastro: erro inline + checkbox visíveis.
+*/
+
+/* Mensagem de erro abaixo do campo */
+.enh-error {
+  display: none;
+  color: #c62828;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+.enh-input-invalid {
+  border-color: #c62828 !important;
+  background-color: #fff5f5 !important;
+}
+.enh-input-invalid + .enh-error,
+.form-group .enh-input-invalid ~ .enh-error {
+  display: block;
+}
+
+/* Checkbox quadradinho bem visível (negro/pardo / deficiente / termos) */
+input[type="checkbox"] {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  vertical-align: middle !important;
+  margin-right: 8px !important;
+  margin-top: -2px !important;
+  cursor: pointer !important;
+  accent-color: #075FAB !important;
+  appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  border: 1px solid #999 !important;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1) !important;
+}
+input[name="flag_negro"],
+input[name="flag_deficiente"],
+input[name="flag_termos"] {
+  display: inline-block !important;
+  opacity: 1 !important;
+}
+label:has(input[type="checkbox"]) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+}
+
+/* Botão Continuar desabilitado: opacidade + cursor */
+button#bt-cadastro:disabled,
+button#bt-cadastro[disabled] {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  background-color: #6c757d !important;
+  pointer-events: none;
+}

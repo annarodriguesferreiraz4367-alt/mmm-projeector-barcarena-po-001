@@ -300,3 +300,48 @@ public/
   - Clique em "Inscrição Online" na home navega para `/inscricao.html` (title "Inscrição Online")
   - Página renderiza CADASTRO com campos Nome, CPF, Data Nascimento, Sexo, E-mail, Tipo Documento, RG (Número/Órgão), etc.
   - Nenhuma chamada a domínio externo (cloudflare, agata.selecao.net.br, institutoagata, wa.me) ocorre.
+
+## Padronização do formulário de cadastro (2026-06-27 03:27)
+- Criados `/app/frontend/public/inscricao-enhance.css` e `/app/frontend/public/inscricao-enhance.js` injetados em `inscricao.html`.
+- **Removida CSP** `<meta http-equiv=content-security-policy>` de `home.html` e `inscricao.html` (bloqueava nossos JS/CSS locais).
+- **Comportamentos aplicados**:
+  - Todos os campos zerados ao carregar (CPF `137.265.487-93` hardcoded removido).
+  - Inputs de texto convertidos para **UPPERCASE** automaticamente (exceto e-mail/senha/CPF/data/CEP/telefone que têm máscara própria).
+  - **Máscaras**: CPF (`000.000.000-00`), Data (`DD/MM/AAAA` nos 2 campos), Telefone/Celular (`(00) 00000-0000`), CEP (`00000-000`).
+  - **Validações** com mensagem de erro inline em vermelho abaixo do campo:
+    - CPF (algoritmo brasileiro DV1+DV2)
+    - E-mail (formato válido) e confirmação (igualdade)
+    - Data (DD/MM/AAAA, ano 1900–atual)
+    - Confirmação de data de nascimento (deve bater com a primeira)
+    - CEP (8 dígitos)
+    - Telefone/Celular (10 ou 11 dígitos)
+  - **Nacionalidade**: select `#cnacionalidade_ibge` populado APENAS com `BRASILEIRA` e `ESTRANGEIRA` (em vez dos 200+ países). Input texto redundante `#cnacionalidade` escondido.
+  - **Checkbox** "Declaro ser negro/pardo" + "Declaro ser pessoa com deficiência" + "Termos" agora 18×18px visíveis, com `accent-color:#075FAB`.
+  - **Auto-fill CEP**: `onblur` chama `/api/cep/{cep}` (proxy ViaCEP) → preenche Endereço, Bairro, Estado e Cidade. Cidades carregadas via `/api/ibge/municipios/{uf}`.
+  - **Botão "Continuar"** inicia disabled (cinza + cursor not-allowed) e habilita SOMENTE quando os 20 campos obrigatórios (Nome, CPF, Data×2, Sexo, E-mail×2, Mãe, Nacionalidade, Estado Civil, Escolaridade, CEP, Rua, Número, Bairro, UF, Cidade, Celular, Senha×2, Termos) estão preenchidos e válidos.
+- Validado E2E (Playwright):
+  - CPF `11144477735` → `111.444.777-35` ✅
+  - CPF `11111111111` (inválido) → mensagem "CPF inválido. Verifique os 11 dígitos." ✅
+  - Nome `joao da silva` → `JOAO DA SILVA` ✅
+  - Celular `11987654321` → `(11) 98765-4321` ✅
+  - CEP `30130010` → `30130-010` + endereço/bairro/UF/cidade auto-preenchidos ✅
+  - Nacionalidade dropdown: `[Selecione, BRASILEIRA, ESTRANGEIRA]` ✅
+  - Botão Continuar disabled inicialmente, habilita após preencher tudo ✅
+
+## Tipo Documento com Upload Frente/Verso (2026-06-27 03:41)
+- Select `name=id_tipodoc`: opções alteradas para `[Selecione, RG(1), CNH(2), PASSAPORTE(3)]` (CIN removido).
+- Bloco antigo `.BlocoCamposDoc` (Número, Órgão, UF) ESCONDIDO via JS (`display:none`) — usuário não preenche mais esses campos.
+- Ao escolher um tipo, JS renderiza dinamicamente um card "Upload do documento — {RG|CNH|PASSAPORTE}" com 2 dropzones:
+  - `doc_frente` (Frente do documento)
+  - `doc_verso` (Verso do documento)
+  - `accept="image/*,application/pdf"`
+  - Validação: tipo (jpg/png/webp/heic/pdf) e tamanho (máx 8 MB)
+  - Preview: thumbnail para imagens / ícone PDF + nome do arquivo
+  - Borda verde + ✓ ao carregar válido; mensagem vermelha em caso de erro
+- `getRequiredFields` atualizado: `id_tipodoc`, `doc_frente` e `doc_verso` agora são obrigatórios — botão Continuar só habilita após upload de AMBOS os arquivos.
+- Validado E2E:
+  - Opções: `[Selecione, RG[1], CNH[2], PASSAPORTE[3]]` ✅
+  - Bloco antigo Número/Órgão/UF `display:none` ✅
+  - Upload host `display:none` antes da seleção, `display:block` após ✅
+  - Mudança de tipo atualiza o header ("Upload do documento — RG" → "CNH" → "PASSAPORTE") ✅
+  - `accept` dos inputs: `image/*,application/pdf` ✅
