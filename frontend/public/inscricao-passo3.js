@@ -227,6 +227,14 @@
     setText('cpf',              maskCPF(cad.cpf || ''));
     setText('vaga_localidade',  vagaLoc);
     setText('requisitos',       ins.requisitos || '');
+    // Esconde a linha de requisitos se não houver conteúdo
+    try {
+      var reqEl = document.getElementById('requisitosVagaTelaConfirmacao');
+      if (reqEl && !(ins.requisitos && String(ins.requisitos).trim())) {
+        var parentLi = reqEl.closest('li');
+        if (parentLi) parentLi.style.display = 'none';
+      }
+    } catch(_){}
     setText('numero_inscricao', ins.protocolo || '');
     setText('data_inscricao',   ins.data_inscricao || '');
     setText('valor_inscricao',  valorFmt);
