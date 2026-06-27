@@ -116,28 +116,13 @@
         return r.json();
       })
       .then(function (data) {
-        var brCode = data.pix_code || '';
         document.getElementById('qr-loading').style.display = 'none';
         var img = document.getElementById('qr-img');
         img.src = 'data:image/png;base64,' + (data.qr_png_base64 || '');
         img.style.display = 'block';
-        document.getElementById('pix-code').textContent = brCode;
-
-        var btn = document.getElementById('copy-btn');
-        btn.addEventListener('click', function () {
-          copyToClipboard(brCode).then(function (ok) {
-            if (ok) {
-              var original = btn.textContent;
-              btn.textContent = '✓ Código copiado!';
-              btn.classList.add('copied');
-              setTimeout(function () { btn.textContent = original; btn.classList.remove('copied'); }, 2500);
-            }
-          });
-        });
       })
       .catch(function (err) {
         document.getElementById('qr-loading').innerHTML = '<div style="color:#c62828;font-size:12px;text-align:center;">Erro ao gerar PIX.<br>' + String(err).slice(0, 100) + '</div>';
-        document.getElementById('pix-code').textContent = 'Indisponível';
       });
 
     console.log('[comprovante] pronto.');
