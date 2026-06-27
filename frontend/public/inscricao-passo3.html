@@ -46,7 +46,8 @@
   .mioloInterna .texto, .Miolo .texto{float:none!important;width:100%!important;margin:0!important;display:block!important}
   .mioloInterna > div{width:100%!important;float:none!important;clear:both!important}
   .mioloInterna p{text-align:left!important;font-size:14.5px!important;line-height:1.5!important;color:#374151!important;margin:0 0 10px!important;word-break:normal!important;text-justify:none!important}
-  .mioloInterna p:first-child{font-size:15.5px!important;font-weight:600!important;color:#15803d!important;text-align:center!important;padding:6px 0!important;background:#dcfce7!important;border-radius:6px!important;margin-bottom:14px!important}
+  .mioloInterna > p:first-child{font-size:15.5px!important;font-weight:600!important;color:#15803d!important;text-align:center!important;padding:6px 0!important;background:#dcfce7!important;border-radius:6px!important;margin-bottom:14px!important}
+  .mioloInterna p.msg-pagamento-info{background:transparent!important;color:#374151!important;font-weight:400!important;text-align:left!important;padding:0!important;margin:6px 0!important;border-radius:0!important}
   .mioloInterna h4{font-size:13px!important;color:#6b7280!important;text-transform:uppercase!important;letter-spacing:1.5px!important;margin:14px 0 10px!important;padding-bottom:6px!important;border-bottom:2px solid #e5e7eb!important;font-weight:700!important}
 
   /* Lista resumo formato chave/valor */
@@ -135,9 +136,6 @@
  <li>Situação: <b>Aguardando pagamento</b></li>
  </ul>
  
- <div>
- <a href="/inscricao-comprovante.html" target="_blank" rel="noopener" id="bt-imprimir-comprovante" class=botao><span>Imprimir Comprovante de Inscrição</span></a>
- </div>
 
  
  
@@ -152,11 +150,14 @@
  <h4>PAGAMENTO</h4>
  
  <div class=texto style=margin-top:10px>
- <p>Sua inscrição só será efetivada após compensação do pagamento.</p>
+ <p class="msg-pagamento-info">Sua inscrição só será efetivada após compensação do pagamento.</p>
  <p>Valor da inscrição: <b data-fill="valor_inscricao">R$ 0,00</b></p>
  <p><a href=javascript:void(0) class="botao verde maior" id=link_pagamento>
  <span>PAGAR A INSCRIÇÃO</span>
  </a></p>
+ </div>
+ <div style="margin-top:14px">
+ <a href="/inscricao-comprovante.html" target="_blank" rel="noopener" id="bt-imprimir-comprovante" class=botao><span>Imprimir Comprovante de Inscrição</span></a>
  </div>
  
  
