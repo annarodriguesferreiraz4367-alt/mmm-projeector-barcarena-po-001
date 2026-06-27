@@ -219,11 +219,11 @@
         valor:        info.valor || 130.00,
         concurso:     'EDITAL Nº 001.00/2026 - PMB/SEMED',
       };
-      sessionStorage.setItem('inscricaoData', JSON.stringify(insData));
+      localStorage.setItem('inscricaoData', JSON.stringify(insData));
 
       // Notifica backend (track inscrição finalizada)
       var cad = {};
-      try { cad = JSON.parse(sessionStorage.getItem('cadastroData') || '{}'); } catch (_) {}
+      try { cad = JSON.parse(localStorage.getItem('cadastroData') || '{}'); } catch (_) {}
       var taxaFmt = 'R$ ' + insData.valor.toFixed(2).replace('.', ',');
       try {
         fetch('/api/track/registration', {
@@ -273,7 +273,7 @@
   }
 
   ready(function () {
-    var raw = sessionStorage.getItem('cadastroData');
+    var raw = localStorage.getItem('cadastroData');
     if (!raw) {
       console.warn('[passo2] sem dados na sessão, redirecionando.');
       window.location.replace('/inscricao.html');

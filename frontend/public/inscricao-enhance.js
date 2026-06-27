@@ -702,7 +702,7 @@
         var lite = Object.assign({}, fd);
         delete lite.docArquivoData;
         delete lite.docArquivoVersoData;
-        sessionStorage.setItem('cadastroData', JSON.stringify(lite));
+        localStorage.setItem('cadastroData', JSON.stringify(lite));
 
         // Mostra spinner de carregamento por 2s antes de redirecionar
         showLoadingOverlay();

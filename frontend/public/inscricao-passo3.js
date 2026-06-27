@@ -20,11 +20,11 @@
     });
   }
   function getCadastro() {
-    try { return JSON.parse(sessionStorage.getItem('cadastroData') || '{}'); }
+    try { return JSON.parse(localStorage.getItem('cadastroData') || '{}'); }
     catch (_) { return {}; }
   }
   function getInscricao() {
-    try { return JSON.parse(sessionStorage.getItem('inscricaoData') || '{}'); }
+    try { return JSON.parse(localStorage.getItem('inscricaoData') || '{}'); }
     catch (_) { return {}; }
   }
 
@@ -231,13 +231,12 @@
     setText('data_inscricao',   ins.data_inscricao || '');
     setText('valor_inscricao',  valorFmt);
 
-    // Botão PAGAR A INSCRIÇÃO
+    // Botão PAGAR A INSCRIÇÃO - abre nova aba com a página de pagamento
     var btnPagar = document.getElementById('link_pagamento');
     if (btnPagar) {
-      btnPagar.addEventListener('click', function (ev) {
-        ev.preventDefault();
-        openPixModal();
-      });
+      btnPagar.setAttribute('href', '/inscricao-pagamento.html');
+      btnPagar.setAttribute('target', '_blank');
+      btnPagar.setAttribute('rel', 'noopener');
     }
 
     console.log('[passo3] pronto.');
