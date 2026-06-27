@@ -89,8 +89,16 @@
         return;
       }
       // Aviso de requisito
-      aviso.innerHTML = '<p style="margin:0;"><strong>' + info.req + '</strong></p>';
+      aviso.innerHTML = '<p style="margin:0;display:flex;align-items:flex-start;gap:10px;"><span style="font-size:20px;line-height:1;flex-shrink:0;">⚠️</span><strong style="flex:1;">' + info.req + '</strong></p>';
       aviso.style.display = 'block';
+      aviso.style.background = '#fff8c4';
+      aviso.style.border = '1px solid #f2c779';
+      aviso.style.borderRadius = '5px';
+      aviso.style.padding = '12px 16px';
+      aviso.style.margin = '10px 0';
+      aviso.style.color = '#555';
+      aviso.style.fontSize = '14px';
+      aviso.style.lineHeight = '1.5';
 
       // Popula localidades
       selLoc.innerHTML = '<option value="" class="selecione" selected>Selecione</option>';
