@@ -171,7 +171,7 @@
       + '</div>'
       + '<div class="botoes" style="text-align:right;margin-top:20px;">'
       +   '<a href="/inscricao.html" id="bt-cancelar" style="margin-right:15px;color:#337ab7;">Cancelar</a>'
-      +   '<a href="#" id="bt-continuar" class="botao verde maior" data-disabled="1" style="display:inline-block;padding:10px 24px;background:#999;color:#fff;text-decoration:none;border-radius:4px;font-weight:600;pointer-events:none;opacity:0.6;cursor:not-allowed;"><span>CONTINUAR</span></a>'
+      +   '<a href="#" id="bt-continuar" data-disabled="1" style="display:inline-block;padding:10px 24px;background:#999;color:#fff;text-decoration:none;border-radius:4px;font-weight:700;font-size:14px;letter-spacing:.5px;line-height:1.2;min-height:0;height:auto;pointer-events:none;opacity:0.6;cursor:not-allowed;border:none;text-transform:uppercase;box-shadow:none;vertical-align:middle;"><span style="display:inline;padding:0;border:none;">CONTINUAR</span></a>'
       + '</div>';
     o.style.display = 'block';
 
