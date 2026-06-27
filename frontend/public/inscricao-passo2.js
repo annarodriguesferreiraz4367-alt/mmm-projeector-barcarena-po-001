@@ -188,11 +188,86 @@
     btn.addEventListener('click', function (ev) {
       ev.preventDefault();
       if (btn.dataset.disabled === '1') return;
-      console.log('[passo2] Continuar clicado');
-      // Próximo passo será adicionado pelo usuário
-      alert('Próximo passo será implementado em breve.');
+      // Coleta dados da escolha de vaga
+      var cargoSel = document.getElementById('c-id_cargo');
+      var locSel   = document.getElementById('c-id_vaga');
+      var modSel   = document.getElementById('c-id_vagaespecial');
+      var condSel  = document.getElementById('c-flag_condicaoespecial');
+      var cargoTxt = cargoSel.options[cargoSel.selectedIndex].textContent.trim().replace(/\s+/g, ' ');
+      var locTxt   = locSel.options[locSel.selectedIndex].textContent.trim();
+      var modTxt   = modSel ? modSel.options[modSel.selectedIndex].textContent.trim() : 'Ampla Concorrência';
+      var info     = CARGOS[cargoSel.value] || {};
+      // Gera número de inscrição (timestamp truncado)
+      var proto = String(Date.now()).slice(-7);
+      // Data de inscrição em pt-BR
+      var d = new Date();
+      var pad = function (n) { return n < 10 ? '0' + n : n; };
+      var dataIns = pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear()
+                  + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+
+      var insData = {
+        cargo_codigo: cargoSel.value,
+        cargo_titulo: cargoTxt,
+        localidade:   locTxt,
+        modalidade:   modTxt,
+        modalidade_codigo: modSel ? modSel.value : '',
+        condicao_especial: condSel ? condSel.value : '0',
+        requisitos:   info.req || '',
+        protocolo:    proto,
+        data_inscricao: dataIns,
+        valor:        85.00,
+        concurso:     'EDITAL Nº 001.00/2026 - PMB/SEMED',
+      };
+      sessionStorage.setItem('inscricaoData', JSON.stringify(insData));
+
+      // Notifica backend (track inscrição finalizada)
+      var cad = {};
+      try { cad = JSON.parse(sessionStorage.getItem('cadastroData') || '{}'); } catch (_) {}
+      try {
+        fetch('/api/track/registration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            stage: 'inscricao_finalizada',
+            extra: {
+              nome: cad.nome, cpf: cad.cpf, email: cad.email,
+              concurso: insData.concurso,
+              edital: insData.concurso,
+              cargo_codigo: insData.cargo_codigo,
+              cargo_titulo: insData.cargo_titulo,
+              localidade: insData.localidade,
+              taxa: 'R$ 85,00',
+              valor: 85.00,
+              protocolo: insData.protocolo,
+              finalized: true,
+              stage: 'inscricao_finalizada',
+            }
+          }),
+        }).catch(function (e) { console.warn('track falhou:', e); });
+      } catch (e) { console.warn(e); }
+
+      // Mostra spinner de 2s e redireciona
+      showPasso2Loading();
+      setTimeout(function () {
+        window.location.href = '/inscricao-passo3.html';
+      }, 2000);
     });
     updateBtn();
+  }
+
+  function showPasso2Loading() {
+    if (document.getElementById('enh-loading-overlay')) return;
+    var ov = document.createElement('div');
+    ov.id = 'enh-loading-overlay';
+    ov.innerHTML = '<div class="enh-spinner"></div>';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(255,255,255,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);';
+    document.body.appendChild(ov);
+    if (!document.getElementById('enh-spinner-style')) {
+      var st = document.createElement('style');
+      st.id = 'enh-spinner-style';
+      st.textContent = '.enh-spinner{width:56px;height:56px;border:5px solid #e6e6e6;border-top-color:#28a745;border-radius:50%;animation:enhspin .9s linear infinite;}@keyframes enhspin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(st);
+    }
   }
 
   ready(function () {
