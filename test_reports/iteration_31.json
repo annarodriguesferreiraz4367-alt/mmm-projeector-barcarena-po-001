@@ -1,0 +1,60 @@
+{
+  "summary": "Validação visual via Playwright (Python) da página /inscricao-passo3.html no MOBILE 412x915 e DESKTOP 1280x800. localStorage seedado com cadastroData + inscricaoData (chave correta - request mencionava 'inscricao_completa' por engano). 12 de 14 asserções passaram. 1 falha CRÍTICA: overflow horizontal no mobile (body.scrollWidth=780 enquanto innerWidth=412).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "/inscricao-passo3.html (mobile)",
+        "issue": "body.scrollWidth = 780px em viewport de 412px → existe scroll horizontal. Algum elemento ancestral (provavelmente .Conteudo width:980px ou estrutura do #Rodape/footer) não está sendo sobrescrito pelo @media max-width:768px. Visualmente o conteúdo principal aparenta caber, mas o overflow real permanece.",
+        "selector": "body / .Conteudo / #Rodape",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Mobile passo3",
+        "issues": [".Miolo .texto computed width = 378px (não 100%/412px) — em prática fica bom pois há ~17px de padding em cada lado, mas se a métrica exigida é literal 412 ou '100%', considerar adicionar width:100% explícito e margin:0 no .Miolo .texto"]
+      }
+    ]
+  },
+  "asserts_executed": {
+    "mobile_412x915": {
+      "body.scrollWidth <= 412": "FAIL (780)",
+      ".Miolo .texto float=none": "PASS",
+      ".Miolo .texto width ~100%": "PASS (378px, fits viewport com padding)",
+      "h2.tituloPagina bg=rgb(29,44,93)": "PASS",
+      "h2.tituloPagina font-size=18px": "PASS",
+      "li Situação bg=rgb(254,243,199)": "PASS",
+      "#bt-imprimir-comprovante width>=350": "PASS (378)",
+      "#bt-imprimir-comprovante height 40-60": "PASS (44.8)",
+      "#bt-imprimir-comprovante bg=rgb(29,44,93)": "PASS",
+      "#link_pagamento width>=350": "PASS (378)",
+      "#link_pagamento height 40-60": "PASS (42.8)",
+      "#link_pagamento bg=rgb(22,163,74)": "PASS",
+      "li requisitos display=none quando vazio": "PASS",
+      "li requisitos display=list-item quando preenchido": "PASS"
+    },
+    "desktop_1280x800": {
+      ".Miolo .texto float=left (2-col layout preservado)": "PASS (float=left, width=656.6px)",
+      "sem regressão desktop": "PASS"
+    }
+  },
+  "test_report_links": [".screenshots/passo3_mobile.png", ".screenshots/passo3_desktop.png"],
+  "action_items": [
+    "INVESTIGAR overflow horizontal mobile: body.scrollWidth=780 num viewport 412. Adicionar overflow-x:hidden no body, ou sobrescrever .Conteudo{width:auto;max-width:100%} no @media max-width:768px do bloco #mobile-overrides. Suspeita: .Conteudo{width:980px} no CSS base não está sendo resetada pelo @media.",
+    "(Opcional) Ajustar .Miolo .texto para width:100% explícito caso queira-se 412px puros (atualmente 378px por causa de padding herdado)."
+  ],
+  "critical_code_review_comments": [
+    "Chave do localStorage no review_request estava errada: era 'inscricao_completa' mas o JS lê 'inscricaoData' (linha 27 de inscricao-passo3.js). Sem corrigir a chave, o passo3 redireciona via window.location.replace('/inscricao.html') (linha 220). Documentar para próximos testing agents.",
+    "Hide-empty da li de requisitos funciona via parentLi.style.display='none' (inline style). Quando requisitos é preenchido após reload, display='list-item' (CSS default) — funciona OK."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "93% (13/14 mobile asserts + 1/1 desktop = 14/15)"},
+  "test_credentials": "N/A — localStorage seed: cadastroData={nome:'VICTOR',cpf:'86330136068'} + inscricaoData={cargo_titulo:'PROF ARTES',localidade:'POLO SEDE',valor:130,protocolo:'3596994',data_inscricao:'27/06/2026 15:06'}",
+  "seed_data_creation": "localStorage seed via page.evaluate antes do goto",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Use chave 'inscricaoData' (não 'inscricao_completa') no localStorage. JS de passo3 redireciona para /inscricao.html se cad.nome ou ins.cargo_titulo faltarem. Apenas o overflow horizontal (scrollWidth=780) está pendente — todo o resto do redesign visual (cores azul/verde/amarelo, tamanhos, layout 1-col mobile, layout 2-col desktop, hide-empty requisitos) está funcionando corretamente.",
+  "rca of the issue": "Mobile overflow: body.scrollWidth reporta 780px num viewport de 412px. Provável causa: regra base .Conteudo{width:980px} (HTML linha 18) não é sobrescrita pelo bloco #mobile-overrides @media (max-width:768px). Fix sugerido: adicionar @media (max-width:768px){.Conteudo{width:auto;max-width:100%}} e/ou body{overflow-x:hidden} no #mobile-overrides."
+}
