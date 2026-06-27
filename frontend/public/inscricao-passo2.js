@@ -75,10 +75,12 @@
     sel.selectedIndex = 0;
     aviso.style.display = 'none';
     blocoLoc.style.display = 'none';
+    hideModalidadeBlock();
 
     sel.addEventListener('change', function () {
       var v = sel.value;
       var info = CARGOS[v];
+      hideModalidadeBlock();
       if (!info) {
         aviso.style.display = 'none';
         aviso.innerHTML = '';
@@ -100,6 +102,97 @@
       });
       blocoLoc.style.display = 'block';
     });
+
+    // Quando localidade é escolhida → mostra Modalidade + Termos + Continuar
+    selLoc.addEventListener('change', function () {
+      if (selLoc.value) {
+        showModalidadeBlock();
+      } else {
+        hideModalidadeBlock();
+      }
+    });
+  }
+
+  function hideModalidadeBlock() {
+    var b = document.getElementById('blocoModalidadeConcorrencia');
+    var o = document.getElementById('opcoesInscricao');
+    if (b) { b.style.display = 'none'; b.innerHTML = ''; }
+    if (o) { o.style.display = 'none'; o.innerHTML = ''; }
+  }
+
+  function showModalidadeBlock() {
+    var b = document.getElementById('blocoModalidadeConcorrencia');
+    var o = document.getElementById('opcoesInscricao');
+    if (!b || !o) return;
+
+    // 1) Modalidade de Concorrência (Ampla pré-selecionada)
+    b.innerHTML = ''
+      + '<div class="tipoModalidade">'
+      +   '<label for="c-id_vagaespecial" style="font-weight:500;">Modalidade de Concorrência:</label>'
+      +   '<span class="select texto">'
+      +     '<select name="id_vagaespecial" id="c-id_vagaespecial">'
+      +       '<option value="" class="amplaconcorrencia" selected>Ampla Concorrência</option>'
+      +       '<option value="665">PcD - Pessoa com Deficiência</option>'
+      +     '</select>'
+      +   '</span>'
+      + '</div>';
+    b.style.display = 'block';
+
+    // 2) Condições Especiais + Termos + Botões (no opcoesInscricao)
+    o.innerHTML = ''
+      + '<div class="blocoPadrao">'
+      +   '<h3><span>Condições Especiais para Realização de Prova</span></h3>'
+      +   '<fieldset>'
+      +     '<div class="item" id="selectcondicaoespecial">'
+      +       '<label for="c-flag_condicaoespecial" style="font-weight:500;">Necessita de condição especial?</label>'
+      +       '<span class="select texto">'
+      +         '<select name="flag_condicaoespecial" id="c-flag_condicaoespecial">'
+      +           '<option value="0" selected>Não</option>'
+      +           '<option value="1">Sim</option>'
+      +         '</select>'
+      +       '</span>'
+      +     '</div>'
+      +   '</fieldset>'
+      + '</div>'
+      + '<div id="termosSite" style="padding:20px;background:#f7f7f7;border-radius:6px;margin:20px 0;">'
+      +   '<label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:13px;line-height:1.5;">'
+      +     '<input type="checkbox" name="termos" id="c-termos" value="1" style="margin-top:3px;flex-shrink:0;">'
+      +     '<span>Aceito os termos do Edital de abertura, declaro que consinto que meus dados pessoais, sensíveis ou não, sejam tratados e processados possibilitando a divulgação em listagens e resultados no decorrer do certame, tais como nome, data de nascimento e aqueles relativos às notas e ao desempenho nas avaliações, entre outros, tendo em vista que essas informações são essenciais para o fiel cumprimento da publicidade dos atos atinentes ao Processo, não cabendo reclamações posteriores de minha parte neste sentido. Ainda, declaro estar ciente de que, possivelmente, os resultados da seleção pública poderão ser encontrados na rede mundial de computadores, por meio dos mecanismos de busca atualmente existentes. Manifesto ainda, a concordância com o tratamento de meus dados pessoais pelo Instituto de Desenvolvimento Social Ágata, bem como o compartilhamento destes com o contratante.</span>'
+      +   '</label>'
+      + '</div>'
+      + '<div class="botoes" style="text-align:right;margin-top:20px;">'
+      +   '<a href="/inscricao.html" id="bt-cancelar" style="margin-right:15px;color:#337ab7;">Cancelar</a>'
+      +   '<a href="#" id="bt-continuar" class="botao verde maior" data-disabled="1" style="display:inline-block;padding:10px 24px;background:#999;color:#fff;text-decoration:none;border-radius:4px;font-weight:600;pointer-events:none;opacity:0.6;cursor:not-allowed;"><span>CONTINUAR</span></a>'
+      + '</div>';
+    o.style.display = 'block';
+
+    // Wire-up: habilita Continuar somente quando termos marcado
+    var chk = document.getElementById('c-termos');
+    var btn = document.getElementById('bt-continuar');
+    function updateBtn() {
+      if (chk.checked) {
+        btn.dataset.disabled = '0';
+        btn.style.background = '#28a745';
+        btn.style.pointerEvents = 'auto';
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      } else {
+        btn.dataset.disabled = '1';
+        btn.style.background = '#999';
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'not-allowed';
+      }
+    }
+    chk.addEventListener('change', updateBtn);
+    btn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      if (btn.dataset.disabled === '1') return;
+      console.log('[passo2] Continuar clicado');
+      // Próximo passo será adicionado pelo usuário
+      alert('Próximo passo será implementado em breve.');
+    });
+    updateBtn();
   }
 
   ready(function () {
