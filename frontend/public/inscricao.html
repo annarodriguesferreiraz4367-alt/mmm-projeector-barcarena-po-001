@@ -573,5 +573,31 @@
 </script>
 
 <script src="/inscricao-enhance.js?v=1782581800"></script>
+<script id="mobile-remove-widgets">
+(function(){
+  function removeWidgets(){
+    if (window.innerWidth > 768) return;
+    try {
+      // WhatsApp icon
+      var wa = document.getElementById('icon-whatsapp');
+      if (wa && wa.parentElement) wa.parentElement.remove();
+      // VLibras (div with vw attribute and its plugin wrapper)
+      document.querySelectorAll('div[vw], div[vw-plugin-wrapper], div[vw-plugin-top-wrapper], div[vw-plugin-bottom-wrapper]').forEach(function(el){el.remove();});
+      // Acessibility floating button if any
+      document.querySelectorAll('[vw-access-button]').forEach(function(el){
+        var p = el.closest('div[vw]') || el; p.remove();
+      });
+    } catch(_) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', removeWidgets);
+  } else {
+    removeWidgets();
+  }
+  // Roda de novo após pequeno delay caso elementos sejam injetados depois
+  setTimeout(removeWidgets, 300);
+  setTimeout(removeWidgets, 1500);
+})();
+</script>
 </body>
 </html>

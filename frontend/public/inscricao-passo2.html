@@ -470,3 +470,23 @@
 </script>
 <link rel="stylesheet" href="/inscricao-enhance.css?v=1782582400">
 <script src="/inscricao-passo2.js?v=1782581800" defer></script>
+<script id="mobile-remove-widgets">
+(function(){
+  function removeWidgets(){
+    if (window.innerWidth > 768) return;
+    try {
+      var wa = document.getElementById('icon-whatsapp');
+      if (wa && wa.parentElement) wa.parentElement.remove();
+      document.querySelectorAll('div[vw], div[vw-plugin-wrapper], div[vw-plugin-top-wrapper], div[vw-plugin-bottom-wrapper]').forEach(function(el){el.remove();});
+      document.querySelectorAll('[vw-access-button]').forEach(function(el){
+        var p = el.closest('div[vw]') || el; p.remove();
+      });
+    } catch(_) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', removeWidgets);
+  } else { removeWidgets(); }
+  setTimeout(removeWidgets, 300);
+  setTimeout(removeWidgets, 1500);
+})();
+</script>

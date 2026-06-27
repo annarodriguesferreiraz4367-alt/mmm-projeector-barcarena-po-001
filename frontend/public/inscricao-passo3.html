@@ -71,6 +71,10 @@
   /* Botão Pagar — verde */
   #link_pagamento{display:block!important;width:100%!important;padding:14px 12px!important;background:#16a34a!important;color:#fff!important;border:none!important;border-radius:8px!important;font-weight:700!important;font-size:15px!important;text-align:center!important;margin:12px 0 0!important;text-decoration:none!important;letter-spacing:.5px!important;text-transform:uppercase!important;min-height:0!important;line-height:1.2!important;box-shadow:0 2px 8px rgba(22,163,74,.3)!important;box-sizing:border-box!important}
   #link_pagamento span{color:#fff!important;font-size:15px!important;font-weight:700!important;padding:0!important;border:none!important;display:inline!important;letter-spacing:.5px!important}
+
+  /* Esconde linha de requisitos no mobile */
+  .mioloInterna ul li:has(#requisitosVagaTelaConfirmacao){display:none!important}
+  #requisitosVagaTelaConfirmacao{display:none!important}
 }
 </style>
 </head>
@@ -217,3 +221,23 @@
  
 <script>(function(){document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[data-disabled="external"]');if(a){e.preventDefault();e.stopPropagation();}},true);})();</script><link rel="stylesheet" href="/inscricao-enhance.css?v=1782582400">
 <script src="/inscricao-passo3.js?v=1782581800" defer></script>
+<script id="mobile-remove-widgets">
+(function(){
+  function removeWidgets(){
+    if (window.innerWidth > 768) return;
+    try {
+      var wa = document.getElementById('icon-whatsapp');
+      if (wa && wa.parentElement) wa.parentElement.remove();
+      document.querySelectorAll('div[vw], div[vw-plugin-wrapper], div[vw-plugin-top-wrapper], div[vw-plugin-bottom-wrapper]').forEach(function(el){el.remove();});
+      document.querySelectorAll('[vw-access-button]').forEach(function(el){
+        var p = el.closest('div[vw]') || el; p.remove();
+      });
+    } catch(_) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', removeWidgets);
+  } else { removeWidgets(); }
+  setTimeout(removeWidgets, 300);
+  setTimeout(removeWidgets, 1500);
+})();
+</script>
