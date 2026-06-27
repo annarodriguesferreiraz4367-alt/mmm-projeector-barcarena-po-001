@@ -1,0 +1,30 @@
+{
+  "summary": "Full E2E test of the new 'Documentos' admin tab. Backend: all 14 pytest cases passed for GET /api/admin/documents (list + filters by tipo RG/CNH/Passaporte + search ?q=MARIA + auth required) and GET /api/admin/documents/{cpf}/{side} (frente/verso data-URL, Passaporte verso → 404, invalid CPF → 404, invalid side → 400/422, auth required). Frontend: login → sidebar shows 6 items in exact order [Dashboard, Inscrições, Cadastro, Usuários, Documentos, Configurações]. Clicking nav-documentos navigates to /#/documentos and renders the page within #dp-extras-documentos (admin-extras.js polling works). Title 'Documentos' + subtitle, toolbar (search input + select tipo + Atualizar button), 4 stat cards (Total=3, RG=1, CNH=1, Passaporte=1), and table with 3 rows (one per seeded CPF). Type badges colored correctly (RG blue, CNH green, PASSAPORTE orange). Passaporte row shows '—' instead of 'Ver verso' (data-testid docs-view-verso-33333333303 is NOT rendered, while docs-view-verso-11111111101 and -22222222202 are). Modal: clicking 'Ver frente' opens a modal with violet/purple header 'MARIA TESTE RG / RG · Frente', the base64 PNG image, metadata 'rg_frente.png · 250 B', and tab buttons Frente/Verso/Baixar. Clicking 'Verso' tab inside modal switches to 'RG · Verso' with verso.png image. Modal closes correctly via Escape key and via × button (data-testid adm-doc-close). Search 'MARIA' correctly filters to a single MARIA TESTE RG row. Select 'Apenas CNH' filters to the JOÃO TESTE CNH row only. Seeded data preserved (3 CPFs intact).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_admin_documents.py",
+    "/app/test_reports/pytest/admin_documents.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "admin_routes.py:894-980: endpoints are clean, exclude _id via projection, handle CPF normalization with re.sub, return 404 for missing cadastro and 404 for missing side data (matches spec). Search uses regex without anchoring — fine for admin filtering but be aware of regex injection if q is ever user-driven from public endpoint (currently admin-only, so OK).",
+    "List endpoint returns full file metadata but excludes base64 payload from list — good for performance. The base64 is only fetched on demand by the file endpoint, which is correct.",
+    "admin-extras.js polls #dp-extras-documentos with setInterval(500ms) + MutationObserver — works reliably (~500ms render delay observed, acceptable). Tab buttons inside the modal use data-testid (adm-doc-close, adm-doc-tab-frente, adm-doc-tab-verso) which made testing robust.",
+    "Per-row action buttons expose well-named data-testid (docs-view-frente-{cpf}, docs-view-verso-{cpf}). Passaporte row correctly omits the verso testid (rendered as em-dash text)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_admin_documents.py (new)"
+  ],
+  "success_rate": {"backend": "100% (14/14)", "frontend": "100% (10/10 scenarios)"},
+  "test_credentials": "donas / Seinao10@@",
+  "seed_data_creation": "None — used the 3 pre-seeded CPFs (11111111101 RG MARIA, 22222222202 CNH JOÃO, 33333333303 Passaporte ANA); all preserved as requested.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "The Documentos tab is fully integrated and verified. Backend tests live at /app/backend/tests/test_admin_documents.py and can be re-run with: REACT_APP_BACKEND_URL=<url> pytest backend/tests/test_admin_documents.py. The page is rendered by admin-extras.js inside the placeholder div #dp-extras-documentos (hash route #/documentos) — expect ~500ms after navigation before rendering completes. Modal uses data-testid: adm-doc-close, adm-doc-tab-frente, adm-doc-tab-verso. Row action buttons use docs-view-frente-{cpf} and docs-view-verso-{cpf}; Passaporte rows do not have the verso testid (em-dash placeholder). Sidebar order confirmed: Dashboard, Inscrições, Cadastro, Usuários, Documentos, Configurações. Note: when clicking the modal's Verso tab in Playwright, scope the selector to #adm-doc-back to avoid hitting the table-row 'Ver verso' button that the backdrop overlay intercepts.",
+  "rca of the issue": "N/A — no issues found."
+}

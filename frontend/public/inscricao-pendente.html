@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Inscrição Pendente de Pagamento — PND</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#f3f5f7;font-family:'Segoe UI', Roboto, system-ui, sans-serif;color:#2b2b2b;min-height:100vh;}
+  a{color:inherit;text-decoration:none;}
+  /* ---- Header ---- */
+  .pnd-topbar{background:#fff;border-bottom:1px solid #e5e9ee;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
+  .pnd-topbar .left{display:flex;align-items:center;gap:14px;}
+  .pnd-logo{height:42px;}
+  .pnd-logo-text{font-size:11px;color:#1f3a5f;line-height:1.25;font-weight:600;letter-spacing:.2px;}
+  .pnd-logo-text strong{display:block;font-size:11px;}
+  .pnd-system{display:flex;align-items:center;gap:6px;color:#1f3a5f;font-size:18px;letter-spacing:.5px;}
+  .pnd-system b{font-weight:800;color:#075FAB;font-size:22px;}
+  .pnd-topbar .right{width:170px;text-align:right;}
+  /* ---- Banner ---- */
+  .pnd-banner{background:linear-gradient(180deg,#eaf2fa 0%,#dde8f5 100%);padding:36px 64px 28px;}
+  .pnd-crumbs{font-size:14px;color:#3d4d63;margin-bottom:8px;}
+  .pnd-crumbs span{margin:0 6px;color:#7e8a99;}
+  .pnd-title{font-size:48px;color:#075FAB;font-weight:300;margin:0;letter-spacing:-.5px;}
+  /* ---- Content ---- */
+  .pnd-main{max-width:980px;margin:32px auto 60px;padding:0 24px;}
+  .pnd-card{background:#fff;border-radius:10px;box-shadow:0 4px 24px rgba(15,40,80,.06);overflow:hidden;}
+  .pnd-card-header{background:linear-gradient(90deg,#075FAB,#1f7bff);color:#fff;padding:22px 32px;display:flex;align-items:center;gap:14px;}
+  .pnd-card-header .icon{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;}
+  .pnd-card-header .icon svg{width:22px;height:22px;}
+  .pnd-card-header h2{margin:0;font-size:18px;font-weight:600;}
+  .pnd-card-header .subtitle{font-size:13px;opacity:.85;margin-top:2px;}
+
+  .pnd-status-row{display:flex;align-items:center;gap:14px;padding:18px 32px;background:#fff7e0;border-bottom:1px solid #fbe2a5;}
+  .pnd-status-pill{display:inline-flex;align-items:center;gap:8px;background:#f59e0b;color:#fff;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.2px;}
+  .pnd-status-pill .dot{width:8px;height:8px;border-radius:50%;background:#fff;animation:pnd-pulse 1.4s ease-in-out infinite;}
+  @keyframes pnd-pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .pnd-status-text{color:#7a4f00;font-size:14px;}
+
+  .pnd-card-body{padding:28px 32px;}
+  .pnd-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 28px;margin-bottom:22px;}
+  .pnd-info-item .label{display:block;font-size:12px;text-transform:uppercase;color:#7e8a99;letter-spacing:.6px;margin-bottom:4px;}
+  .pnd-info-item .value{font-size:16px;color:#1f3a5f;font-weight:600;}
+  .pnd-info-item .value.mono{font-family:'JetBrains Mono','Courier New',monospace;letter-spacing:.5px;}
+
+  .pnd-amount-box{background:linear-gradient(180deg,#f6faff,#eaf2fa);border:1px solid #cfdcef;border-radius:10px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap;gap:16px;}
+  .pnd-amount-label{font-size:13px;color:#3d4d63;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+  .pnd-amount-value{font-size:38px;font-weight:700;color:#075FAB;line-height:1;letter-spacing:-1px;}
+  .pnd-amount-value small{font-size:18px;color:#3d4d63;font-weight:500;margin-left:6px;}
+
+  .pnd-pay-btn{background:linear-gradient(90deg,#16a34a,#15803d);color:#fff;border:none;border-radius:8px;padding:14px 28px;font-size:16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 16px rgba(22,163,74,.28);transition:transform .15s ease, box-shadow .15s ease;}
+  .pnd-pay-btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(22,163,74,.34);}
+  .pnd-pay-btn:active{transform:translateY(0);}
+  .pnd-pay-btn svg{width:18px;height:18px;}
+
+  .pnd-notes{margin-top:18px;padding:14px 18px;background:#f7f9fc;border-left:3px solid #1f7bff;border-radius:6px;font-size:13px;color:#3d4d63;line-height:1.55;}
+  .pnd-notes strong{color:#075FAB;}
+
+  .pnd-footer-line{text-align:right;padding:18px 32px 28px;}
+  .pnd-back-btn{background:none;border:1px solid #cfdcef;color:#3d4d63;padding:9px 18px;border-radius:6px;font-size:14px;cursor:pointer;}
+  .pnd-back-btn:hover{background:#f3f5f7;}
+
+  /* Sair button bottom-right (same vibe as in screenshot) */
+  .pnd-sair{position:fixed;bottom:24px;right:24px;background:#1f7bff;color:#fff;padding:10px 22px;border-radius:6px;font-size:15px;cursor:pointer;box-shadow:0 6px 18px rgba(31,123,255,.32);border:none;}
+  .pnd-sair:hover{background:#1665d8;}
+
+  @media (max-width:720px){
+    .pnd-banner{padding:24px;}
+    .pnd-title{font-size:34px;}
+    .pnd-info-grid{grid-template-columns:1fr;}
+    .pnd-amount-box{flex-direction:column;align-items:flex-start;}
+
+    /* Modal Pix — compacto no mobile */
+    .pix-overlay{padding:8px;}
+    .pix-modal{max-height:96vh;border-radius:12px;}
+    .pix-modal-head{padding:12px 14px;gap:10px;}
+    .pix-modal-head .brand{gap:10px;}
+    .pix-modal-head .brand-logo{width:32px;height:32px;flex:0 0 32px;}
+    .pix-modal-head .brand-logo svg{width:18px;height:18px;}
+    .pix-modal-head h3{font-size:15px;line-height:1.2;}
+    .pix-modal-head .subtitle{font-size:11px;margin-top:1px;line-height:1.25;}
+    .pix-modal-close{width:30px;height:30px;flex:0 0 30px;}
+    .pix-modal-close svg{width:15px;height:15px;}
+
+    .pix-modal-body{padding:14px 14px 18px;grid-template-columns:1fr;gap:14px;}
+
+    .pix-info-block .sec-title{font-size:10px;letter-spacing:1px;margin:0 0 8px;}
+    .pix-info-block .sec-title::before{height:11px;}
+    .pix-info-rows{padding:8px 12px;margin-bottom:10px;border-radius:8px;}
+    .pix-info-row{padding:5px 0;flex-direction:column;align-items:flex-start;gap:0;}
+    .pix-info-row .k{font-size:10px;letter-spacing:.5px;flex:0 0 auto;margin-bottom:1px;}
+    .pix-info-row .v{font-size:13px;text-align:left;font-weight:600;line-height:1.3;}
+    .pix-info-row .v.mono{font-size:12px;letter-spacing:0;}
+
+    .pix-amount-card{padding:12px 14px;border-radius:8px;}
+    .pix-amount-card .lbl{font-size:10px;letter-spacing:1px;margin-bottom:2px;}
+    .pix-amount-card .val{font-size:24px;letter-spacing:-.4px;}
+    .pix-amount-card .val small{font-size:11px;}
+
+    .pix-qr-block{}
+    .pix-qr-frame{width:200px;height:200px;padding:10px;border-radius:10px;}
+    .pix-qr-hint{font-size:12px;line-height:1.35;margin:10px 6px 0;}
+
+    .pix-divider{font-size:10px;letter-spacing:1.2px;margin:10px 0 6px;}
+
+    .pix-code-box{padding:8px 10px;font-size:11px;border-radius:6px;max-height:74px;}
+
+    .pix-copy-btn{padding:11px 14px;font-size:14px;border-radius:8px;}
+
+    .pix-instructions{font-size:12px;padding:10px 12px;border-radius:6px;margin-top:10px;line-height:1.4;}
+  }
+
+  /* ---------- PIX PAYMENT MODAL ---------- */
+  .pix-overlay{position:fixed;inset:0;background:rgba(7,30,55,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;animation:pix-fade .2s ease;}
+  .pix-overlay.active{display:flex;}
+  @keyframes pix-fade{from{opacity:0;}to{opacity:1;}}
+  @keyframes pix-rise{from{opacity:0;transform:translateY(20px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+  .pix-modal{background:#fff;width:100%;max-width:880px;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(7,30,55,.32);animation:pix-rise .28s cubic-bezier(.2,.8,.2,1);max-height:94vh;overflow-y:auto;}
+  .pix-modal-head{background:linear-gradient(135deg,#075FAB 0%,#1f7bff 100%);color:#fff;padding:22px 30px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .pix-modal-head .brand{display:flex;align-items:center;gap:14px;}
+  .pix-modal-head .brand-logo{width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+  .pix-modal-head .brand-logo svg{width:24px;height:24px;}
+  .pix-modal-head h3{margin:0;font-size:18px;font-weight:600;letter-spacing:.2px;}
+  .pix-modal-head .subtitle{font-size:12px;opacity:.85;margin-top:2px;}
+  .pix-modal-close{background:rgba(255,255,255,.18);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+  .pix-modal-close:hover{background:rgba(255,255,255,.32);}
+  .pix-modal-close svg{width:18px;height:18px;}
+
+  .pix-modal-body{padding:26px 30px 30px;display:grid;grid-template-columns:1.05fr 1fr;gap:30px;}
+  .pix-info-block{}
+  .pix-info-block .sec-title{font-size:11px;color:#075FAB;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .pix-info-block .sec-title::before{content:"";width:4px;height:14px;background:#1f7bff;border-radius:2px;}
+  .pix-info-rows{background:linear-gradient(180deg,#f7faff,#eef4fc);border:1px solid #d4e3f5;border-radius:10px;padding:16px 18px;margin-bottom:18px;}
+  .pix-info-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px dashed #d4e3f5;}
+  .pix-info-row:last-child{border-bottom:none;}
+  .pix-info-row .k{font-size:11.5px;color:#5b6d83;text-transform:uppercase;letter-spacing:.8px;font-weight:600;flex:0 0 110px;}
+  .pix-info-row .v{font-size:14px;color:#0b2444;font-weight:600;text-align:right;flex:1;word-break:break-word;}
+  .pix-info-row .v.mono{font-family:'JetBrains Mono','Courier New',monospace;letter-spacing:.4px;}
+
+  .pix-amount-card{background:linear-gradient(135deg,#075FAB,#1f7bff);color:#fff;border-radius:10px;padding:18px 20px;box-shadow:0 8px 22px rgba(7,95,171,.24);}
+  .pix-amount-card .lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;opacity:.85;margin-bottom:4px;}
+  .pix-amount-card .val{font-size:34px;font-weight:700;line-height:1;letter-spacing:-.6px;}
+  .pix-amount-card .val small{font-size:14px;font-weight:500;opacity:.85;margin-left:6px;}
+
+  /* QR + copy column */
+  .pix-qr-block{display:flex;flex-direction:column;align-items:center;text-align:center;}
+  .pix-qr-frame{width:240px;height:240px;background:#fff;border:1px solid #d4e3f5;border-radius:14px;padding:14px;box-shadow:0 6px 22px rgba(7,30,55,.08);display:flex;align-items:center;justify-content:center;position:relative;}
+  .pix-qr-frame img{width:100%;height:100%;display:block;}
+  .pix-qr-frame .pix-qr-loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+  .pix-qr-frame .pix-qr-loader .sp{width:46px;height:46px;border:4px solid #d4e3f5;border-top-color:#1f7bff;border-radius:50%;animation:pix-spin .8s linear infinite;}
+  @keyframes pix-spin{to{transform:rotate(360deg);}}
+  .pix-qr-hint{font-size:13px;color:#3d4d63;margin:14px 0 6px;line-height:1.45;}
+  .pix-qr-hint strong{color:#075FAB;}
+  .pix-divider{display:flex;align-items:center;gap:10px;width:100%;margin:16px 0 12px;color:#7e8a99;font-size:12px;text-transform:uppercase;letter-spacing:1px;}
+  .pix-divider::before,.pix-divider::after{content:"";flex:1;height:1px;background:#d4e3f5;}
+
+  .pix-code-box{width:100%;background:#f7faff;border:1px solid #d4e3f5;border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono','Courier New',monospace;font-size:11.5px;color:#0b2444;word-break:break-all;line-height:1.5;max-height:84px;overflow-y:auto;text-align:left;}
+  .pix-copy-btn{margin-top:12px;background:linear-gradient(90deg,#075FAB,#1f7bff);color:#fff;border:none;border-radius:8px;padding:13px 22px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:10px;width:100%;justify-content:center;transition:transform .15s, box-shadow .15s;box-shadow:0 6px 16px rgba(7,95,171,.24);}
+  .pix-copy-btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(7,95,171,.32);}
+  .pix-copy-btn:active{transform:translateY(0);}
+  .pix-copy-btn.copied{background:linear-gradient(90deg,#16a34a,#15803d);box-shadow:0 6px 16px rgba(22,163,74,.28);}
+  .pix-copy-btn svg{width:16px;height:16px;}
+
+  .pix-instructions{grid-column:1 / -1;background:#fff7e0;border-left:3px solid #f59e0b;border-radius:6px;padding:12px 16px;font-size:13px;color:#7a4f00;line-height:1.55;margin-top:6px;}
+  .pix-instructions strong{color:#9a5b00;}
+
+  .pix-error{grid-column:1 / -1;background:#fef2f2;border-left:3px solid #ef4444;border-radius:6px;padding:14px 18px;font-size:13.5px;color:#7f1d1d;line-height:1.55;}
+  .pix-error strong{color:#991b1b;}
+
+  @media (max-width:720px){
+    .pix-modal-body{grid-template-columns:1fr;gap:18px;padding:20px;}
+    .pix-modal-head{padding:18px 20px;}
+    .pix-modal-head h3{font-size:15px;}
+    .pix-qr-frame{width:210px;height:210px;}
+    .pix-info-row{flex-direction:column;align-items:flex-start;}
+    .pix-info-row .v{text-align:left;}
+  }
+</style>
+<link rel="stylesheet" href="/inscricao-mobile.css?v=1782394773" data-mobile-overrides="1"/>
+</head>
+<body>
+
+<!-- Header -->
+<div class="pnd-topbar">
+  <div class="left">
+    <!-- INEP Logo (mini) -->
+    <svg class="pnd-logo" viewBox="0 0 86 50" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#075FAB">
+        <rect x="0" y="6" width="6" height="38"/>
+        <rect x="10" y="6" width="6" height="38"/>
+        <rect x="20" y="6" width="6" height="38"/>
+        <rect x="30" y="6" width="6" height="38"/>
+        <rect x="40" y="6" width="6" height="38"/>
+        <rect x="50" y="6" width="6" height="38"/>
+        <rect x="60" y="6" width="6" height="38"/>
+        <rect x="70" y="6" width="6" height="38"/>
+      </g>
+      <text x="0" y="62" font-family="Arial,sans-serif" font-size="6" fill="#075FAB" font-weight="600">INEP</text>
+    </svg>
+    <div class="pnd-logo-text">
+      <strong>Instituto Nacional de Estudos e Pesquisas</strong>
+      Educacionais Anísio Teixeira
+    </div>
+  </div>
+  <div class="pnd-system">
+    <span>SISTEMA</span><b>PND</b>
+  </div>
+  <div class="right"></div>
+</div>
+
+<!-- Banner -->
+<div class="pnd-banner">
+  <div class="pnd-crumbs">Página Inicial<span>›</span>Inscrição<span>›</span>Inscrição PND</div>
+  <h1 class="pnd-title">Inscrição PND</h1>
+</div>
+
+<!-- Content -->
+<main class="pnd-main">
+  <div class="pnd-card">
+    <div class="pnd-card-header">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <div>
+        <h2>Inscrição Pendente de Pagamento</h2>
+        <div class="subtitle">Edição 2026 — Prova Nacional Docente</div>
+      </div>
+    </div>
+
+    <div class="pnd-status-row">
+      <div class="pnd-status-pill"><span class="dot"></span>Aguardando Pagamento</div>
+      <div class="pnd-status-text">Sua inscrição foi registrada com sucesso. Para confirmá-la, realize o pagamento da taxa de inscrição.</div>
+    </div>
+
+    <div class="pnd-card-body">
+      <div class="pnd-info-grid">
+        <div class="pnd-info-item">
+          <span class="label">Candidato</span>
+          <span class="value" id="pnd-nome">—</span>
+        </div>
+        <div class="pnd-info-item">
+          <span class="label">CPF</span>
+          <span class="value mono" id="pnd-cpf">—</span>
+        </div>
+        <div class="pnd-info-item">
+          <span class="label">Número da Inscrição</span>
+          <span class="value mono" id="pnd-protocolo">—</span>
+        </div>
+        <div class="pnd-info-item">
+          <span class="label">Data da Solicitação</span>
+          <span class="value" id="pnd-data">—</span>
+        </div>
+      </div>
+
+      <div class="pnd-amount-box">
+        <div>
+          <div class="pnd-amount-label">Taxa de Inscrição</div>
+          <div class="pnd-amount-value">R$ 85,00<small> /única</small></div>
+        </div>
+        <button class="pnd-pay-btn" id="pnd-pay-btn" data-testid="btn-pagar-inscricao">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="6" width="20" height="13" rx="2"></rect>
+            <line x1="2" y1="11" x2="22" y2="11"></line>
+          </svg>
+          Pagar Minha Inscrição
+        </button>
+      </div>
+
+      <div class="pnd-notes">
+        <strong>Atenção!</strong> O cartão de confirmação de inscrição ficará disponível para impressão após a confirmação do pagamento da taxa de inscrição.
+      </div>
+    </div>
+
+    <div class="pnd-footer-line">
+      <button class="pnd-back-btn" id="pnd-back-btn" data-testid="btn-voltar-home">Voltar para a página inicial</button>
+    </div>
+  </div>
+</main>
+
+<button class="pnd-sair" data-testid="btn-sair" onclick="window.location.href='/'">Sair</button>
+
+<!-- ===== PIX PAYMENT MODAL ===== -->
+<div class="pix-overlay" id="pix-overlay" role="dialog" aria-modal="true" aria-labelledby="pix-modal-title">
+  <div class="pix-modal" role="document">
+    <div class="pix-modal-head">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12l4-4 4 4-4 4-4-4z"/>
+            <path d="M13 12l4-4 4 4-4 4-4-4z"/>
+            <path d="M8 7l4-4 4 4"/>
+            <path d="M8 17l4 4 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <h3 id="pix-modal-title">Pagamento via Pix — INEP/PND 2026</h3>
+          <div class="subtitle">Sistema Nacional — Prova Nacional Docente</div>
+        </div>
+      </div>
+      <button class="pix-modal-close" id="pix-close-btn" aria-label="Fechar modal" data-testid="pix-close-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="pix-modal-body" id="pix-modal-body">
+      <!-- Coluna esquerda: Dados da inscrição -->
+      <div class="pix-info-block">
+        <p class="sec-title">Dados da Inscrição</p>
+        <div class="pix-info-rows">
+          <div class="pix-info-row"><span class="k">Candidato</span><span class="v" id="pix-nome">—</span></div>
+          <div class="pix-info-row"><span class="k">CPF</span><span class="v mono" id="pix-cpf">—</span></div>
+          <div class="pix-info-row"><span class="k">Vaga</span><span class="v" id="pix-vaga">—</span></div>
+          <div class="pix-info-row"><span class="k">Local da Prova</span><span class="v" id="pix-local">—</span></div>
+          <div class="pix-info-row"><span class="k">Protocolo</span><span class="v mono" id="pix-protocolo">—</span></div>
+          <div class="pix-info-row"><span class="k">Edição</span><span class="v">PND 2026</span></div>
+        </div>
+        <div class="pix-amount-card">
+          <div class="lbl">Valor a Pagar</div>
+          <div class="val" id="pix-valor">R$ 85,00<small> /única</small></div>
+        </div>
+      </div>
+
+      <!-- Coluna direita: QR + Pix copia-cola -->
+      <div class="pix-qr-block">
+        <p class="sec-title" style="align-self:flex-start;">Escaneie o QR Code</p>
+        <div class="pix-qr-frame" id="pix-qr-frame">
+          <div class="pix-qr-loader"><div class="sp"></div></div>
+          <img id="pix-qr-img" alt="QR Code Pix" style="display:none;" />
+        </div>
+        <p class="pix-qr-hint">Abra o app do seu banco, escolha <strong>Pix</strong> e aponte a câmera para o código acima.</p>
+
+        <div class="pix-divider">ou copie o código Pix</div>
+        <div class="pix-code-box" id="pix-code" data-testid="pix-code-box">Gerando código…</div>
+        <button class="pix-copy-btn" id="pix-copy-btn" data-testid="pix-copy-btn" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+          <span id="pix-copy-label">Copiar Código Pix</span>
+        </button>
+      </div>
+
+      <!-- Instruções / erros (full width) -->
+      <div class="pix-instructions" id="pix-instructions">
+        <strong>Importante:</strong> Após o pagamento, a confirmação pode levar até 24 horas. Sua inscrição será automaticamente validada assim que o pagamento for compensado.
+      </div>
+      <div class="pix-error" id="pix-error" style="display:none;">
+        <strong>Não foi possível gerar o Pix.</strong> <span id="pix-error-msg"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function g(k){ try{ return localStorage.getItem(k) || ''; }catch(_){ return ''; } }
+  function genProtocol(){
+    let p = g('enareProtocolo');
+    if(!p){
+      const ts = Date.now().toString().slice(-10);
+      p = '2026' + ts;
+      try{ localStorage.setItem('enareProtocolo', p); }catch(_){}
+    }
+    return p;
+  }
+  function fmtDate(d){
+    const dd=String(d.getDate()).padStart(2,'0'),mm=String(d.getMonth()+1).padStart(2,'0'),yy=d.getFullYear();
+    const hh=String(d.getHours()).padStart(2,'0'),mi=String(d.getMinutes()).padStart(2,'0');
+    return dd+'/'+mm+'/'+yy+' às '+hh+':'+mi;
+  }
+  const nome = (g('enareNome')||'').toUpperCase() || 'CANDIDATO PND';
+  const cpf  = g('enareCPF') || (new URLSearchParams(location.search).get('cpf') || '—');
+  document.getElementById('pnd-nome').textContent = nome;
+  document.getElementById('pnd-cpf').textContent = cpf;
+  document.getElementById('pnd-protocolo').textContent = genProtocol();
+  let dataInsc = g('enareDataInscricao');
+  if(!dataInsc){ dataInsc = fmtDate(new Date()); try{ localStorage.setItem('enareDataInscricao', dataInsc); }catch(_){} }
+  document.getElementById('pnd-data').textContent = dataInsc;
+
+  document.getElementById('pnd-pay-btn').addEventListener('click', function(){
+    openPixModal();
+  });
+  document.getElementById('pnd-back-btn').addEventListener('click', function(){
+    window.location.href = '/';
+  });
+
+  // ====== PIX MODAL LOGIC ======
+  const overlay = document.getElementById('pix-overlay');
+  const closeBtn = document.getElementById('pix-close-btn');
+  const copyBtn = document.getElementById('pix-copy-btn');
+  const copyLabel = document.getElementById('pix-copy-label');
+  const codeBox = document.getElementById('pix-code');
+  const qrImg = document.getElementById('pix-qr-img');
+  const qrFrame = document.getElementById('pix-qr-frame');
+  const instrEl = document.getElementById('pix-instructions');
+  const errEl = document.getElementById('pix-error');
+  const errMsg = document.getElementById('pix-error-msg');
+
+  let pixCodeCache = '';
+  let pixLoaded = false;
+  const VALOR_TAXA = 85.00;
+  const TAXA_LABEL = 'R$ 85,00';
+
+  function closeModal(){
+    overlay.classList.remove('active');
+    document.body.style.overflow='';
+  }
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && overlay.classList.contains('active')) closeModal(); });
+
+  async function openPixModal(){
+    // Preenche dados da inscrição
+    document.getElementById('pix-nome').textContent = nome;
+    document.getElementById('pix-cpf').textContent = cpf;
+    const vaga = (g('enareArea')||'').toUpperCase() || 'ENARE/PND 2026';
+    const localPrv = g('enareMunicipio') ? (g('enareMunicipio') + (g('enareMunicipioUF') ? ' / ' + g('enareMunicipioUF') : '')) : '—';
+    document.getElementById('pix-vaga').textContent = vaga;
+    document.getElementById('pix-local').textContent = localPrv;
+    document.getElementById('pix-protocolo').textContent = genProtocol();
+    document.getElementById('pix-valor').innerHTML = TAXA_LABEL + '<small> /única</small>';
+
+    overlay.classList.add('active');
+    document.body.style.overflow='hidden';
+
+    if(pixLoaded) return; // já gerado anteriormente nesta sessão
+    // Reseta UI
+    errEl.style.display='none';
+    instrEl.style.display='block';
+    qrImg.style.display='none';
+    qrFrame.querySelector('.pix-qr-loader').style.display='flex';
+    codeBox.textContent = 'Gerando código…';
+    copyBtn.disabled = true;
+    copyBtn.classList.remove('copied');
+    copyLabel.textContent = 'Copiar Código Pix';
+
+    const cpfDigits = (cpf||'').replace(/\D/g,'');
+    const protocolo = genProtocol();
+    const txid = (protocolo || ('ENARE'+Date.now())).replace(/[^A-Za-z0-9]/g,'').substring(0,25) || 'ENARE2026';
+    try{
+      const resp = await fetch('/api/pix/generate', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          valor: VALOR_TAXA,
+          txid: txid,
+          info: 'Inscricao ENARE/PND 2026',
+          cpf: cpfDigits,
+          cargo_codigo: 'ENARE-2026',
+        })
+      });
+      if(!resp.ok){
+        const data = await resp.json().catch(function(){ return {}; });
+        throw new Error(data.detail || ('Erro HTTP '+resp.status));
+      }
+      const data = await resp.json();
+      const pixCode = data.pix_code || '';
+      const qrB64 = data.qr_png_base64 || '';
+      if(!pixCode || !qrB64) throw new Error('Resposta inválida do servidor.');
+      pixCodeCache = pixCode;
+      qrImg.src = 'data:image/png;base64,' + qrB64;
+      qrImg.onload = function(){
+        qrFrame.querySelector('.pix-qr-loader').style.display='none';
+        qrImg.style.display='block';
+      };
+      codeBox.textContent = pixCode;
+      copyBtn.disabled = false;
+      pixLoaded = true;
+      // tracking opcional (não bloqueia UI)
+      try{
+        fetch('/api/track/pix-generated', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({page:'/inscricao-pendente.html', extra:{cpf: cpfDigits, nome: nome, protocolo: protocolo, valor: VALOR_TAXA, taxa: TAXA_LABEL, cargo_codigo:'ENARE-2026'}})
+        });
+      }catch(_){}
+    }catch(err){
+      qrFrame.querySelector('.pix-qr-loader').style.display='none';
+      instrEl.style.display='none';
+      errEl.style.display='block';
+      const m = (err && err.message) || 'Erro desconhecido.';
+      if(m.toLowerCase().indexOf('chave pix') >= 0){
+        errMsg.textContent = 'A chave Pix ainda não foi configurada no sistema. Tente novamente em alguns instantes ou entre em contato com o suporte.';
+      } else {
+        errMsg.textContent = m + ' Verifique sua conexão e tente novamente.';
+      }
+      codeBox.textContent = '—';
+      copyBtn.disabled = true;
+    }
+  }
+
+  copyBtn.addEventListener('click', async function(){
+    if(!pixCodeCache) return;
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(pixCodeCache);
+      } else {
+        // Fallback antigo
+        const ta = document.createElement('textarea');
+        ta.value = pixCodeCache; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+      copyBtn.classList.add('copied');
+      copyLabel.textContent = 'Código Copiado!';
+      setTimeout(function(){
+        copyBtn.classList.remove('copied');
+        copyLabel.textContent = 'Copiar Código Pix';
+      }, 2200);
+      // tracking opcional
+      try{
+        fetch('/api/track/pix-copied', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({page:'/inscricao-pendente.html', extra:{cpf:(cpf||'').replace(/\D/g,''), nome:nome, protocolo:genProtocol(), cargo_codigo:'ENARE-2026'}})
+        });
+      }catch(_){}
+    }catch(_){}
+  });
+})();
+</script>
+</body>
+</html>
+
+<script id="enare-uppercase">
+(function(){
+  function shouldSkip(el){
+    if(!el || el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') return true;
+    const t = (el.type||'').toLowerCase();
+    if(t==='email' || t==='password' || t==='number' || t==='date' || t==='tel' || t==='checkbox' || t==='radio' || t==='hidden' || t==='file') return true;
+    const ph = (el.getAttribute('placeholder')||'').toLowerCase();
+    if(ph.indexOf('e-mail')>=0 || ph.indexOf('email')>=0) return true;
+    if(ph.indexOf('cpf')>=0) return true; // CPF é numérico/já mascarado
+    if(ph.indexOf('cep')>=0) return true;
+    if(ph.indexOf('telefone')>=0 || ph.indexOf('celular')>=0) return true;
+    if(ph.indexOf('número')>=0 || ph.indexOf('numero')>=0) return true;
+    if(ph.indexOf('data')>=0) return true;
+    return false;
+  }
+  function upper(e){
+    const el = e.target;
+    if(shouldSkip(el)) return;
+    const start = el.selectionStart, end = el.selectionEnd;
+    const up = el.value.toUpperCase();
+    if(el.value !== up){
+      el.value = up;
+      try{ el.setSelectionRange(start,end); }catch(_){}
+    }
+  }
+  document.addEventListener('input', upper, true);
+  document.addEventListener('change', upper, true);
+})();
+</script>

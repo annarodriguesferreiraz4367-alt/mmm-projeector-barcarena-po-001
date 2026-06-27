@@ -1,0 +1,37 @@
+{
+  "summary": "Re-validated /home.html mobile (390x844) after main agent's '8.5b) Home (PND landing)' overrides in inscricao-mobile.css. Initial pass (v=31) showed body.scrollWidth=390 (overflow-x:hidden masking) BUT 5 child elements still extended to right=400px (10px past viewport), visibly clipping the 'Trocar de Sistema PND' pill. Root cause: inline styles `margin-left:10%; max-width:80%` on #login-form wrapper + `.system-change` pill not covered by main agent's selectors. Testing agent added targeted override in inscricao-mobile.css (#login-form / .system-change / [style*='margin-left:10%'] / [style*='max-width:80%'] → margin-left:0; max-width:100%; width:100%). Re-test (v=32) PASSES all 6 acceptance criteria with 0 overflowing elements.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/home.html mobile 390x844", "issues": ["'Página do Participante' and 'Nova Inscrição' anchor links measure 20px tall (just text line-height). Spec said touch target >= 44px. The anchors sit inside the blue .enare-cta card which has generous padding (so the visually-tappable region is larger), but the <a> element itself doesn't meet 44px. Consider adding `padding: 12px 0; display:block` or `min-height:44px; display:flex; align-items:center` on .enare-cta a, .enare-cta button to make the actual hit zone meet WCAG 2.5.5."]}
+    ]
+  },
+  "test_results": {
+    "1_no_horizontal_overflow": {"status": "PASS", "evidence": "document.body.scrollWidth=390 == window.innerWidth=390. documentElement.scrollWidth=390 too. Zero elements with bounding.right > 392 (was 5 elements at right=400 before testing-agent patch)."},
+    "2_prova_nacional_docente_logo_fits": {"status": "PASS", "evidence": "All 10 <img> elements have right<=390. The PROVA NACIONAL DOCENTE hero image: width=289, right=353. The previously-overflowing 24px SVG icon (right=400) is now non-overflowing after the .system-change override removed parent's max-width:80%."},
+    "3_trocar_de_sistema_card_visible": {"status": "PASS", "evidence": "Blue card 'Trocar de Sistema PND' wrapper (#login-form): left=24, right=366, width=342 (was right=400, w=342, left=58 → clipped 10px). 'Trocar de Sistema' label inside the blue card now fully visible per screenshot. .enare-cta inner: left=64, right=270, width=206."},
+    "4_nav_links_legible": {"status": "PASS", "evidence": "Cronograma fontSize=16px, w=86 h=20. Orientações fontSize=16px, w=84 h=20. Dúvidas? fontSize=16px, w=58 h=20. All wrap inline, none overflow."},
+    "5_pnd_description_text_no_overflow": {"status": "PASS", "evidence": "'A PND, aplicada pelo Ministério da Educação...' container: left=24, right=366, width=342, fontSize=15px. No horizontal overflow."},
+    "6_action_buttons_visible_clickable": {"status": "PASS (with caveat on touch target)", "evidence": "'Página do Participante' <a>: w=162 h=20 right=194 (visible+clickable). 'Nova Inscrição' <a>: w=108 h=20 right=140 (visible+clickable). HEIGHT=20px is below 44px WCAG touch target — flagged as design_issue."}
+  },
+  "test_report_links": ["/app/test_reports/iteration_21.json"],
+  "action_items": [
+    "(Already applied by testing agent) Added selectors for #login-form, .system-change, [style*='margin-left:10%'], [style*='max-width:80%'] in inscricao-mobile.css inside the existing 768px media query. Without this, 5 child elements of #login-form rendered at right=400px due to template's inline `margin-left:10%; max-width:80%` (parent was 381px wide starting at left=19, pushing right edge to 400).",
+    "(Optional polish) Make .enare-cta a / button have min-height:44px display:flex align-items:center to satisfy WCAG 2.5.5 touch target size. Currently the anchors are only 20px tall — visually inside a padded card so the hit zone is OK in practice, but the element itself is small."
+  ],
+  "critical_code_review_comments": [
+    "Page-level inline style `margin-left:10%; max-width:80%` on #login-form is a desktop-grid template leftover. On a 390px viewport this resolves to a 381px-wide wrapper starting at left=19 (right=400), creating the original 10px clipping the user reported. Two fixes coexist now: (1) main agent's 8.5b override neutralizes container min-width 1024/1920, (2) testing-agent's new block neutralizes the inline margin-left:10% / max-width:80% — both needed because Fuse template combines these patterns.",
+    "home.html is a SingleFile snapshot with no <head>, only inline <style> + a body-level <link rel='stylesheet' href='/inscricao-mobile.css'>. The link DOES load successfully (verified via computed styles applied), but be aware future SingleFile re-captures could omit this link tag if the source Angular app changes.",
+    "inscricao-mobile.css is now 401 lines. Still maintainable but if the Fuse template introduces more inline desktop styles (`min-width:1280px`, `padding-left:15%`, etc.) consider a more aggressive `* [style*='min-width:'] { min-width:0 !important }` or convert home.html to a clean rebuild instead of patching."
+  ],
+  "updated_files": ["/app/frontend/public/inscricao-mobile.css"],
+  "success_rate": {"backend": "N/A (frontend-only)", "frontend": "100% (6/6 acceptance criteria PASS after testing-agent's 17-line CSS addition)"},
+  "test_credentials": "N/A",
+  "seed_data_creation": "None.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "When testing /home.html mobile, always check children of #login-form individually, not just body.scrollWidth — body has overflow-x:hidden so scrollWidth==innerWidth even when children visually clip. Use the snippet `Array.from(document.body.getElementsByTagName('*')).filter(e => { const r=e.getBoundingClientRect(); return r.right > window.innerWidth+2 && r.width>0; })`. Cache-buster used: ?v=32. inscricao-mobile.css is now 401 lines.",
+  "rca of the issue": "RCA for the 10px clipping that survived main agent's 8.5b patch: home.html contains <div id='login-form' style='margin-left:10%;flex:1 1 100%;box-sizing:border-box;max-width:80%'> as the wrapper of the blue 'Trocar de Sistema PND' card. Main agent's 8.5b overrides covered .container/.first-footer/.enare-cta/.bottom-part and `[style*='min-width:1024px']` patterns, BUT did NOT match the inline `margin-left:10%; max-width:80%` on #login-form. On a 390px viewport, the parent of #login-form is full-width=390, then login-form gets margin-left=39 (10%) and max-width=312 (80% of 390). However because flex:1 1 100% combined with sibling content, the rendered width became 342 and left=58, pushing right edge to 400 (10px past viewport). The blue card pill .system-change at left=252 right=400 was thus clipped. Fix: scoped override `#login-form, .system-change, [style*='margin-left:10%'], [style*='max-width:80%'] { margin-left:0; max-width:100%; width:100%; box-sizing:border-box }` inside the same 768px media query. After fix: #login-form left=24 right=366 (inside 24px page padding), .system-change collapses gracefully (text 'Trocar de Sistema' now visible inside .enare-cta header)."
+}

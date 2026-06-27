@@ -1,0 +1,29 @@
+{
+  "summary": "Validated SpooledTemporaryFile + StreamingResponse refactor of POST /api/admin/documents/export-zip. ALL backend tests pass: 7 pre-existing pytest cases (auth, all candidates, MARIA CPF filter -> 2 files, ANA Passaporte CPF filter -> 1 file, inexistent CPF -> 404, tipo=RG, unknown tipo -> 404) + 4 NEW streaming-focused pytest cases (no Content-Length header / Transfer-Encoding chunked, ZIP valid when read iter_content in 8KB chunks, tipo=CNH returns only JOAO CNH with X-Total-Candidates=1, cpfs=[JOAO] returns 2 CNH files). Frontend Playwright (real browser, public URL): login OK, Documentos tab loads, 'Baixar Todos (ZIP)' downloaded ZIP with 5 entries (3 candidatos) integrity OK, selecting ANA + 'Baixar selecionados (ZIP)' downloaded ZIP with exactly 1 entry (Passaporte_frente.png) integrity OK. Refactor preserved behavior 100% and streaming confirmed (Content-Length absent / Transfer-Encoding: chunked).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_admin_docs_export_zip.py",
+    "/app/backend/tests/test_admin_docs_export_zip_streaming.py",
+    "/app/test_reports/pytest/admin_docs_export_zip.xml",
+    "/app/test_reports/pytest/admin_docs_export_zip_streaming.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "admin_routes.py L968: SpooledTemporaryFile(max_size=50MB) is appropriate for the stated load (98MB ZIP @ 103 cadastros). For 10x growth consider lowering rollover to 10MB to free RAM sooner; current 50MB still spools to disk above threshold so it remains safe.",
+    "Streaming chunk size of 64KB (L1026) is a reasonable trade-off. No issues.",
+    "Memory cleanup: explicit `del raw` and `del doc, fd` is defensive but not strictly necessary since each iteration's variables go out of scope; leaving as-is is fine.",
+    "spool.close() is called in chunk_iter()'s finally — verified the temp file is cleaned up properly when the StreamingResponse completes or the client disconnects.",
+    "Pre-flight `find_one` (L963-965) duplicates query work but is cheap (only fetches _id) and avoids opening the spool file unnecessarily — good pattern."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_admin_docs_export_zip_streaming.py"
+  ],
+  "success_rate": {"backend": "100% (11/11 pytest)", "frontend": "100% (Baixar Todos + Baixar selecionados both downloaded valid ZIPs)"},
+  "test_credentials": "donas / Seinao10@@",
+  "seed_data_creation": "None — used pre-existing seeded CPFs (11111111101 MARIA RG frente+verso, 22222222202 JOAO CNH frente+verso, 33333333303 ANA Passaporte frente). No data created or deleted.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Refactor RAM->SpooledTemporaryFile + StreamingResponse is fully validated. Streaming verified via requests stream=True: Content-Length is None (FastAPI/Starlette StreamingResponse emits Transfer-Encoding: chunked by default). Two pytest files now cover this endpoint: test_admin_docs_export_zip.py (behavior) + test_admin_docs_export_zip_streaming.py (streaming + CNH filter). Frontend downloadDocsZip() reads via resp.blob() which works transparently with chunked transfer. ZIPs verified with zipfile.testzip() — no corruption. Bulkbar testids unchanged: docs-download-all, docs-bulk-download, docs-row-cb-<cpf>, docs-bulkbar.",
+  "rca of the issue": "N/A — refactor validated, no regressions."
+}

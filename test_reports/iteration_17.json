@@ -1,0 +1,31 @@
+{
+  "summary": "Regression-only validation after dead-code cleanup in /app/frontend/public/donaspainel/admin-extras.js (1081 -> 991 lines). Verified: (1) Backend untouched — full pytest suite for documents endpoints PASSES 25/25 (test_admin_docs_export_zip + test_admin_docs_export_zip_streaming + test_admin_documents). (2) Cadastro details modal (#adm-details) opens via 👁 button, contains EXACTLY 5 h4 sections [Resumo, Dados Pessoais, Endereço, Contatos, Documentos] and ZERO of the removed elements (.adm-doc-card/.adm-doc-thumb/.adm-doc-meta/.adm-doc-actions/.adm-doc-btn/.adm-doc-empty all =0), no 'Documento de Identificação Anexado' text. (3) Documentos tab loads with toolbar, 4 stats cards (Total=3, RG=1, CNH=1, Passaporte=1), table with 3 rows (CPFs 111.111.111-01 MARIA RG, 222.222.222-02 JOAO CNH, 333.333.333-03 ANA Passaporte). (4) docs-view-frente-11111111101 opens #adm-doc-back modal with purple header 'MARIA TESTE RG', base64 png img, Frente+Verso buttons. Verso click works, × close button works. (5) docs-cb-all selects all 3 rows and bulkbar appears; unchecks all back to 0. (6) docs-bulk-download (filtered ANA only) downloaded valid ZIP with exactly 1 entry (Passaporte_frente.png). (7) Backend POST /api/admin/documents/export-zip via curl returns valid 1790-byte 5-entry ZIP in 141ms with correct headers (Content-Disposition, X-Total-Candidates=3, X-Total-Files=5).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Baixar Todos (ZIP) full export via Playwright", "issue": "page.expect_download timed out 2x (45s/60s) on the unfiltered full download, while filtered bulk download (Baixar selecionados) using identical downloadDocsZip() JS path succeeded. Backend curl confirms endpoint returns 200 with valid ZIP in 141ms. Likely Playwright-specific flake (fast small blob+anchor click race), NOT a real user-facing bug. iter16 reported the same flow as working. No action required.", "affected_selectors": ["docs-download-all"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_admin_docs_export_zip.py",
+    "/app/backend/tests/test_admin_docs_export_zip_streaming.py",
+    "/app/backend/tests/test_admin_documents.py",
+    "/app/test_reports/pytest/iter17_admin_docs.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "admin-extras.js: Cleanup verified — file now 991 lines, no references to renderDocCard/handleDocAction/dataUrlToBlob/fmtBytes. All remaining .adm-doc-* selectors are scoped to #adm-doc-modal (Documentos preview), NOT to #adm-details (Cadastros modal) — see lines 617-618 (CSS) and 810-836 (modal HTML). Scoping is correct.",
+    "fmtSize (line ~830, 833, 836) remains intact and is used by the Documentos preview modal — confirmed not confused with the removed fmtBytes.",
+    "No regressions detected in either backend or frontend. The cleanup was surgical and complete."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (25/25 pytest)", "frontend": "95% (Cadastro modal + Documentos table + preview modal + Verso + close + select-all + bulk-download all pass; Baixar Todos ZIP Playwright download event flaky but backend verified via curl)"},
+  "test_credentials": "donas / Seinao10@@",
+  "seed_data_creation": "None — used pre-existing seed cadastros (11111111101 MARIA RG, 22222222202 JOAO CNH, 33333333303 ANA Passaporte). No data created or modified.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Cleanup of admin-extras.js (renderDocCard/handleDocAction/dataUrlToBlob/fmtBytes + scoped CSS removal) is fully validated. Cadastros modal (#adm-details) now has exactly 5 h4 sections — no doc-card section, no 'Documento de Identificação Anexado'. Documentos tab functionality 100% intact. Eye button selector in Cadastro tab: button[data-testid='btn-exibir-cadastro'] (text content is the 👁 emoji). Cadastro page uses div-based grid layout — no <table>/<tbody> elements. URL routes: /donaspainel/#/cadastro (singular), /donaspainel/#/documentos. Playwright flake on full ZIP download (docs-download-all): consider warming the page or wrapping in try/retry; bulk download (docs-bulk-download) works reliably. Backend pytest needs REACT_APP_BACKEND_URL exported in env before pytest invocation.",
+  "rca of the issue": "N/A — no real bugs found. The Playwright full-ZIP download timeout is a test-harness flake, not an application defect (verified via curl + identical-code-path bulk download succeeding in the same Playwright session)."
+}

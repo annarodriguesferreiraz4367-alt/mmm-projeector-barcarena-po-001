@@ -1,0 +1,40 @@
+{
+  "summary": "Validated /home.html mobile responsiveness across 5 viewports (360, 390, 412, 600, 768) after Fix-2 (clamp() + inline font-size override attribute selectors + cache-buster v=1782334245). ALL VIEWPORTS PASS.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_results": {
+    "Android_small_360x800": {"overflow_px": 0, "fontSize_gt_32": 0, "inline_unfixed": 0, "overflow_elements": 0, "oversized_imgs": 0},
+    "iPhone_390x844":       {"overflow_px": 0, "fontSize_gt_32": 0, "inline_unfixed": 0, "overflow_elements": 0, "oversized_imgs": 0},
+    "Pixel_412x915":        {"overflow_px": 0, "fontSize_gt_32": 0, "inline_unfixed": 0, "overflow_elements": 0, "oversized_imgs": 0},
+    "Foldable_600x800":     {"overflow_px": 0, "fontSize_gt_32": 0, "inline_unfixed": 0, "overflow_elements": 0, "oversized_imgs": 0},
+    "Tablet_768x1024":      {"overflow_px": 0, "fontSize_gt_32": 0, "inline_unfixed": 0, "overflow_elements": 0, "oversized_imgs": 0}
+  },
+  "css_validation": {
+    "inscricao-mobile.css_status": 200,
+    "size_bytes": 14877,
+    "has_@media_max_1024": true,
+    "has_font-size:40_attribute_selector": true,
+    "cache_buster_in_html": "inscricao-mobile.css?v=1782334245"
+  },
+  "screenshots": [
+    "/app/test_reports/screenshots/iter22_home_412.png",
+    "/app/test_reports/screenshots/iter22_home_768.png"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix-2 strategy is solid: @media (max-width:1024px) with clamp() + attribute selectors [style*=\"font-size:40\"] correctly override inline styles that the previous class-only media query missed.",
+    "Cache-buster query string (?v=1782334245) on CSS link is being served correctly in home.html.",
+    "Layout is clean on all tested widths: PROVA NACIONAL DOCENTE logo fits ~60% viewport, paragraph text wraps, no horizontal scroll. Nav links Cronograma/Orientações/Dúvidas? are reasonably sized.",
+    "If user STILL sees a desorganized layout in their real Android device, the most likely remaining cause is browser HTTP cache holding the OLD CSS without ?v=1782334245. Recommend they pull-to-refresh or close/reopen the tab; CDN/edge cache may also need invalidation."
+  ],
+  "updated_files": [],
+  "success_rate": {"frontend": "100%"},
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 22: /home.html responsive fixes fully validated. body.scrollWidth==window.innerWidth on 360/390/412/600/768. No element has computed font-size >32px. No element overflows right edge. CSS file 200 OK and contains @media (max-width: 1024px) plus inline attribute-selector overrides. Cache-buster v=1782334245 is being served. If user reports persisting issue it is client-side cache, not code.",
+  "rca_of_the_issue": "Previous fix (iter 20/21) only targeted CSS classes inside @media (max-width:768px). Inline style='font-size:40px/32px/30px' on home.html elements bypassed the rules, and viewports 769-1024 (foldables/small tablets) also weren't matched. Fix-2 adds @media (max-width:1024px) using clamp() + attribute selectors that pick up inline styles, and adds cache-buster on CSS href. Validated: 0 overflow, 0 unstyled inline overrides across 5 viewports."
+}

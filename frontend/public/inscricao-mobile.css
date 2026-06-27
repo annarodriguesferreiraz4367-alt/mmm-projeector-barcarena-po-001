@@ -1,0 +1,1069 @@
+/* ===========================================================
+   Mobile-First Overrides para o template Angular capturado
+   Aplicado a TODAS as páginas /inscricao*.html.
+   Objetivo: experiência limpa e legível em telas ≤ 768px,
+   sem alterar nada no desktop.
+   =========================================================== */
+
+@media (max-width: 768px) {
+  /* ----- 1) Evita overflow horizontal global e zoom iOS ----- */
+  html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { font-size: 15px; }
+
+  /* ----- 2) Esconde elementos Fuse irrelevantes (painéis laterais, navbars, chat, etc.) ----- */
+  fuse-sidebar.quick-panel,
+  fuse-sidebar.navbar-fuse-sidebar,
+  fuse-sidebar[name="quickPanel"],
+  fuse-sidebar[name="navbar"],
+  fuse-navigation,
+  fuse-shortcuts,
+  fuse-search-bar,
+  app-quick-panel,
+  app-chat-panel-toggle-button,
+  .quick-panel,
+  .navbar-vertical,
+  .horizontal-navbar,
+  fuse-sidebar.left-positioned,
+  fuse-sidebar.right-positioned {
+    display: none !important;
+  }
+
+  /* ----- 3) Header (logo INEP + texto Sistema PND) — empilha vertical ----- */
+  .toolbar,
+  .top-bg,
+  mat-toolbar {
+    height: auto !important;
+    min-height: 64px !important;
+    padding: 8px 12px !important;
+    flex-wrap: wrap !important;
+  }
+  /* texto "SISTEMA PND" reduzido para caber */
+  .toolbar h1,
+  .top-bg h1,
+  mat-toolbar h1,
+  .toolbar h2,
+  mat-toolbar h2 {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+  }
+  /* logo INEP */
+  .toolbar img,
+  .top-bg img,
+  mat-toolbar img {
+    max-height: 38px !important;
+    width: auto !important;
+  }
+  /* esconde texto longo "Instituto Nacional..." em telas muito pequenas */
+  .toolbar .logo-text,
+  .top-bg .logo-text {
+    font-size: 9px !important;
+    line-height: 1.15 !important;
+    max-width: 140px;
+  }
+
+  /* ----- 4) Breadcrumb e título da página ----- */
+  .breadcrumbs,
+  .breadcrumb,
+  app-breadcrumb {
+    padding: 10px 14px !important;
+    font-size: 12px !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .breadcrumbs > *,
+  .breadcrumb > * {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto !important;
+  }
+  .breadcrumbs a, .breadcrumb a { white-space: nowrap !important; }
+  h1.title,
+  .page-title,
+  .mat-display-1,
+  .mat-display-2 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    margin: 10px 14px !important;
+  }
+
+  /* ----- 5) Conteúdo principal: padding e largura ----- */
+  .content,
+  .page-layout,
+  .mat-card,
+  mat-card,
+  .form-container,
+  .center,
+  .inner-scroll {
+    padding: 12px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ----- 6) Stepper horizontal → vertical (em telas estreitas Angular já faz, mas garantimos) ----- */
+  .mat-horizontal-stepper-header-container,
+  .mat-stepper-horizontal {
+    flex-wrap: wrap !important;
+  }
+  .mat-horizontal-stepper-header {
+    flex: 1 1 100% !important;
+    padding: 14px 12px !important;
+    height: auto !important;
+    min-height: 56px !important;
+  }
+  .mat-step-label {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+  }
+  .mat-step-icon {
+    flex: 0 0 30px !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin-right: 10px !important;
+  }
+  /* esconde a linha conectora horizontal entre etapas (não faz sentido empilhado) */
+  .mat-stepper-horizontal-line {
+    display: none !important;
+  }
+
+  /* ----- 7) Inputs e form-fields — full-width + fonte 16px (evita zoom iOS) ----- */
+  .mat-form-field,
+  mat-form-field {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 4px !important;
+  }
+  /* Padding apenas em mat-form-field reais (evita inflar dl/dd dentro do modal Pix) */
+  mat-form-field > .mat-form-field-wrapper,
+  .mat-form-field > .mat-form-field-wrapper {
+    padding-bottom: 12px !important;
+  }
+  input.mat-input-element,
+  .mat-input-element,
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* container de inputs lado a lado vira coluna — Angular Flex-Layout (fx prefix E sem prefix) */
+  [fxlayout="row"]:not(inep-breadcrumb):not(inep-breadcrumb *),
+  [fxlayout="row wrap"]:not(inep-breadcrumb):not(inep-breadcrumb *),
+  [fxlayout^="row"]:not(inep-breadcrumb):not(inep-breadcrumb *),
+  [flexlayout="row"],
+  .row-layout,
+  div[style*="flex-direction: row"],
+  div[style*="flex-direction:row"] {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+  }
+  [fxlayout="row"]:not(inep-breadcrumb):not(inep-breadcrumb *) > *,
+  [fxlayout^="row"]:not(inep-breadcrumb):not(inep-breadcrumb *) > *,
+  [flexlayout="row"] > * {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  /* breadcrumb continua horizontal — restaura linha */
+  inep-breadcrumb,
+  inep-breadcrumb *,
+  inep-breadcrumb [fxlayout="row"],
+  inep-breadcrumb [flexlayout="row"] {
+    flex-direction: row !important;
+  }
+  inep-breadcrumb [fxlayout="row"] > *,
+  inep-breadcrumb [flexlayout="row"] > * {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  [fxflex],
+  .col {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* ----- 8) Botões — touch target mínimo 44px + full-width na barra de ações ----- */
+  .mat-button,
+  .mat-raised-button,
+  .mat-stroked-button,
+  .mat-flat-button,
+  button.mat-button,
+  button.mat-raised-button,
+  button.mat-flat-button {
+    min-height: 44px !important;
+    padding: 0 18px !important;
+    font-size: 14px !important;
+    line-height: 44px !important;
+  }
+  /* icon-button (datepicker calendar) — touch target acessível */
+  .mat-icon-button {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+  /* Barra Voltar/Próximo: SEMPRE lado a lado em qualquer largura de mobile.
+     Usa flex no container e botões compactos com flex:0 1 auto. */
+  div[style*="text-align:center"],
+  div[style*="text-align: center"],
+  .action-buttons,
+  .stepper-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    padding: 8px 4px !important;
+  }
+  div[style*="text-align:center"] > button,
+  div[style*="text-align: center"] > button,
+  .action-buttons > button,
+  .stepper-actions > button,
+  div[style*="text-align:center"] button.mat-raised-button,
+  div[style*="text-align:center"] button.mat-stroked-button,
+  div[style*="text-align:center"] button.mat-button {
+    flex: 0 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 50% !important;
+    padding: 0 16px !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+    line-height: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    white-space: nowrap !important;
+  }
+  /* "Próximo" recebe destaque visual (mais peso, ocupa um pouco mais) */
+  div[style*="text-align:center"] > button.mat-raised-button[color="primary"],
+  div[style*="text-align:center"] > button[matsteppernext],
+  div[style*="text-align: center"] > button[matsteppernext] {
+    flex: 1 1 auto !important;
+    max-width: 60% !important;
+  }
+  /* "Voltar" um pouco mais compacto */
+  div[style*="text-align:center"] > button[matstepperprevious],
+  div[style*="text-align: center"] > button[matstepperprevious] {
+    flex: 0 0 auto !important;
+    max-width: 40% !important;
+  }
+
+  /* ----- 8.5) Home cards e seções customizadas — evita corte ~10px na direita ----- */
+  .card,
+  .card .title,
+  .card .description {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+  /* ----- 8.5b) Home (PND landing) — neutraliza min-width 1024px / 1920px do template ----- */
+  /* O template original tem containers com min-width fixo que estoura o viewport mobile */
+  .first-footer,
+  .footer-left,
+  .footer-section-responsive,
+  .flex-vert-center,
+  .enare-cta,
+  .bottom-part,
+  .container,
+  .container.ps,
+  [class*="container"],
+  [style*="min-width:1024px"],
+  [style*="min-width:1920px"],
+  [style*="min-width: 1024px"],
+  [style*="min-width: 1920px"] {
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* Imagens grandes do header / hero do home (logo PROVA NACIONAL DOCENTE etc.) — escalam */
+  .top-bg img,
+  header img,
+  .logo img,
+  .enare-cta img,
+  .flex-vert-center img,
+  img[style*="width"][style*="px"] {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  /* Nav links do topo (Cronograma | Orientações | Dúvidas?) — empilha em coluna no mobile */
+  nav,
+  .top-nav,
+  .menu,
+  header nav,
+  .navbar {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px 14px !important;
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+  }
+  nav a,
+  .top-nav a,
+  header nav a,
+  .navbar a {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    padding: 6px 0 !important;
+  }
+  /* Card azul "Trocar de Sistema PND" + "Página do Participante" / "Nova Inscrição" */
+  .enare-cta,
+  .flex-vert-center.enare-cta {
+    padding: 18px 16px !important;
+    border-radius: 0 !important;
+  }
+  /* Touch target WCAG 2.5.5 — links de ação no card azul */
+  .enare-cta a,
+  .enare-cta button {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 8px 0 !important;
+  }
+
+  /* Neutraliza inline margin-left:10% + max-width:80% do #login-form / wrappers,
+     que renderizam parent com right=400px (10px além do viewport 390),
+     clipando "Trocar de Sistema PND" e a pill .system-change. */
+  #login-form,
+  .system-change,
+  [style*="margin-left:10%"],
+  [style*="margin-left: 10%"],
+  [style*="max-width:80%"],
+  [style*="max-width: 80%"] {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* .system-change é a pill "Trocar de Sistema" — não force width 100%, só impede clip */
+  .system-change {
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    margin-right: 8px !important;
+  }
+
+  /* ----- 8.7) Home (home.html) — limpa artefatos Angular sem runtime ativo
+     Esses elementos são gerenciados pelo Angular Flex em desktop, mas no mobile sem
+     o runtime eles renderizam como blocos descontrolados que poluem o layout. ----- */
+
+  /* 8.7a) Esconde coluna direita "login-form-wrapper" (Trocar de Sistema / PND duplicado) */
+  #login-form-wrapper,
+  div[id="login-form-wrapper"] {
+    display: none !important;
+  }
+
+  /* 8.7b) Esconde footer Angular inteiro no mobile (social icons soltos, version info,
+     0800, autoatendimento). Era controlado por fxshow.lt-lg do Angular Flex.
+     Mobile mostra um footer simplificado abaixo. */
+  footer[_nghost-anf-c17],
+  footer.ng-star-inserted,
+  .first-footer,
+  .footer-left,
+  .footer-right,
+  .footer-section-responsive,
+  .footer-responsive,
+  app-footer,
+  footer mat-toolbar {
+    display: none !important;
+  }
+
+  /* 8.7c) Esconde os placeholders SVG vazios (.title sem imagem renderizada,
+     .top-bg sem conteúdo, biscoito vazio que deixa "caixas brancas") */
+  #login-intro .card .title:empty,
+  #login-intro .card .title img[src=""],
+  #login-intro .top-bg:empty {
+    display: none !important;
+  }
+
+  /* 8.7d) Layout vertical limpo do login-intro no mobile */
+  #login-intro,
+  login-section {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  #login-intro .biscoito,
+  #login-intro .card {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  #login-intro .description {
+    padding: 0 16px !important;
+    text-align: left !important;
+  }
+  #login-intro .description p {
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    color: #333 !important;
+  }
+  /* progress bar (carrossel) compacto */
+  #login-intro .section-progress,
+  #login-intro mat-progress-bar {
+    margin: 12px 16px !important;
+  }
+
+  /* Garante que .enare-cta (botão "Fazer Inscrição") e o container pai #login-intro
+     fiquem visíveis no mobile mesmo que o template Angular tente esconder via fxhide. */
+  #login-intro,
+  login-section,
+  .enare-cta,
+  .flex-vert-center.enare-cta {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  #login-intro, login-section { display: flex !important; }
+
+  /* Destaca o botão "Fazer Inscrição" no mobile (azul INEP + texto branco)
+     Override forte porque .flex-vert-center vem com display:inline-flex inline */
+  .enare-cta,
+  .flex-vert-center.enare-cta,
+  div.flex-vert-center.enare-cta {
+    display: flex !important;
+    background: #075fab !important;
+    color: #fff !important;
+    margin: 22px 16px !important;
+    padding: 14px 18px !important;
+    border-radius: 10px !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 56px !important;
+    width: auto !important;
+    max-width: calc(100vw - 32px) !important;
+    box-shadow: 0 6px 18px rgba(7,95,171,0.25) !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+  .enare-cta p,
+  .enare-cta > p {
+    color: #fff !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+  }
+  .enare-cta a {
+    color: #fff !important;
+    background: rgba(255,255,255,0.20) !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    flex: 0 0 40px !important;
+    font-size: 0 !important; /* esconde texto "arrow_forward" se a fonte mat-icon não carregar */
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  /* Pseudo-elemento ::after exibe uma seta SVG branca caso o mat-icon não carregue */
+  .enare-cta a::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 22px 22px !important;
+    pointer-events: none !important;
+  }
+  .enare-cta a .mat-icon,
+  .enare-cta a mat-icon {
+    color: transparent !important;
+    font-size: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+  }
+
+  /* ----- 8.6) Modal Pix em /inscricao-pendente.html — compacta dl/dt/dd ----- */
+  #pix-modal dl, #pix-modal dt, #pix-modal dd,
+  .pix-modal dl, .pix-modal dt, .pix-modal dd {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .pix-info-row,
+  .pix-info-row + .pix-info-row {
+    padding: 6px 0 !important;
+    min-height: 0 !important;
+  }
+  .pix-info-row .k {
+    font-size: 11px !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  .pix-info-row .v {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+  }
+
+  /* ----- 9) Radio / Checkbox — toque maior ----- */
+  /* Checkbox vira block (uma linha por item, label cresce) */
+  .mat-checkbox {
+    margin: 6px 0 !important;
+    display: block !important;
+  }
+  /* Radio NÃO pode virar block — destrói grupos horizontais Sim/Não.
+     Mantém inline-flex e adiciona margem direita para separar visualmente. */
+  .mat-radio-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 6px 18px 6px 0 !important;
+    vertical-align: middle !important;
+  }
+  /* Grupo de radios fica em linha com gap claro */
+  mat-radio-group,
+  .mat-radio-group {
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px 16px !important;
+    align-items: center !important;
+  }
+  .mat-radio-label,
+  .mat-checkbox-layout {
+    white-space: normal !important;
+    align-items: flex-start !important;
+  }
+  .mat-radio-label-content,
+  .mat-checkbox-label {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    padding-left: 6px !important;
+  }
+  /* Override do white-space:break-spaces INLINE nos spans dentro do label do checkbox
+     (causa o texto "Não quero declarar o nome do meu pai" virar coluna vertical) */
+  .mat-checkbox-label span,
+  .mat-checkbox-label span[style*="break-spaces"],
+  .mat-radio-label-content span,
+  .mat-radio-label-content span[style*="break-spaces"] {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    display: inline !important;
+  }
+  /* Garante que label do checkbox/radio fique em linha (icon + texto), com texto crescendo */
+  .mat-checkbox-layout {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  /* Radio label: apenas inline-flex, label NÃO estica (senão empurra o próximo radio) */
+  .mat-radio-label {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+  .mat-checkbox-label {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    text-align: left !important;
+    display: block !important;
+  }
+  /* Texto do radio (Sim/Não) — não estica, tamanho do conteúdo apenas */
+  .mat-radio-label-content {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    text-align: left !important;
+    padding-left: 6px !important;
+    padding-right: 4px !important;
+    white-space: nowrap !important;
+  }
+  /* Caixinha do checkbox/radio com tamanho fixo (não pode esticar) */
+  .mat-checkbox-inner-container,
+  .mat-radio-container {
+    flex: 0 0 20px !important;
+    width: 20px !important;
+    max-width: 20px !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    margin-right: 4px !important;
+    display: inline-block !important;
+  }
+
+  /* ----- 10) Dropdowns custom (passos 5/6) e tabelas ----- */
+  .enare-dropdown,
+  .enare-dropdown-panel {
+    width: 100% !important;
+    max-width: calc(100vw - 24px) !important;
+    left: 12px !important;
+  }
+  table { font-size: 13px !important; }
+
+  /* ----- 10.5) inscricao-passo2-doc.html — Cards RG/CNH/Passaporte compactos
+     No desktop são 3 cards grandes em grid. No mobile estavam empilhados
+     ocupando muito espaço vertical. Aqui forçamos grid 3 colunas compactas. ----- */
+  .enare-doc-types {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    margin-bottom: 14px !important;
+    padding: 0 4px !important;
+  }
+  .enare-doc-type {
+    padding: 10px 4px !important;
+    border-radius: 8px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .enare-doc-type .enare-icon {
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 auto 4px !important;
+  }
+  .enare-doc-type .enare-icon svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .enare-doc-type-title {
+    font-size: 12px !important;
+    margin-bottom: 1px !important;
+    line-height: 1.2 !important;
+  }
+  .enare-doc-type-desc {
+    font-size: 9.5px !important;
+    line-height: 1.25 !important;
+  }
+  .enare-doc-type .enare-check {
+    width: 14px !important;
+    height: 14px !important;
+    top: 4px !important;
+    right: 4px !important;
+  }
+  .enare-doc-type .enare-check svg {
+    width: 8px !important;
+    height: 8px !important;
+  }
+
+  /* ----- 11) Passo Resumo (passo8) — esconder seções extra-largas ----- */
+  .mat-tab-group,
+  .mat-tab-body-content {
+    overflow-x: auto !important;
+  }
+
+  /* ----- 12) Mensagens de hint/erro ----- */
+  .mat-hint, .mat-error, .mat-form-field-hint-wrapper, mat-hint, mat-error {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+  }
+
+  /* ----- 13) Footer (links na base do template Fuse) ----- */
+  footer, .footer, .page-footer {
+    padding: 14px 12px !important;
+    font-size: 12px !important;
+    text-align: center !important;
+  }
+  footer * { font-size: inherit !important; }
+}
+
+/* ===========================================================
+   HOME especificamente — overrides agressivos até 1024px
+   (cobre foldables/tablets/celulares onde inline font-size:40px
+    e min-width:1024px do template Fuse fazem tudo ficar gigante)
+   =========================================================== */
+@media (max-width: 1024px) {
+  /* Headings grandes do hero — clamp evita rage giants */
+  h1, h2, h3,
+  .title, .page-title,
+  .mat-display-1, .mat-display-2, .mat-display-3, .mat-display-4,
+  .mat-headline, .mat-title {
+    font-size: clamp(18px, 5vw, 28px) !important;
+    line-height: 1.25 !important;
+    word-break: break-word !important;
+  }
+
+  /* Sobrescreve inline font-size>=24px (40, 32, 30, 28, 24) — patch dos elementos com style inline */
+  [style*="font-size:40"], [style*="font-size: 40"],
+  [style*="font-size:32"], [style*="font-size: 32"],
+  [style*="font-size:30"], [style*="font-size: 30"],
+  [style*="font-size:28"], [style*="font-size: 28"],
+  [style*="font-size:24"], [style*="font-size: 24"] {
+    font-size: clamp(16px, 4.5vw, 22px) !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Imagens — limita ao container */
+  img, svg { max-width: 100% !important; height: auto !important; }
+
+  /* Hero PROVA NACIONAL DOCENTE — força largura razoável */
+  .top-bg img, .top-bg svg,
+  header img, header svg,
+  .logo img,
+  .enare-cta img,
+  .flex-vert-center img,
+  .container img,
+  img[width],
+  img[style*="width"]:not([style*="max-width"]) {
+    max-width: min(70%, 300px) !important;
+    height: auto !important;
+    width: auto !important;
+  }
+
+  /* Container hero */
+  .top-bg, .hero {
+    text-align: center !important;
+    padding: 14px 12px !important;
+  }
+
+  /* Texto descritivo (parágrafos) */
+  p, .description {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    word-break: normal !important;
+  }
+
+  /* Nav (Cronograma | Orientações | Dúvidas?) compacta e centralizada */
+  nav, .top-nav, header nav, .navbar {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6px 16px !important;
+    padding: 8px 10px !important;
+    font-size: 13px !important;
+  }
+  nav a, .top-nav a, header nav a, .navbar a {
+    font-size: 13px !important;
+    padding: 4px 0 !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Neutraliza min-width 1024/1920 já no breakpoint maior também */
+  [style*="min-width:1024px"], [style*="min-width: 1024px"],
+  [style*="min-width:1920px"], [style*="min-width: 1920px"],
+  [style*="min-width:1280px"], [style*="min-width: 1280px"] {
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Card "Trocar de Sistema" + pill compactos */
+  .enare-cta, .flex-vert-center.enare-cta {
+    padding: 14px 12px !important;
+  }
+  .system-change, [class*="system-change"] {
+    font-size: 14px !important;
+    padding: 8px 12px !important;
+  }
+
+  /* ----- 9) /inscricao.html cabeçalho — breadcrumb + título + Sair ----- */
+  /* Header "h-160" Angular vinha em row no desktop. No mobile força coluna,
+     reduz altura e elimina sobreposição do título com o breadcrumb. */
+  inep-breadcrumb .header,
+  inep-breadcrumb .header.h-160 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 12px 16px !important;
+    gap: 6px !important;
+  }
+  /* Container do breadcrumb (Página Inicial > Inscrição > Inscrição PND) */
+  inep-breadcrumb .header > div:first-child {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 4px 6px !important;
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+  /* Cada section do breadcrumb (chevron + link) vira inline com gap */
+  inep-breadcrumb section {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  /* Fallback caso a fonte Material Icons não carregue: esconde texto literal
+     "chevron_right" e mostra ">" via pseudo-elemento */
+  inep-breadcrumb mat-icon.material-icons {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
+    color: #6b7280 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+  inep-breadcrumb mat-icon.material-icons::before {
+    content: ">" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    background: #fff !important;
+    color: #6b7280 !important;
+  }
+  /* Título "Inscrição PND" — era enorme (.h2 mt-16) e flutuava ao lado */
+  inep-breadcrumb .h2,
+  inep-breadcrumb div.h2.mt-16 {
+    font-size: 22px !important;
+    line-height: 1.2 !important;
+    margin: 4px 0 0 0 !important;
+    width: 100% !important;
+    text-align: left !important;
+    font-weight: 700 !important;
+  }
+  /* Botão "Sair" — tinha width:10% inline (microscópico no mobile).
+     Faz pequeno, à direita, sem ocupar a largura inteira. */
+  div[style*="text-align:right"] {
+    text-align: right !important;
+    padding: 0 16px !important;
+  }
+  div[style*="text-align:right"] > button.mat-raised-button,
+  button.mat-raised-button[style*="width:10%"],
+  button[mat-raised-button][style*="width:10%"] {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 0 18px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    line-height: 36px !important;
+    font-size: 13px !important;
+    margin: 8px 0 !important;
+    display: inline-block !important;
+  }
+
+  /* Banner azul "Para realizar uma nova inscrição preencha os dados abaixo" */
+  .mat-card-header .mat-card-title {
+    padding: 12px 14px !important;
+  }
+  .mat-card-header .mat-card-title .mat-body-1 {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+    color: #fff !important;
+  }
+  /* Top-bg accent (faixa azul atrás do título) — encolhe no mobile */
+  .top-bg.accent,
+  .page-layout .top-bg {
+    height: 120px !important;
+  }
+  /* Page layout centro — sem max-width agressivo */
+  .page-layout.fullwidth .center,
+  #ngx-datatable .center {
+    padding: 0 !important;
+    margin-top: -100px !important;
+  }
+
+  /* ----- 11) inscricao-pendente.html — Layout mobile ----- */
+  /* Topbar: stack vertical, sem padding excessivo */
+  .pnd-topbar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 10px 14px !important;
+    gap: 6px !important;
+  }
+  .pnd-topbar .brand {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  .pnd-topbar .brand-logo,
+  .pnd-topbar .pnd-logo {
+    flex: 0 0 auto !important;
+    height: 30px !important;
+    width: auto !important;
+  }
+  .pnd-topbar .pnd-logo-text {
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    flex: 1 1 auto !important;
+    /* Permite quebrar normalmente em palavras inteiras (não 1 letra por linha) */
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+  .pnd-topbar .pnd-system {
+    font-size: 14px !important;
+    gap: 4px !important;
+  }
+  /* Banner com breadcrumb + título */
+  .pnd-banner {
+    padding: 16px 14px !important;
+  }
+  .pnd-crumbs {
+    font-size: 12px !important;
+    margin-bottom: 4px !important;
+    line-height: 1.3 !important;
+  }
+  .pnd-title {
+    font-size: 26px !important;
+    line-height: 1.15 !important;
+  }
+  /* Card principal */
+  .pnd-main {
+    margin: 14px auto 24px !important;
+    padding: 0 12px !important;
+  }
+  .pnd-card-header {
+    padding: 14px 16px !important;
+    gap: 10px !important;
+  }
+  .pnd-card-header .icon,
+  .pnd-card-header svg {
+    flex: 0 0 auto !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .pnd-card-header .pnd-card-title,
+  .pnd-card-header h2 {
+    font-size: 17px !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+  }
+  .pnd-card-header .subtitle {
+    font-size: 12px !important;
+    margin-top: 2px !important;
+    line-height: 1.3 !important;
+  }
+  /* Status row: pill + texto empilhados */
+  .pnd-status-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 12px 16px !important;
+  }
+  .pnd-status-pill {
+    align-self: flex-start !important;
+    font-size: 12px !important;
+    padding: 5px 12px !important;
+  }
+  .pnd-status-text {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+  /* Corpo do card: info grid já é 1 coluna no mobile, ajusta padding */
+  .pnd-card-body {
+    padding: 16px !important;
+  }
+  .pnd-info-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px 0 !important;
+  }
+  .pnd-info-item .label,
+  .pnd-info-item .lbl {
+    font-size: 11px !important;
+    letter-spacing: .5px !important;
+  }
+  .pnd-info-item .value,
+  .pnd-info-item .val,
+  .pnd-info-item .v {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+    word-break: break-word !important;
+  }
+  /* Caixa do valor */
+  .pnd-amount-box {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 16px !important;
+    gap: 10px !important;
+  }
+  .pnd-amount-value {
+    font-size: 28px !important;
+  }
+  .pnd-pay-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px 18px !important;
+    font-size: 15px !important;
+  }
+  /* Botão Sair flutuante — vira inline no topo do card (não fica sobre conteúdo) */
+  .pnd-sair {
+    position: static !important;
+    display: inline-block !important;
+    margin: 10px 14px !important;
+    padding: 8px 18px !important;
+    font-size: 14px !important;
+    box-shadow: none !important;
+    align-self: flex-end !important;
+  }
+  .pnd-footer-line {
+    padding: 12px 16px 18px !important;
+    text-align: center !important;
+  }
+  .pnd-back-btn {
+    width: 100% !important;
+    padding: 10px !important;
+  }
+  /* Bloco de aviso "Atenção" — texto mais legível e compacto */
+  .pnd-notes {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+    padding: 12px 14px !important;
+    margin-top: 14px !important;
+  }
+  .pnd-notes strong {
+    color: #075FAB !important;
+    font-weight: 700 !important;
+  }
+  .pnd-notes b {
+    font-weight: 400 !important; /* desfaz negrito acidental, texto uniforme */
+  }
+}
+
+/* ===========================================================
+   Telas muito pequenas (≤ 380px) — ajuste fino
+   =========================================================== */
+@media (max-width: 380px) {
+  body { font-size: 14px; }
+  h1.title, .page-title, .mat-display-1, .mat-display-2 {
+    font-size: 20px !important;
+  }
+  .toolbar h1, mat-toolbar h1, .toolbar h2, mat-toolbar h2 {
+    font-size: 16px !important;
+  }
+  .mat-step-label { font-size: 13px !important; }
+}

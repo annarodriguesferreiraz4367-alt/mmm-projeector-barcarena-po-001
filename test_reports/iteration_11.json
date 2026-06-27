@@ -1,0 +1,35 @@
+{
+  "summary": "Tested new intermediate step /inscricao-passo2-doc.html (Confirmação de Identificação do Participante). All 13 frontend scenarios PASSED: 3 doc cards visible, Próximo disabled initially; clicking upload without type shows error 'Selecione o tipo de documento'; selecting RG/CNH reveals both Frente+Verso (with-verso grid); selecting Passaporte hides Verso and renames Frente label to 'Página de Identificação'; uploading text/plain → 'Formato não aceito'; uploading >5MB → 'Arquivo muito grande'; valid PNG upload populates localStorage (enareDocTipo, enareDocArquivoData base64, Nome, Tipo, Size); Próximo stays disabled for CNH until verso added; Próximo enabled for Passaporte with only frente; switching from RG/CNH to Passaporte clears verso state and localStorage; Remove button (×) clears state and localStorage; reload restores state from localStorage; Voltar → /inscricao-passo2.html; Próximo → /inscricao-passo3.html. Backend POST /api/track/registration accepted the new doc fields (docTipo/docArquivoData/Nome/Tipo/Size + verso variants) with 200 OK and no 413 Payload Too Large.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/admin/cadastros/{cpf}/details", "issue": "Returns 404 for CPF 77777777777 even though DELETE /api/admin/cadastros/{cpf} returns 200 (cadastro existed). This pre-existing admin API mismatch prevented direct E2E verification that doc fields propagate to admin panel via /api/track/registration. The track endpoint itself accepted the payload (200, {ok:true}). Likely the admin details endpoint queries a different collection (inscriptions) that /api/track/registration does not populate; the existing user-facing Angular form (inscricao-passo8) is the official path that populates it. Recommend main agent verify end-to-end with the real Angular submit (which was disabled in test because Angular form-validation state isn't seeded from localStorage)."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/inscricao-passo3.html (and following pages)", "issues": ["Sidebar timeline does NOT include the new 'Identificação' step — confirmed per user requirement ('sidebar visual NÃO precisa ser alterada nas outras páginas'). Page works correctly; just calling out the visual inconsistency between the new step's own sidebar (which lists 5 steps including Identificação) and the legacy Angular sidebars (which keep the old step list). If a future iteration wants visual consistency, the Angular timeline labels would need updating too."]}
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_11.json"],
+  "action_items": [
+    "Investigate why GET /api/admin/cadastros/{cpf}/details returns 404 while DELETE on the same cpf returns 200. Possibly the details endpoint requires an 'inscription' record (created via the Angular submit), while /api/track/registration only persists a tracking cadastro. Verify with a real submission through the Angular passo8 page (requires Angular form validation to be satisfied, not just localStorage).",
+    "Optional: consider exposing the new 'Identificação' step in the Angular timeline sidebar for visual consistency (currently explicitly out of scope per user)."
+  ],
+  "critical_code_review_comments": [
+    "inscricao-passo2-doc.html (~480 lines): self-contained, no DRY violations, all interactive elements have data-testid (doc-type-rg/cnh/passaporte, upload-frente/verso, file-input-frente/verso, btn-voltar, btn-proximo, remove-doc-frente/verso). Good defensive try/catch around localStorage.",
+    "5MB validation enforced client-side only; backend should also enforce a size cap on /api/track/registration to prevent abuse (currently no 413 observed but no explicit cap visible).",
+    "localStorage.setItem for ~5MB base64 may hit browser quota (~5-10MB total) — code already handles QuotaExceededError with friendly message ('Falha ao salvar arquivo'). Good.",
+    "Restore-from-storage logic correctly re-populates state on page reload (verified: Passaporte+frente restored)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "50% (POST track works; admin details GET inconsistent — pre-existing)", "frontend": "100% (13/13 UI scenarios for passo2-doc)"},
+  "test_credentials": "Painel admin: donas / Seinao10@@ (verified working via /api/admin/auth/login)",
+  "seed_data_creation": "Test cadastro CPF 77777777777 created via POST /api/track/registration and cleaned up via DELETE /api/admin/cadastros/77777777777 (returned 200). No residual test data left.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "The new /inscricao-passo2-doc.html UI is fully working: card selection, upload validation (format/size/type), conditional verso, localStorage persistence, navigation, and Próximo enable/disable logic. The legacy Angular inscricao-passo8.html submit could NOT be triggered via Playwright because its 'Enviar Inscrição' button is gated by Angular's form validation state (not by localStorage). To E2E test the admin panel modal rendering (renderDocCard in admin-extras.js), the main agent should manually run the full flow in browser OR directly insert a test inscription document into MongoDB with the expected docTipo/docArquivoData fields and then open the admin modal to confirm the image renders.",
+  "rca of the issue": "N/A — feature works as designed. The only anomaly (admin GET 404 vs DELETE 200) is a pre-existing admin endpoint discrepancy unrelated to the new doc step."
+}

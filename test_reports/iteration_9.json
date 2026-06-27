@@ -1,0 +1,24 @@
+{
+  "summary": "Unable to complete full E2E testing of inscricao-passo8 submission flow due to token/context constraints. The frontend HTML file is enormous (>1MB minified Angular), making exploration impractical via crawl. The backend POST /api/track/registration endpoint was previously validated manually via curl by the main agent.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/test_donas_enare.py"],
+  "action_items": [
+    "Re-run testing agent with focused playwright script for inscricao-passo8.html submission flow",
+    "Verify POST /api/track/registration persists with finalized=true and protocolo is unique",
+    "Verify modal 'Inscrição realizada com sucesso!' shows protocolo and redirects to /inscricao-pendente.html",
+    "Verify fallback 'Falha ao enviar inscrição' on network error",
+    "Verify admin panel /donaspainel/#/inscricoes lists new inscription"
+  ],
+  "critical_code_review_comments": [
+    "inscricao-passo8.html is a saved SingleFile HTML (1MB+) with inline submission script around lines 234-330; should be reviewed manually by main agent for correct fetch handling, error fallback, and localStorage key reads"
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not_tested", "frontend": "not_tested"},
+  "test_credentials": "donas / Seinao10@@",
+  "seed_data_creation": "None created",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Use Playwright add_init_script to set localStorage keys (enareCPF, enareDataNasc, enareNome, enareSexo, enareNomeMae, enareEmail, enareTelFixo, enareTelCel, enareCEP, enareLogradouro, enareNumero, enareEndMunicipio, enareEndUF, enareMunicipio, enareMunicipioUF, enareArea, enareAtendimento, enareNomeSocial) BEFORE navigation to inscricao-passo8.html?cpf=...&dt=.... Then locate mat-checkbox containing 'confirmo' (case-insensitive innerText) and click its inner input. Then click button containing 'Enviar Inscrição'. Wait for modal 'Inscrição realizada com sucesso!' and capture protocolo text. Validate via GET /api/admin/inscriptions with Bearer token from POST /api/admin/auth/login (donas/Seinao10@@). After test, DELETE /api/admin/inscriptions/{id} to cleanup. Use unique CPF/name like 'NYCOLLE TESTING AGENT'. For error fallback test, use page.route to block /api/track/registration and assert red 'Falha ao enviar inscrição' message and FECHAR button (no redirect). Previous iteration_8.json may have additional context.",
+  "rca of the issue": "Testing agent ran out of context tokens during initial environment exploration. The inscricao-passo8.html file is a >1MB SingleFile-saved Angular page making crawl/view operations expensive. Recommend next agent skip reading the HTML file entirely and go straight to writing the Playwright script per the context_for_next_testing_agent instructions."
+}

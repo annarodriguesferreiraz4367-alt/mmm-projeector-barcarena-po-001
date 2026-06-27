@@ -1,0 +1,2466 @@
+[
+  {
+    "page": "home.html",
+    "device": "iOS_iPhone13",
+    "issues": [
+      "HAMBURGER_HIDDEN: toggle exists (focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex) but is not visible"
+    ],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": true,
+        "sidebarVisible": false,
+        "sidebarClass": "hidden lg:flex flex-col bg-sidebar h-screen sticky top-0 shrink-0 transition-[width] duration-200 w-60",
+        "hasHamburger": true,
+        "hamburgerVisible": false,
+        "hamburgerId": "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex"
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "cronograma.html",
+    "device": "iOS_iPhone13",
+    "issues": [
+      "HAMBURGER_HIDDEN: toggle exists (focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex) but is not visible"
+    ],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": true,
+        "sidebarVisible": false,
+        "sidebarClass": "hidden lg:flex flex-col bg-sidebar h-screen sticky top-0 shrink-0 transition-[width] duration-200 w-60",
+        "hasHamburger": true,
+        "hamburgerVisible": false,
+        "hamburgerId": "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex"
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricoes.html",
+    "device": "iOS_iPhone13",
+    "issues": [],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <button id=\"enareUserName\" aria-expanded=\"false\" data-bs-toggle=\"dropdown\" class=\"btn btn-link dropdown-toggle opacity-75\">\u21b5 CAROLINE STEPHANIE SILVA CARVALHO\u21b5 </button>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "minhas-inscricoes.html",
+    "device": "iOS_iPhone13",
+    "issues": [],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <button id=\"enareUserName\" aria-expanded=\"false\" data-bs-toggle=\"dropdown\" class=\"btn btn-link dropdown-toggle opacity-75\">\u21b5 Candidato\u21b5 </button>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "pix": {
+        "modal": {
+          "l": 0,
+          "r": 0,
+          "t": 0,
+          "b": 0,
+          "w": 0,
+          "h": 0
+        },
+        "qr": {
+          "l": 82,
+          "r": 308,
+          "t": 322,
+          "b": 548,
+          "w": 226,
+          "h": 226
+        },
+        "code": {
+          "l": 40,
+          "r": 350,
+          "t": 615,
+          "b": 651,
+          "w": 310,
+          "h": 36
+        },
+        "winW": 390,
+        "winH": 664,
+        "qrHasImg": true,
+        "codeText": "00020101021126330014br.gov.bcb.pix011115"
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao.html",
+    "device": "iOS_iPhone13",
+    "issues": [],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "form": {
+        "selects": [
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 134,
+            "r": 183,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 134,
+            "r": 341,
+            "l": 207,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "inputs": [
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 50,
+            "r": 129,
+            "l": 79,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 130,
+            "r": 179,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 70,
+            "r": 315,
+            "l": 245,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "radios": [
+          {
+            "w": 16,
+            "r": 65,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 16,
+            "r": 139,
+            "l": 123,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "-",
+            "disabled": false,
+            "w": 31,
+            "r": 80,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "+",
+            "disabled": false,
+            "w": 35,
+            "r": 164,
+            "l": 128,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Cadastrar",
+            "disabled": true,
+            "w": 292,
+            "r": 341,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Ok",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "winW": 390
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao-acesso-direto.html",
+    "device": "iOS_iPhone13",
+    "issues": [],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <span id=\"enareUserName\">Candidato</span>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "form": {
+        "selects": [
+          {
+            "w": 332,
+            "r": 361,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 332,
+            "r": 361,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "inputs": [
+          {
+            "w": 330,
+            "r": 360,
+            "l": 30,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "radios": [
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "Candidato",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Pessoais Complemen",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Complementares da ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Escolaridade\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Bonifica\u00e7\u00f5es\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Voltar",
+            "disabled": false,
+            "w": 65,
+            "r": 299,
+            "l": 234,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Salvar",
+            "disabled": true,
+            "w": 71,
+            "r": 378,
+            "l": 307,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "winW": 390
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao-multiprofissional.html",
+    "device": "iOS_iPhone13",
+    "issues": [],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <span id=\"enareUserName\">Candidato</span>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "form": {
+        "selects": [
+          {
+            "w": 332,
+            "r": 361,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 332,
+            "r": 361,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "inputs": [
+          {
+            "w": 330,
+            "r": 360,
+            "l": 30,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "radios": [
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "Candidato",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Pessoais Complemen",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Complementares da ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Escolaridade\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Voltar",
+            "disabled": false,
+            "w": 65,
+            "r": 299,
+            "l": 234,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Salvar",
+            "disabled": true,
+            "w": 71,
+            "r": 378,
+            "l": 307,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "winW": 390
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao-prerequisito.html",
+    "device": "iOS_iPhone13",
+    "issues": [],
+    "info": {
+      "viewport_w": 390,
+      "doc_w": 390,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <span id=\"enareUserName\">Candidato</span>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "form": {
+        "selects": [
+          {
+            "w": 332,
+            "r": 361,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 332,
+            "r": 361,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "inputs": [
+          {
+            "w": 330,
+            "r": 360,
+            "l": 30,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "radios": [
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "Candidato",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Pessoais Complemen",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es da Inscri\u00e7\u00e3o\n \n \n ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Complementares da ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Escolaridade\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Bonifica\u00e7\u00f5es\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Voltar",
+            "disabled": false,
+            "w": 65,
+            "r": 299,
+            "l": 234,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Salvar",
+            "disabled": true,
+            "w": 71,
+            "r": 378,
+            "l": 307,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "winW": 390
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "home.html",
+    "device": "Android_Pixel7",
+    "issues": [
+      "HAMBURGER_HIDDEN: toggle exists (focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex) but is not visible"
+    ],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": true,
+        "sidebarVisible": false,
+        "sidebarClass": "hidden lg:flex flex-col bg-sidebar h-screen sticky top-0 shrink-0 transition-[width] duration-200 w-60",
+        "hasHamburger": true,
+        "hamburgerVisible": false,
+        "hamburgerId": "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex"
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "cronograma.html",
+    "device": "Android_Pixel7",
+    "issues": [
+      "HAMBURGER_HIDDEN: toggle exists (focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex) but is not visible"
+    ],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": true,
+        "sidebarVisible": false,
+        "sidebarClass": "hidden lg:flex flex-col bg-sidebar h-screen sticky top-0 shrink-0 transition-[width] duration-200 w-60",
+        "hasHamburger": true,
+        "hamburgerVisible": false,
+        "hamburgerId": "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&_svg:not([class*='size-'])]:size-4 items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8 hidden lg:flex"
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricoes.html",
+    "device": "Android_Pixel7",
+    "issues": [],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <button id=\"enareUserName\" aria-expanded=\"false\" data-bs-toggle=\"dropdown\" class=\"btn btn-link dropdown-toggle opacity-75\">\u21b5 CAROLINE STEPHANIE SILVA CARVALHO\u21b5 </button>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "minhas-inscricoes.html",
+    "device": "Android_Pixel7",
+    "issues": [],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <button id=\"enareUserName\" aria-expanded=\"false\" data-bs-toggle=\"dropdown\" class=\"btn btn-link dropdown-toggle opacity-75\">\u21b5 Candidato\u21b5 </button>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "pix": {
+        "modal": {
+          "l": 0,
+          "r": 0,
+          "t": 0,
+          "b": 0,
+          "w": 0,
+          "h": 0
+        },
+        "qr": {
+          "l": 93,
+          "r": 319,
+          "t": 327,
+          "b": 553,
+          "w": 226,
+          "h": 226
+        },
+        "code": {
+          "l": 40,
+          "r": 372,
+          "t": 621,
+          "b": 656,
+          "w": 332,
+          "h": 36
+        },
+        "winW": 412,
+        "winH": 839,
+        "qrHasImg": true,
+        "codeText": "00020101021126330014br.gov.bcb.pix011115"
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao.html",
+    "device": "Android_Pixel7",
+    "issues": [],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "form": {
+        "selects": [
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 145,
+            "r": 194,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 145,
+            "r": 363,
+            "l": 218,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "inputs": [
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 50,
+            "r": 129,
+            "l": 79,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 130,
+            "r": 179,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 70,
+            "r": 315,
+            "l": 245,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "radios": [
+          {
+            "w": 16,
+            "r": 65,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 16,
+            "r": 139,
+            "l": 123,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "-",
+            "disabled": false,
+            "w": 31,
+            "r": 80,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "+",
+            "disabled": false,
+            "w": 35,
+            "r": 164,
+            "l": 128,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Cadastrar",
+            "disabled": true,
+            "w": 314,
+            "r": 363,
+            "l": 49,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Ok",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "winW": 412
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao-acesso-direto.html",
+    "device": "Android_Pixel7",
+    "issues": [],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <span id=\"enareUserName\">Candidato</span>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "form": {
+        "selects": [
+          {
+            "w": 354,
+            "r": 383,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 354,
+            "r": 383,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "inputs": [
+          {
+            "w": 352,
+            "r": 382,
+            "l": 30,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "radios": [
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "Candidato",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Pessoais Complemen",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Complementares da ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Escolaridade\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Bonifica\u00e7\u00f5es\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Voltar",
+            "disabled": false,
+            "w": 65,
+            "r": 321,
+            "l": 256,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Salvar",
+            "disabled": true,
+            "w": 71,
+            "r": 400,
+            "l": 329,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "winW": 412
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao-multiprofissional.html",
+    "device": "Android_Pixel7",
+    "issues": [],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <span id=\"enareUserName\">Candidato</span>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "form": {
+        "selects": [
+          {
+            "w": 354,
+            "r": 383,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 354,
+            "r": 383,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "inputs": [
+          {
+            "w": 352,
+            "r": 382,
+            "l": 30,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "radios": [
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "Candidato",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Pessoais Complemen",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Complementares da ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Escolaridade\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Voltar",
+            "disabled": false,
+            "w": 65,
+            "r": 321,
+            "l": 256,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Salvar",
+            "disabled": true,
+            "w": 71,
+            "r": 400,
+            "l": 329,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "winW": 412
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  },
+  {
+    "page": "inscricao-prerequisito.html",
+    "device": "Android_Pixel7",
+    "issues": [],
+    "info": {
+      "viewport_w": 412,
+      "doc_w": 412,
+      "sidebar": {
+        "hasSidebar": false,
+        "sidebarVisible": null,
+        "sidebarClass": null,
+        "hasHamburger": false,
+        "hamburgerVisible": null,
+        "hamburgerId": null
+      },
+      "user_menu_click_error": "Page.click: Element is not visible\nCall log:\n  - waiting for locator(\"#enareUserName\")\n    - locator resolved to <span id=\"enareUserName\">Candidato</span>\n  - attempting click action\n    - scrolling into view if needed\n",
+      "form": {
+        "selects": [
+          {
+            "w": 354,
+            "r": 383,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 354,
+            "r": 383,
+            "l": 29,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "inputs": [
+          {
+            "w": 352,
+            "r": 382,
+            "l": 30,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "radios": [
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          }
+        ],
+        "allBtns": [
+          {
+            "txt": "Candidato",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Pessoais Complemen",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es da Inscri\u00e7\u00e3o\n \n \n ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Informa\u00e7\u00f5es Complementares da ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Escolaridade\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Bonifica\u00e7\u00f5es\n \n \n \n \n In\u00edcio: ",
+            "disabled": false,
+            "w": 0,
+            "r": 0,
+            "l": 0,
+            "overflow": false,
+            "tooSmall": true
+          },
+          {
+            "txt": "Voltar",
+            "disabled": false,
+            "w": 65,
+            "r": 321,
+            "l": 256,
+            "overflow": false,
+            "tooSmall": false
+          },
+          {
+            "txt": "Salvar",
+            "disabled": true,
+            "w": 71,
+            "r": 400,
+            "l": 329,
+            "overflow": false,
+            "tooSmall": false
+          }
+        ],
+        "winW": 412
+      },
+      "console_errors": [
+        "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+        "Loading the script 'https://donas-project-live.preview.emergentagent.com/cdn-cgi/challenge-platform/scripts/jsd/main.js' violates the following Content Security Policy directive: \"script-src 'unsafe-inline' data:\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      ]
+    }
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "summary": "Tested new multi-select + ZIP export feature on Documentos tab. Backend POST /api/admin/documents/export-zip: all 7 pytest cases passed (auth, all candidates, filter by CPF MARIA -> 2 files, filter by Passaporte ANA -> 1 file, inexistent CPF -> 404, filter by tipo=RG, unknown tipo -> 404). Frontend Playwright: all 12 assertions passed (testids present, bulkbar hidden initially, 2-selection state with indeterminate header + .selected rows + '2 candidatos' text, select-all -> 3, limpar seleção resets, 'Baixar selecionados (ZIP)' downloads ZIP with proper filename and POST body containing cpfs, 'Baixar Todos (ZIP)' triggers confirm() + POST without cpfs and downloads larger ZIP).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_admin_docs_export_zip.py",
+    "/app/test_reports/pytest/admin_docs_export_zip.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "admin_routes.py: export-zip endpoint constructs the full ZIP in memory (io.BytesIO). For larger document datasets this could spike memory; consider streaming via StreamingResponse + iter chunks if document base64 size grows.",
+    "Filename collisions are possible if two candidates share the same nome+cpf prefix combination since safe_nome strips characters; current cpf_digits prefix mitigates this so it's acceptable.",
+    "Header X-Total-Files / X-Total-Candidates are useful for telemetry; consider exposing them in fetch CORS allow-headers if the frontend ever needs to read them (currently it doesn't)."
+  ],
+  "updated_files": ["/app/backend/tests/test_admin_docs_export_zip.py"],
+  "success_rate": {"backend": "100% (7/7)", "frontend": "100% (12/12 assertions)"},
+  "test_credentials": "donas / Seinao10@@",
+  "seed_data_creation": "None — used existing seeded CPFs 11111111101 MARIA (RG), 22222222202 JOAO (CNH), 33333333303 ANA (Passaporte). No data created or deleted.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "POST /api/admin/documents/export-zip is fully working. ZIP file naming pattern: documentos_pnd_YYYYMMDD_HHMMSS.zip; folder pattern inside: '{cpf_digits}_{nome_safe}/{tipo}_{frente|verso}.{ext}'. Response headers include X-Total-Files and X-Total-Candidates. Frontend testids: docs-cb-all (header), docs-row-cb-<cpf> (row), docs-bulkbar (purple bar), docs-bulk-clear, docs-bulk-download, docs-download-all (green toolbar). 'Baixar Todos' uses window.confirm() — accept the dialog in playwright via page.on('dialog', d.accept()) BEFORE the click. Seeded data: MARIA RG (frente+verso=2 files), JOAO CNH (frente+verso=2 files), ANA Passaporte (frente only=1 file). Login flow requires iterating inputs because login form inputs have no [type] attribute (only password input has type=password).",
+  "rca of the issue": "N/A — feature implemented correctly per spec."
+}
