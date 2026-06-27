@@ -38,11 +38,11 @@
 
   var REQ_AUX_TURMA = 'O candidato(a) deve possuir Conhecimentos relacionados aos trabalhos inerentes à categoria e Certificado de conclusão de Ensino Médio ou equivalente.';
   var REQ_LICENCIATURA = function (area) {
-    return 'O candidato(a) deve possuir Licenciatura Plena em ' + area + ' ou equivalente, com diploma reconhecido pelo MEC.';
+    return 'O candidato(a) deverá possuir Graduação em Licenciatura em ' + area + '.';
   };
-  var REQ_ESPECIALISTA = 'O candidato(a) deve possuir Licenciatura Plena em Pedagogia ou Curso Normal Superior com diploma reconhecido pelo MEC.';
-  var REQ_PROFESSOR_BASICO = 'O candidato(a) deve possuir Magistério ou Licenciatura Plena em Pedagogia / Normal Superior com diploma reconhecido pelo MEC.';
-  var REQ_APOIO = 'O candidato(a) deve possuir Certificado de conclusão de Ensino Médio ou equivalente, com cursos voltados ao apoio escolar e inclusão.';
+  var REQ_ESPECIALISTA = 'O candidato(a) deverá possuir Graduação em Licenciatura em Pedagogia.';
+  var REQ_PROFESSOR_BASICO = 'O candidato(a) deverá possuir Graduação em Licenciatura em Pedagogia.';
+  var REQ_APOIO = 'O candidato(a) deverá possuir o Certificado de conclusão de Ensino Médio ou equivalente.';
 
   // Mapeia value do <option> → { requisito, localidades }
   var CARGOS = {
@@ -56,8 +56,8 @@
     '1715': { req: REQ_LICENCIATURA('Ensino Religioso'),     locs: LOCALIDADES_PADRAO },
     '1716': { req: REQ_LICENCIATURA('Geografia'),            locs: LOCALIDADES_PADRAO },
     '1717': { req: REQ_LICENCIATURA('História'),             locs: LOCALIDADES_PADRAO },
-    '1718': { req: REQ_LICENCIATURA('Letras com habilitação em Língua Inglesa'), locs: LOCALIDADES_PADRAO },
-    '1719': { req: REQ_LICENCIATURA('Letras com habilitação em Língua Portuguesa'), locs: LOCALIDADES_PADRAO },
+    '1718': { req: REQ_LICENCIATURA('Letras'),               locs: LOCALIDADES_PADRAO },
+    '1719': { req: REQ_LICENCIATURA('Letras'),               locs: LOCALIDADES_PADRAO },
     '1720': { req: REQ_LICENCIATURA('Matemática'),           locs: LOCALIDADES_PADRAO },
   };
 
