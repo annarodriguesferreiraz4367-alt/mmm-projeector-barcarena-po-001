@@ -1,0 +1,35 @@
+{
+  "summary": "Mobile/Desktop visual validation of inscricao funnel pages (passo3, passo2, pagamento, comprovante) after mobile-overrides <style id=mobile-overrides> injection. Primary user bug (passo3 mobile cabeçalho gigante/cortado) is FIXED.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Pages inscricao-passo2/pagamento/comprovante do NOT have element #Topo (different layout from passo3). The mobile-overrides rule #Topo{display:none} is therefore a no-op on these 3 pages — original bug only existed on passo3. Injection in other 3 pages is harmless but redundant. Consider centralizing in inscricao-enhance.css with !important + later import order rather than duplicating <style id=mobile-overrides> blocks in each HTML.",
+    "Pages inscricao-pagamento.html and inscricao-comprovante.html do NOT expose an h2.tituloPagina selector — so the rule h2.tituloPagina{font-size:20px} has no effect there (it does work on passo3 where it matters).",
+    "passo2 mobile: h2.tituloPagina remains 30px (rule not applied). Not blocking, but if uniform compact mobile titles are desired, the override must target the selector actually used in passo2.",
+    "Desktop visual review of comprovante and pagamento confirms layout intact (Instituto Ágata logo + brasão Prefeitura render at normal size); no regression."
+  ],
+  "validation_results": {
+    "MOBILE_passo3": {"topo_display": "none", "topo_offsetHeight": 0, "titulo_fontSize": "20px", "overflowX": false, "result": "PASS - bug fixed"},
+    "MOBILE_passo2": {"topo_exists": false, "titulo_fontSize": "30px", "brasao": "80x50", "overflowX": false, "result": "PASS (no #Topo to hide)"},
+    "MOBILE_pagamento": {"topo_exists": false, "overflowX": false, "result": "PASS (no #Topo to hide)"},
+    "MOBILE_comprovante": {"topo_exists": false, "overflowX": false, "result": "PASS (no #Topo to hide)"},
+    "DESKTOP_passo3": {"topo_display": "block", "topo_offsetHeight": 140, "titulo_fontSize": "40px", "result": "PASS - no regression"},
+    "DESKTOP_passo2": {"topo_exists": false, "titulo_fontSize": "30px", "result": "PASS"},
+    "DESKTOP_pagamento": {"topo_exists": false, "result": "PASS (rendering normal per screenshot)"},
+    "DESKTOP_comprovante": {"topo_exists": false, "result": "PASS (rendering normal per screenshot)"}
+  },
+  "updated_files": [],
+  "success_rate": {"frontend": "100%"},
+  "test_credentials": "localStorage seeded with cadastroData + inscricaoData + inscricao_completa (nome:TESTE USUARIO, cpf:13726548793, cargo_titulo:Médico, valor:130, protocolo:XYZ123) to bypass JS guards that redirect to /inscricao.html.",
+  "seed_data_creation": "Pre-populated localStorage before second navigation to prevent JS redirects from passo3/pagamento/comprovante to /inscricao.html.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "On viewport 412x915, navigating directly to inscricao-passo2/pagamento/comprovante triggers JS redirects unless localStorage has cadastroData.nome AND inscricaoData.cargo_titulo. Always populate before second navigation. Use docW/winW comparison for overflow detection.",
+  "rca of the issue": "Original bug: on mobile, inscricao-passo3.html showed #Topo (Instituto Ágata desktop logo) at full size because inscricao-enhance.css media query rule was being overridden / load-ordered out. Mitigation applied by E1: inline <style id=mobile-overrides> block injected just before </head> with !important rules — guarantees latest cascade + highest specificity. Verified: mobile #Topo display:none, offsetHeight=0; desktop unchanged at 140px. Bug resolved."
+}
