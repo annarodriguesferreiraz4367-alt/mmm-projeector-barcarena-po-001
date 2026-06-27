@@ -1,0 +1,45 @@
+{
+  "summary": "Mobile/Desktop visual validation of inscricao funnel pages after invertendo a regra: agora #Topo está VISÍVEL no mobile em modo compacto (vs hidden na iteration_25). Critério principal do usuário (logo Ágata visível no topo das páginas internas mobile) ATENDIDO em todas as páginas que possuem o elemento #Topo.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "passo2/pagamento/comprovante NÃO possuem o elemento #Topo (template diferente — confirmado em iteration_25 também). A regra @media #Topo{display:block} é no-op nelas, mas isso é esperado/aceitável: o usuário pediu cabeçalho 'quando existir'. Se quiser uniformizar, considere adicionar um cabeçalho compacto também nessas 3 páginas via JS include ou template parcial.",
+    "Em passo3 mobile, o seletor `#TopoInformacoes .dados h2` retornou null no Playwright (titulo_text=null) — significa que o título 'PREFEITURA MUNICIPAL DE BARCARENA SEMED' não é renderizado em <h2> dentro de .dados, mas em outro elemento (<p> ou <div>). A regra word-break visualmente FUNCIONA (screenshot mostra texto quebrado em múltiplas linhas e legível), mas a regra CSS `#TopoInformacoes .dados h2{word-break...}` pode estar mal-direcionada. Considere adicionar também `#TopoInformacoes .dados p, #TopoInformacoes .dados *{word-break:break-word!important}` para garantir robustez.",
+    "Duplicação de <style id=mobile-overrides> em 5 arquivos HTML separados (DRY violation). Refatorar para CSS externo único (ex: inscricao-enhance.css) carregado com !important + ordem alta de cascade reduziria manutenção."
+  ],
+  "validation_results": {
+    "MOBILE_passo3": {"topo_display": "block", "topo_h": 77, "logo": "109x60", "overflowX": false, "BARCARENA_visible": true, "SEMED_visible": true, "result": "PASS - cabeçalho compacto visível, logo Ágata presente, texto BARCARENA SEMED legível em múltiplas linhas"},
+    "MOBILE_inscricao": {"topo_display": "block", "topo_h": 77, "logo": "109x60", "overflowX": false, "result": "PASS"},
+    "MOBILE_passo2": {"topo_exists": false, "overflowX": false, "result": "PASS (template sem #Topo - igual iteration_25)"},
+    "MOBILE_pagamento": {"topo_exists": false, "overflowX": false, "result": "PASS (template sem #Topo)"},
+    "MOBILE_comprovante": {"topo_exists": false, "overflowX": false, "result": "PASS (template sem #Topo)"},
+    "DESKTOP_inscricao": {"topo_display": "block", "topo_h": 140, "logo": "209x115", "overflowX": false, "result": "PASS - sem regressão"},
+    "DESKTOP_passo3": {"topo_display": "block", "topo_h": 140, "logo": "209x115", "overflowX": false, "result": "PASS - sem regressão (logo desktop full size preservada)"},
+    "DESKTOP_passo2": {"topo_exists": false, "overflowX": false, "result": "PASS"},
+    "DESKTOP_pagamento": {"topo_exists": false, "overflowX": false, "result": "PASS"},
+    "DESKTOP_comprovante": {"topo_exists": false, "overflowX": false, "result": "PASS"}
+  },
+  "acceptance_criteria_check": {
+    "topo_visible_mobile_passo3": "PASS (77px, dentro do range 60-120)",
+    "logo_compact_mobile": "PASS (109px wide × 60px tall, dentro do range 80-140 / 40-80)",
+    "dadosEmpresa_hidden_mobile": "PASS (display:none)",
+    "topLogin_hidden_mobile": "PASS (elemento não existe, mas regra display:none aplicada)",
+    "no_horizontal_overflow": "PASS em todas as 5 páginas (docW == winW = 412)",
+    "desktop_no_regression": "PASS (#Topo 140px, logo 209x115 — idêntico ao layout original)",
+    "BARCARENA_text_wrapped": "PASS visualmente (screenshot confirma quebra em múltiplas linhas)"
+  },
+  "updated_files": [],
+  "success_rate": {"frontend": "100%"},
+  "test_credentials": "localStorage seeded: cadastroData (nome:TESTE USUARIO, cpf:13726548793) + inscricaoData (cargo_titulo:Médico, valor:130) + inscricao_completa (protocolo:XYZ123)",
+  "seed_data_creation": "Pre-populated localStorage em inscricao.html antes de navegar para passo3, prevenindo redirects JS.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "A regra do mobile foi INVERTIDA na iteration_26: #Topo agora é display:block!important com height compacto (~77px), em vez de display:none da iteration_25. Páginas passo2/pagamento/comprovante NÃO possuem #Topo (template diferente — não é bug). Sempre seedar localStorage antes de navegar para páginas internas. Screenshots em /app/test_reports/screenshots/passo3_mobile_new.png e passo3_desktop_new.png.",
+  "rca of the issue": "Não é um bug — é mudança de requisito. Usuário antes pediu para ocultar (iteration_25), agora quer visível compacto. E1 aplicou inversão na regra @media (max-width:768px): #Topo{display:block!important;height:auto;padding:8px 0} + #Logo h1 img{max-width:120px;max-height:60px} + #DadosEmpresa,#TopLogin{display:none}. Resultado validado: passo3 mobile com topo 77px e logo 109×60 perfeitamente compacto, desktop intacto a 140px/209×115."
+}
