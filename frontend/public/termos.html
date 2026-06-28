@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Termos e Condições - Inscrição</title>
+<link rel="stylesheet" href="/inscricao-enhance.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Open Sans",Arial,sans-serif;background:#f2f3f7;color:#333;min-height:100vh}
+  /* Cabeçalho compacto Ágata */
+  .topo-ag{background:#fff;border-bottom:1px solid #eee;padding:10px 16px;text-align:left}
+  .topo-ag img{max-width:120px;max-height:60px;height:auto}
+  /* Wrapper principal */
+  .wrap{max-width:980px;margin:24px auto;padding:0 16px}
+  /* Card de título */
+  .titulo-card{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:24px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .titulo-card h1{font-size:28px;font-weight:300;letter-spacing:1px;color:#1f2937;text-transform:uppercase;font-family:"Open Sans Condensed","Open Sans",sans-serif}
+  /* Card de info do concurso */
+  .info-card{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:24px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.04);display:flex;align-items:flex-start;gap:20px}
+  .info-card img.brasao{width:80px;height:auto;flex-shrink:0}
+  .info-card .info-conteudo{flex:1}
+  .info-card .concurso-label{font-size:13px;color:#6b7280;margin-bottom:4px}
+  .info-card .concurso-titulo{font-size:18px;font-weight:700;color:#111827;line-height:1.3;margin-bottom:10px;text-transform:uppercase}
+  .info-card .periodo{font-size:14px;color:#374151}
+  .info-card .periodo b{font-weight:700}
+  /* Checkbox + ações */
+  .acoes{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .check-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;cursor:pointer;font-size:15px;color:#1f2937}
+  .check-row input{width:18px;height:18px;cursor:pointer;flex-shrink:0;accent-color:#1d4ed8}
+  .btns{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;align-items:center}
+  .btn-continuar{display:inline-block;padding:12px 32px;background:#16a34a;color:#fff;border:none;border-radius:6px;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;cursor:pointer;line-height:1.2;border-bottom:3px solid #15803d;transition:opacity .2s,background .2s}
+  .btn-continuar.disabled{background:#9ca3af;border-bottom-color:#6b7280;cursor:not-allowed;opacity:.6;pointer-events:none}
+  .btn-voltar{display:inline-block;padding:12px 24px;background:#1d2c5d;color:#fff;border:none;border-radius:6px;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;line-height:1.2}
+  .btn-voltar:hover, .btn-continuar:not(.disabled):hover{filter:brightness(1.08)}
+  /* Mobile */
+  @media (max-width:768px){
+    .wrap{margin:14px auto;padding:0 12px}
+    .titulo-card{padding:16px;margin-bottom:12px}
+    .titulo-card h1{font-size:22px}
+    .info-card{padding:14px;flex-direction:row;gap:14px;align-items:flex-start;margin-bottom:12px}
+    .info-card img.brasao{width:60px}
+    .info-card .concurso-titulo{font-size:15px}
+    .info-card .periodo{font-size:13px}
+    .acoes{padding:16px}
+    .check-row{font-size:14px}
+    .btns{justify-content:space-between;gap:8px}
+    .btn-continuar, .btn-voltar{flex:1;text-align:center;padding:14px 12px;font-size:13px;letter-spacing:.5px}
+  }
+</style>
+</head>
+<body>
+<div class="topo-ag">
+  <a href="/home.html" style="display:inline-block;text-decoration:none">
+    <span style="display:inline-flex;align-items:center;gap:8px;font-family:'Open Sans',Arial,sans-serif;line-height:1">
+      <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 8 L92 82 L8 82 Z" stroke="#1d2c5d" stroke-width="6" fill="none"/>
+        <circle cx="50" cy="60" r="22" stroke="#1d2c5d" stroke-width="3" fill="none"/>
+        <ellipse cx="50" cy="60" rx="22" ry="9" stroke="#1d2c5d" stroke-width="2" fill="none"/>
+        <line x1="28" y1="60" x2="72" y2="60" stroke="#1d2c5d" stroke-width="2"/>
+      </svg>
+      <span style="display:flex;flex-direction:column;align-items:flex-start">
+        <small style="font-size:11px;color:#5b6478;letter-spacing:1px">instituto</small>
+        <strong style="font-size:22px;color:#1d2c5d;letter-spacing:2px;font-weight:700">ÁGATA</strong>
+      </span>
+    </span>
+  </a>
+</div>
+
+<div class="wrap">
+  <div class="titulo-card">
+    <h1>Termos e Condições</h1>
+  </div>
+
+  <div class="info-card">
+    <img class="brasao" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Bras%C3%A3o_de_Barcarena_-_PA.svg/1200px-Bras%C3%A3o_de_Barcarena_-_PA.svg.png" alt="Prefeitura de Barcarena" onerror="this.style.display='none'">
+    <div class="info-conteudo">
+      <div class="concurso-label">Concurso Público</div>
+      <div class="concurso-titulo">Prefeitura Municipal de Barcarena<br>SEMED - Edital Nº 001.00/2026 - PMB/SEMED</div>
+      <div class="periodo">Inscrições de <b>01/06/2026</b> a <b>30/06/2026</b></div>
+    </div>
+  </div>
+
+  <div class="acoes">
+    <label class="check-row" for="chk-termos">
+      <input type="checkbox" id="chk-termos" data-testid="termos-aceite-checkbox">
+      <span>Declaro ter lido e concordado com os termos do edital.</span>
+    </label>
+    <div class="btns">
+      <a href="/home.html" class="btn-voltar" data-testid="termos-voltar-btn">Voltar</a>
+      <a href="/inscricao.html" id="btContinuar" class="btn-continuar disabled" data-testid="termos-continuar-btn">Continuar</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var chk = document.getElementById('chk-termos');
+  var btn = document.getElementById('btContinuar');
+  function sync(){
+    if (chk.checked) { btn.classList.remove('disabled'); }
+    else { btn.classList.add('disabled'); }
+  }
+  chk.addEventListener('change', sync);
+  btn.addEventListener('click', function(e){
+    if (btn.classList.contains('disabled')) { e.preventDefault(); }
+  });
+  sync();
+})();
+</script>
+</body>
+</html>
