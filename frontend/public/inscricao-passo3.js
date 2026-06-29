@@ -139,7 +139,7 @@
       +   (cargo ? '<p><strong>Vaga:</strong> ' + escapeHtml(cargo) + '</p>' : '')
       +   (localidade ? '<p><strong>Localidade:</strong> ' + escapeHtml(localidade) + '</p>' : '')
       +   '<p><strong>Valor:</strong> ' + valorFmt + '</p>'
-      +   '<p style="font-size:11px;color:#888;margin-top:10px;">Após o pagamento, sua inscrição será efetivada automaticamente em até 2 minutos.</p>'
+      +   '<p style="font-size:11px;color:#888;margin-top:10px;">Após o pagamento, sua inscrição será efetivada automaticamente em até 24 horas.</p>'
       + '</div>';
 
     var btn = body.querySelector('#pix-copy');
