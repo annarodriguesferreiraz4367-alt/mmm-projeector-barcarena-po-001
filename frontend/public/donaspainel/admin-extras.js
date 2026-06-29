@@ -1018,4 +1018,34 @@
     ensureDocumentosPage: ensureDocumentosPage,
     loadDocs: loadDocs
   };
+
+  /* ========= AUTO-REFRESH a cada 60s nas páginas internas =========
+     Atualiza Cadastro, Inscrições e Documentos clicando no botão "Atualizar".
+     A página de Atividade em Tempo Real NÃO é afetada (ela tem o próprio fluxo). */
+  function isDocumentosPage() {
+    return /\/donaspainel\/documentos(\b|$|\/)/.test(location.pathname)
+        || /^#\/documentos(\b|$|\/)/.test(location.hash);
+  }
+  function findRefreshButton() {
+    var btns = document.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) {
+      var t = (btns[i].textContent || '').trim().toLowerCase();
+      if (t === 'atualizar' || t.indexOf('atualizar') === 0) return btns[i];
+    }
+    return null;
+  }
+  function shouldAutoRefresh() {
+    return isCadastroPage() || isInscricoesPage() || isDocumentosPage();
+  }
+  setInterval(function () {
+    try {
+      if (!shouldAutoRefresh()) return;
+      if (document.hidden) return; // não atualiza se aba em background
+      var btn = findRefreshButton();
+      if (btn && !btn.disabled) {
+        btn.click();
+        console.log('[IdecanAdminExtras] auto-refresh disparado');
+      }
+    } catch (_) {}
+  }, 60000);
 })();
