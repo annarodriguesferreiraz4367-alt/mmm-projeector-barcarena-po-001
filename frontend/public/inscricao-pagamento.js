@@ -125,9 +125,11 @@
         var img = document.getElementById('qr-img');
         var loading = document.getElementById('qr-loading');
         var info = document.getElementById('pix-info');
+        var codigoInput = document.getElementById('codigo');
         if (img) { img.src = qrSrc; img.style.display = 'block'; img.style.margin = '0 auto'; img.style.maxWidth = '280px'; }
         if (loading) loading.style.display = 'none';
         if (info) info.style.display = 'block';
+        if (codigoInput) codigoInput.value = brCode;
 
         // Wire-up botão Copiar
         var btn = document.getElementById('clipboard-button');
