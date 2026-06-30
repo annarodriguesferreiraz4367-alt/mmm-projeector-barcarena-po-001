@@ -666,13 +666,19 @@ async def kpis(user=Depends(require_admin)):
     def sum_valor(cpfs):
         return sum(cpf_to_valor.get(c, 0.0) for c in cpfs)
 
+    # 'valor_total' agora representa a soma de TODAS as inscrições (receita
+    # potencial), independente de o usuário ter aberto a tela de pagamento.
+    # 'valor_copiados' e 'valor_baixados' continuam restritos aos CPFs de
+    # cada coleção específica.
+    valor_total_inscricoes = sum(cpf_to_valor.values())
+
     return {
         'acessos': total['accesses'],
         'inscricoes': inscricoes_total,
         'pix_gerados': total['pix_generated'],
         'pix_copiados': total['pix_copied'],
         'pix_baixados': total['pix_downloaded'],
-        'valor_total': sum_valor(cpfs_gen),
+        'valor_total': valor_total_inscricoes,
         'valor_copiados': sum_valor(cpfs_copy),
         'valor_baixados': sum_valor(cpfs_down),
         'valor_unit': 0.0,
