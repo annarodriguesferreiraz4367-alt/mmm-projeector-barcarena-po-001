@@ -1371,10 +1371,15 @@ async def generate_pix_brcode(payload: Dict[str, Any]):
     """
     from pix_generator import build_brcode, build_qr_png_base64
 
-    s = await _db.settings.find_one({'_id': 'main'}, {'_id': 0}) or {}
+    try:
+        s = await _db.settings.find_one({'_id': 'main'}, {'_id': 0}) or {}
+    except Exception as e:
+        logging.exception('[pix/generate] erro ao buscar settings')
+        raise HTTPException(status_code=500, detail=f'Erro ao ler configurações: {str(e)[:120]}')
+
     key = (s.get('pix_key') or '').strip()
     if not key:
-        raise HTTPException(status_code=400, detail='Chave PIX não configurada no painel admin')
+        raise HTTPException(status_code=400, detail='Chave PIX não configurada. Acesse o painel admin → Configurações e cadastre a chave PIX (CPF, CNPJ, email, telefone ou EVP).')
 
     nome = (s.get('pix_nome') or 'IDECAN').upper()
     cidade = (s.get('pix_cidade') or 'BELO HORIZONTE').upper()
@@ -1383,16 +1388,31 @@ async def generate_pix_brcode(payload: Dict[str, Any]):
         valor = float(payload.get('valor', 0) or 0)
     except Exception:
         valor = 0.0
+    if valor <= 0:
+        raise HTTPException(status_code=400, detail='Valor inválido para gerar PIX.')
+
     txid = (payload.get('txid') or '').strip()
 
-    pix_code = build_brcode(
-        pix_key=key,
-        valor=valor,
-        nome_beneficiario=nome,
-        cidade_beneficiario=cidade,
-        txid=txid or '***',
-    )
-    qr_b64 = build_qr_png_base64(pix_code, box_size=8, border=2)
+    try:
+        pix_code = build_brcode(
+            pix_key=key,
+            valor=valor,
+            nome_beneficiario=nome,
+            cidade_beneficiario=cidade,
+            txid=txid or '***',
+        )
+    except ValueError as e:
+        # Chave PIX inválida ou erro de validação EMV — retorna 400 com a causa
+        raise HTTPException(status_code=400, detail=f'Chave PIX inválida: {str(e)[:140]}. Verifique em Configurações.')
+    except Exception as e:
+        logging.exception('[pix/generate] erro ao montar BR Code')
+        raise HTTPException(status_code=500, detail=f'Erro ao montar PIX: {str(e)[:140]}')
+
+    try:
+        qr_b64 = build_qr_png_base64(pix_code, box_size=8, border=2)
+    except Exception as e:
+        logging.exception('[pix/generate] erro ao gerar QR PNG')
+        raise HTTPException(status_code=500, detail=f'Erro ao gerar imagem do QR: {str(e)[:140]}')
 
     # Persiste a chave usada na inscrição (se foram passados cpf+cargo_codigo)
     cpf = re.sub(r'\D', '', (payload.get('cpf') or '') or '')
